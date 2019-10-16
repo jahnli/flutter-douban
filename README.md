@@ -1,39 +1,34 @@
-# FlutterDouBan
+# Flutter -  Douban
 
-#### 介绍
-{**以下是码云平台说明，您可以替换此简介**
-码云是 OSCHINA 推出的基于 Git 的代码托管平台（同时支持 SVN）。专为开发者提供稳定、高效、安全的云端软件开发协作平台
-无论是个人、团队、或是企业，都能够用码云实现代码托管、项目管理、协作开发。企业项目请看 [https://gitee.com/enterprises](https://gitee.com/enterprises)}
+## 介绍
+基于Flutter，使用豆瓣 Open Api，尽可能还原精美的豆瓣App，功能会持续添加，以此来深入了解Flutter。
+如您有更好的意见或优化，请提出Issue。
 
-#### 软件架构
-软件架构说明
+## [Jahn前端博客地址](http://www.jahnli.cn)
 
+## 进度说明
+目前还在Coding阶段，在逐步增加功能页面，学习Flutter阶段，后期会考虑优化，如有专业大佬请指教。
 
-#### 安装教程
+## 使用说明
 
-1. xxxx
-2. xxxx
-3. xxxx
+> * git clone https://github.com/jahnli/FlutterDouBan
+> * cd FlutterDouBan
+> * flutter run
 
-#### 使用说明
+## 接口说明
+目前项目接口采用豆瓣测试Api，均为测试学习使用，不得用于任何利益和商业活动。
 
-1. xxxx
-2. xxxx
-3. xxxx
+## 页面展示
 
-#### 参与贡献
-
-1. Fork 本仓库
-2. 新建 Feat_xxx 分支
-3. 提交代码
-4. 新建 Pull Request
+<img src='https://github.com/jahnli/readme/blob/master/flutter_douban/movie.gif' width='300px'></img>   <img src='https://github.com/jahnli/readme/blob/master/flutter_douban/movie_detail.gif' width='300px'></img>   <img src='https://github.com/jahnli/readme/blob/master/flutter_douban/movie_hot_detail.gif' width='300px'></img><img src='https://github.com/jahnli/readme/blob/master/flutter_douban/movie_show_detail.gif' width='300px'></img><img src='https://github.com/jahnli/readme/blob/master/flutter_douban/movie_top_week_praise.gif' width='300px'></img>
 
 
-#### 码云特技
+## 前端小弟的第一次，请给个Star吧 ❀  ❤
 
-1. 使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2. 码云官方博客 [blog.gitee.com](https://blog.gitee.com)
-3. 你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解码云上的优秀开源项目
-4. [GVP](https://gitee.com/gvp) 全称是码云最有价值开源项目，是码云综合评定出的优秀开源项目
-5. 码云官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6. 码云封面人物是一档用来展示码云会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+##  已完成大部分功能待优化细节
+- [x] 书影音首页
+- [x] 电影详情页
+- [x] 影院热映详情页
+- [x] 豆瓣热门详情页
+- [x] 豆瓣榜单 - 一周口碑榜详情页
+
