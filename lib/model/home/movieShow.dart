@@ -41,7 +41,7 @@ class MovieShowModelDataSubjectCollectionBoardsItemsCover {
 class MovieShowModelDataSubjectCollectionBoardsItemsRating {
 /*
 {
-  "count": 6348,
+  "count": 6670,
   "max": 10,
   "value": 7
 } 
@@ -49,7 +49,7 @@ class MovieShowModelDataSubjectCollectionBoardsItemsRating {
 
   int count;
   int max;
-  int value;
+  double value;
 
   MovieShowModelDataSubjectCollectionBoardsItemsRating({
     this.count,
@@ -59,7 +59,7 @@ class MovieShowModelDataSubjectCollectionBoardsItemsRating {
   MovieShowModelDataSubjectCollectionBoardsItemsRating.fromJson(Map<String, dynamic> json) {
     count = json["count"]?.toInt();
     max = json["max"]?.toInt();
-    value = json["value"]?.toInt();
+    value = json["value"];
   }
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
@@ -75,7 +75,7 @@ class MovieShowModelDataSubjectCollectionBoardsItems {
 {
   "original_price": null,
   "rating": {
-    "count": 6348,
+    "count": 6670,
     "max": 10,
     "value": 7
   },
@@ -141,6 +141,7 @@ class MovieShowModelDataSubjectCollectionBoardsItems {
   List<String> directors;
   String reviewerName;
   String nullRatingReason;
+  int wishCount;
 
   MovieShowModelDataSubjectCollectionBoardsItems({
     this.originalPrice,
@@ -168,9 +169,11 @@ class MovieShowModelDataSubjectCollectionBoardsItems {
     this.directors,
     this.reviewerName,
     this.nullRatingReason,
+    this.wishCount
   });
   MovieShowModelDataSubjectCollectionBoardsItems.fromJson(Map<String, dynamic> json) {
     originalPrice = json["original_price"]?.toString();
+    wishCount = json["wish_count"];
     rating = json["rating"] != null ? MovieShowModelDataSubjectCollectionBoardsItemsRating.fromJson(json["rating"]) : null;
     year = json["year"]?.toString();
     cardSubtitle = json["card_subtitle"]?.toString();
@@ -499,7 +502,7 @@ class MovieShowModelDataSubjectCollectionBoards {
     {
       "original_price": null,
       "rating": {
-        "count": 6348,
+        "count": 6670,
         "max": 10,
         "value": 7
       },
@@ -623,7 +626,7 @@ class MovieShowModelData {
         {
           "original_price": null,
           "rating": {
-            "count": 6348,
+            "count": 6670,
             "max": 10,
             "value": 7
           },
@@ -747,7 +750,7 @@ class MovieShowModel {
           {
             "original_price": null,
             "rating": {
-              "count": 6348,
+              "count": 6670,
               "max": 10,
               "value": 7
             },

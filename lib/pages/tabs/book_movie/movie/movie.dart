@@ -4,6 +4,7 @@ import 'package:flutter_douban/model/home/todayPlay.dart';
 import 'package:flutter_douban/netUtils/api.dart';
 import 'package:flutter_douban/netUtils/netUtils.dart';
 import 'package:flutter_douban/pages/tabs/book_movie/movie/movieShow/movie_show.dart';
+import 'package:flutter_douban/routes/application.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
 import 'package:flutter_douban/utils/utils.dart';
 
@@ -45,30 +46,49 @@ class _MoviePageState extends State<MoviePage> with AutomaticKeepAliveClientMixi
     }
   }
 
-
-
   bool get wantKeepAlive => true;
 
   @override
   Widget build(BuildContext context) {
     return _homeData.length >  0 ? ListView(
       children: <Widget>[
-        Container(
-          margin: EdgeInsets.only(left: 15,right: 15),
-          child: _todayPlay != null ? _homeCategory():Container()
-        ),
-        
-        Container(
-          margin: EdgeInsets.only(left: 15,right: 15),
-          child: MovieShow(movieShowData: _homeData[4],movieSoonData: _homeData[5]),
-        ),
+        SizedBox(height: ScreenAdapter.height(30)),
+        _marginContainer(_homeCategory()),
+        _marginContainer(_todayPlay != null ? _homeTodayPlay():Container()),
+        _marginContainer(MovieShow(_homeData[4],_homeData[5])),
       ],
     ):Container();
   }
-
+  // 边距容器
+  Widget _marginContainer(child){
+    return Container(
+      margin: EdgeInsets.fromLTRB(ScreenAdapter.height(30), ScreenAdapter.height(0), ScreenAdapter.height(30), ScreenAdapter.height(30)),
+      child: child,
+    );
+  }
+  // 构建首页分类
+  Widget _homeCategory(){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children:_homeData[0]['data']['subject_entraces'].map<Widget>((item){
+        return GestureDetector(
+          onTap: (){
+            Application.router.navigateTo(context, '/doubanTop');
+          },
+          child: Column(
+            children: <Widget>[
+              Image.network(item['icon'],width: ScreenAdapter.width(90)),
+              SizedBox(height: ScreenAdapter.height(20)),
+              Text(item['title'])
+            ],
+          ),
+        );
+      }).toList(),
+    );
+  }
 
   // 构建首页今日播放
-  Widget _homeCategory (){
+  Widget _homeTodayPlay (){
     return Container(
       margin: EdgeInsets.only(bottom: ScreenAdapter.height(30)),
       height: ScreenAdapter.height(250),

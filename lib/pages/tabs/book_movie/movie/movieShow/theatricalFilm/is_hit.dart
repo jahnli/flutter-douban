@@ -183,7 +183,7 @@ class _IsHitState extends State<IsHit> with SingleTickerProviderStateMixin , Aut
                 margin: EdgeInsets.only(bottom: ScreenAdapter.height(10)),
                 child: Text('${item['title']}',maxLines: 1,overflow: TextOverflow.ellipsis,style: TextStyle(fontSize: 20,fontWeight: FontWeight.w400,color:Colors.black)),
               ),
-              BaseGrade(item['rating']['stars'], item['rating']['average'], item['mainland_pubdate'],charSize: 13,),
+              BaseGrade(value:item['rating']['average'], nullRatingReason:item['mainland_pubdate'],charSize: 13,),
               Container(
                 alignment: Alignment.centerLeft,
                 child: Text('${item['year']} ${item['directors'].length > 0 ? ' / ' + item['directors'][0]['name']:''}',maxLines: 1,overflow: TextOverflow.ellipsis),

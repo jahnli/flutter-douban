@@ -151,7 +151,7 @@ class _MovieDetailState extends State<MovieDetail> with TickerProviderStateMixin
                 alignment: Alignment.centerLeft,
                 child: Text('${_movie['title']}',style: TextStyle(fontSize: 14)),
               ),
-              BaseGrade(_movie['rating']['stars'], _movie['rating']['average'], _movie['mainland_pubdate'])
+              BaseGrade(value:_movie['rating']['average'], nullRatingReason:_movie['mainland_pubdate'])
             ],
           ) : Text('电影') ,
           backgroundColor: Color(int.parse('0xff' + _themeColor)),
