@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_douban/pages/tabs/book_movie/book_movie.dart';
-import 'package:flutter_douban/pages/tabs/group/group.dart';
-import 'package:flutter_douban/pages/tabs/home/home.dart';
-import 'package:flutter_douban/pages/tabs/my/my.dart';
-import 'package:flutter_douban/pages/tabs/store/store.dart';
+import 'package:flutter_douban/views/tabs/book_movie/book_movie.dart';
+import 'package:flutter_douban/views/tabs/group/group.dart';
+import 'package:flutter_douban/views/tabs/home/home.dart';
+import 'package:flutter_douban/views/tabs/my/my.dart';
+import 'package:flutter_douban/views/tabs/store/store.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
 
 

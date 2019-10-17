@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_douban/pages/tabs/book_movie/movie/movieShow/theatricalFilm/coming_soon.dart';
-import 'package:flutter_douban/pages/tabs/book_movie/movie/movieShow/theatricalFilm/is_hot.dart';
-import 'package:flutter_douban/pages/tabs/book_movie/movie/movieShow/theatricalFilm/movie_guide.dart';
+import 'package:flutter_douban/views/tabs/book_movie/movie/movieShow/theatricalFilm/coming_soon.dart';
+import 'package:flutter_douban/views/tabs/book_movie/movie/movieShow/theatricalFilm/is_hot.dart';
+import 'package:flutter_douban/views/tabs/book_movie/movie/movieShow/theatricalFilm/movie_guide.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
 
 class TheatricalFilm extends StatefulWidget {

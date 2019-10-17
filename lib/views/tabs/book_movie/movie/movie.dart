@@ -1,18 +1,15 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_douban/model/home/movieShow.dart';
 import 'package:flutter_douban/model/home/todayPlay.dart';
 import 'package:flutter_douban/netUtils/api.dart';
 import 'package:flutter_douban/netUtils/netUtils.dart';
-import 'package:flutter_douban/pages/tabs/book_movie/movie/movieShow/movie_show.dart';
+import 'package:flutter_douban/views/tabs/book_movie/movie/movieShow/movie_show.dart';
 import 'package:flutter_douban/routes/application.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
 import 'package:flutter_douban/utils/utils.dart';
 import 'package:flutter_douban/weiget/doubanTopList/douban_top_list.dart';
-import 'package:flutter_douban/weiget/film_item.dart';
 import 'package:flutter_douban/weiget/grid_view.dart';
 import 'package:flutter_douban/weiget/rowTitle.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class MoviePage extends StatefulWidget {
   @override
