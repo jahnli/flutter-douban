@@ -14,7 +14,6 @@ class GridViewItems extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(data.length);
     return Container(
       child: GridView.builder(
         shrinkWrap: true,

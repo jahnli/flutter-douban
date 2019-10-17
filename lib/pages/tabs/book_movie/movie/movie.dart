@@ -74,7 +74,6 @@ class _MoviePageState extends State<MoviePage> with AutomaticKeepAliveClientMixi
   }
   // 构建豆瓣榜单
   Widget _doubanTopList(data){
-    print(data['selected_collections'][0]['items'].length);
     return Column(
       children: <Widget>[
         RowTitle(title:data['title'],count:data['total']),

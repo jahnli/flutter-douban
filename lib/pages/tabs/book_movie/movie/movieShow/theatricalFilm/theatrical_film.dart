@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_douban/pages/tabs/book_movie/movie/movieShow/theatricalFilm/coming_soon.dart';
-import 'package:flutter_douban/pages/tabs/book_movie/movie/movieShow/theatricalFilm/is_hit.dart';
+import 'package:flutter_douban/pages/tabs/book_movie/movie/movieShow/theatricalFilm/is_hot.dart';
 import 'package:flutter_douban/pages/tabs/book_movie/movie/movieShow/theatricalFilm/movie_guide.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
 
@@ -49,7 +49,7 @@ class _TheatricalFilmState extends State<TheatricalFilm> {
             children: <Widget>[
               Container(
                 margin: EdgeInsets.only(left:ScreenAdapter.width(30),right:ScreenAdapter.width(30)),
-                child:IsHit(),
+                child:IsHot(),
               ),
               ComingSoon(),
               MovieGuide()
