@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_douban/routes/application.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
 import 'package:flutter_douban/weiget/film_item.dart';
+import 'package:flutter_douban/weiget/grid_view.dart';
 
 class MovieShow extends StatefulWidget {
 
@@ -19,7 +20,7 @@ class _MovieShowState extends State<MovieShow> {
   
   // 当前热映列表
   // 热映列表：1，即将上映2
-  int _currentTabIndex = 1;
+  int _currentType = 1;
   Map _movieShowData;
   Map _movieSoonData;
 
@@ -51,9 +52,9 @@ class _MovieShowState extends State<MovieShow> {
               children: <Widget>[
                 GestureDetector(
                   onTap: (){
-                    Application.router.navigateTo(context,'/theatricalFilm?index=${_currentTabIndex - 1}');
+                    Application.router.navigateTo(context,'/theatricalFilm?index=${_currentType - 1}');
                   },
-                  child: Text('全部 ${_currentTabIndex == 1 ? _movieShowData['subject_collection']['subject_count']:_movieSoonData['subject_collection']['subject_count']}',style: TextStyle(fontSize: 17,color:Colors.black,fontWeight: FontWeight.w600)),
+                  child: Text('全部 ${_currentType == 1 ? _movieShowData['subject_collection']['subject_count']:_movieSoonData['subject_collection']['subject_count']}',style: TextStyle(fontSize: 17,color:Colors.black,fontWeight: FontWeight.w600)),
                 ),
                 Icon(Icons.chevron_right)
               ],
@@ -61,28 +62,16 @@ class _MovieShowState extends State<MovieShow> {
           ],
         ),
         SizedBox(height: ScreenAdapter.height(30)),
-        _currentTabIndex == 1 ? _movieShow(_movieShowData['items']) : _movieShow(_movieSoonData['items'])
+        _currentType == 1 ? _movieShow(_movieShowData['items']) : _movieShow(_movieSoonData['items'])
       ],
     ); 
   }
   // 热映
   Widget _movieShow(data){
-    return GridView.builder(
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      itemCount:6,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        //横轴元素个数
-        crossAxisCount: 3,
-        //纵轴间距
-        //横轴间距
-        crossAxisSpacing: 10.0,
-        //子组件宽高长度比例
-        childAspectRatio: ScreenAdapter.getScreenWidth() / 3 /  ScreenAdapter.height(420)
-      ),
-      itemBuilder: (BuildContext context, int index) {
-        return FilmItem(data[index],currentTabIndex: _currentTabIndex);
-      }
+    return GridViewItems(
+      data:data ,
+      height: _currentType == 1 ? 420:500,
+      itemCount:6
     );
   }
 
@@ -91,7 +80,7 @@ class _MovieShowState extends State<MovieShow> {
     return Container(
       padding: EdgeInsets.only(bottom: ScreenAdapter.height(20)),
         decoration: BoxDecoration(
-        border: _currentTabIndex == index ? Border(
+        border: _currentType == index ? Border(
           bottom: BorderSide(
             color: Colors.black,
             width: 1
@@ -101,13 +90,13 @@ class _MovieShowState extends State<MovieShow> {
       child: GestureDetector(
         onTap: (){
           setState(() {
-            _currentTabIndex = index;
+            _currentType = index;
           });
         },
         child: AnimatedDefaultTextStyle(
           duration: Duration(seconds: 1),
-          style: TextStyle(color: _currentTabIndex == index ? Colors.black:Colors.grey),
-          child: Text('$title',style: TextStyle(fontSize: 24,fontWeight: FontWeight.w600)),
+          style: TextStyle(color: _currentType == index ? Colors.black:Colors.grey),
+          child: Text('$title',style: TextStyle(fontSize: 22,fontWeight: FontWeight.w600)),
         ),
       ),
     );

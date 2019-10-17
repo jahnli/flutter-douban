@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_douban/model/home/movieShow.dart';
 import 'package:flutter_douban/model/home/todayPlay.dart';
 import 'package:flutter_douban/netUtils/api.dart';
 import 'package:flutter_douban/netUtils/netUtils.dart';
@@ -7,6 +8,10 @@ import 'package:flutter_douban/pages/tabs/book_movie/movie/movieShow/movie_show.
 import 'package:flutter_douban/routes/application.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
 import 'package:flutter_douban/utils/utils.dart';
+import 'package:flutter_douban/weiget/film_item.dart';
+import 'package:flutter_douban/weiget/grid_view.dart';
+import 'package:flutter_douban/weiget/rowTitle.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class MoviePage extends StatefulWidget {
   @override
@@ -53,11 +58,29 @@ class _MoviePageState extends State<MoviePage> with AutomaticKeepAliveClientMixi
     return _homeData.length >  0 ? ListView(
       children: <Widget>[
         SizedBox(height: ScreenAdapter.height(30)),
+        // 分类
         _marginContainer(_homeCategory()),
+        // 今日播放
         _marginContainer(_todayPlay != null ? _homeTodayPlay():Container()),
+        // 影院热映
         _marginContainer(MovieShow(_homeData[4],_homeData[5])),
+        // 豆瓣热门
+        _marginContainer(_doubanHot(_homeData[7]['data'])),
       ],
     ):Container();
+  }
+  // 构建豆瓣热门
+  Widget _doubanHot(data){
+    data = data['subject_collection_boards'][0];
+    return Column(
+      children: <Widget>[
+        RowTitle(title: '豆瓣热门',count: data['subject_collection']['subject_count']),
+        GridViewItems(
+          data: data['items'],
+          itemCount: 6,
+        )
+      ],
+    );
   }
   // 边距容器
   Widget _marginContainer(child){
