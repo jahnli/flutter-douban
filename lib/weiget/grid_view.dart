@@ -9,7 +9,8 @@ class GridViewItems extends StatelessWidget {
   List data;
   double height;
   int itemCount;
-  GridViewItems({this.itemCount,this.height = 420,this.crossAxisCount = 3,this.crossAxisSpacing:10,this.data});
+  int currentType;
+  GridViewItems({this.currentType = 1,this.itemCount,this.height = 480,this.crossAxisCount = 3,this.crossAxisSpacing:10,this.data});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class GridViewItems extends StatelessWidget {
           childAspectRatio: ScreenAdapter.getScreenWidth() / crossAxisCount /  ScreenAdapter.height(height)
         ),
         itemBuilder: (context,index){
-           return FilmItem(data[index]);
+           return FilmItem(data[index],currentType: currentType,);
         },
         itemCount: itemCount
       ),

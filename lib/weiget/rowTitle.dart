@@ -16,7 +16,7 @@ class RowTitle extends StatelessWidget {
       child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Text('豆瓣热门',style: TextStyle(fontSize: 22,fontWeight: FontWeight.w600)),
+          Text('$title',style: TextStyle(fontSize: 22,fontWeight: FontWeight.w600)),
           GestureDetector(
             onTap: (){
               

@@ -8,6 +8,7 @@ import 'package:flutter_douban/pages/tabs/book_movie/movie/movieShow/movie_show.
 import 'package:flutter_douban/routes/application.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
 import 'package:flutter_douban/utils/utils.dart';
+import 'package:flutter_douban/weiget/doubanTopList/douban_top_list.dart';
 import 'package:flutter_douban/weiget/film_item.dart';
 import 'package:flutter_douban/weiget/grid_view.dart';
 import 'package:flutter_douban/weiget/rowTitle.dart';
@@ -66,8 +67,20 @@ class _MoviePageState extends State<MoviePage> with AutomaticKeepAliveClientMixi
         _marginContainer(MovieShow(_homeData[4],_homeData[5])),
         // 豆瓣热门
         _marginContainer(_doubanHot(_homeData[7]['data'])),
+        // 豆瓣榜单
+        _marginContainer(_doubanTopList(_homeData[9]['data']))
       ],
     ):Container();
+  }
+  // 构建豆瓣榜单
+  Widget _doubanTopList(data){
+    print(data['selected_collections'][0]['items'].length);
+    return Column(
+      children: <Widget>[
+        RowTitle(title:data['title'],count:data['total']),
+        DoubanTopList(dataList: data['selected_collections'])
+      ],
+    );
   }
   // 构建豆瓣热门
   Widget _doubanHot(data){

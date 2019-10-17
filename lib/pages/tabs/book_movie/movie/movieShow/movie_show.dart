@@ -70,8 +70,9 @@ class _MovieShowState extends State<MovieShow> {
   Widget _movieShow(data){
     return GridViewItems(
       data:data ,
-      height: _currentType == 1 ? 420:500,
-      itemCount:6
+      height: _currentType == 1 ? 480:550,
+      itemCount:6,
+      currentType:_currentType
     );
   }
 

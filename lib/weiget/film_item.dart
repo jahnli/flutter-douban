@@ -7,9 +7,9 @@ import 'package:flutter_douban/weiget/base_grade.dart';
 class FilmItem extends StatefulWidget {
 
   Map item;
-  int currentTabIndex;
+  int currentType;
 
-  FilmItem(this.item,{this.currentTabIndex = 1});
+  FilmItem(this.item,{this.currentType = 1});
 
   @override
   _FilmItemState createState() => _FilmItemState();
@@ -27,7 +27,7 @@ class _FilmItemState extends State<FilmItem> {
     MovieShowModelDataSubjectCollectionBoardsItems _item = MovieShowModelDataSubjectCollectionBoardsItems.fromJson(widget.item);
     return GestureDetector(
       onTap: (){
-        Application.router.navigateTo(context, '/movieDetail?id=${_item.id}&type=${widget.currentTabIndex}');
+        Application.router.navigateTo(context, '/movieDetail?id=${_item.id}&type=${widget.currentType}');
       },
       child: Container(
         child: Column(
@@ -35,7 +35,7 @@ class _FilmItemState extends State<FilmItem> {
             ClipRRect(
               child: Image.network('${_item.cover.url}',
               width: double.infinity,
-              height:ScreenAdapter.height(260),fit: BoxFit.fill),
+              height:ScreenAdapter.height(300),fit: BoxFit.fill),
               borderRadius: BorderRadius.circular(5),
             ),
             Container(
@@ -45,7 +45,7 @@ class _FilmItemState extends State<FilmItem> {
             ),
             // 如果当前是影院热映，显示 Row 部件  否则显示Align部件
             // 如果当前是影院热映 电影未上映显示未上映字样，否则显示评分
-            widget.currentTabIndex == 1  ? BaseGrade(nullRatingReason:_item.nullRatingReason,value:_item.rating?.value):Column(
+            widget.currentType == 1  ? BaseGrade(nullRatingReason:_item.nullRatingReason,value:_item.rating?.value):Column(
               children: <Widget>[
                 Container(
                   alignment: Alignment.centerLeft,
