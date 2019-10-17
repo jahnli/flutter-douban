@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_douban/netUtils/api.dart';
 import 'package:flutter_douban/netUtils/netUtils.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
+import 'package:flutter_douban/utils/utils.dart';
 import 'package:flutter_douban/weiget/base_loading.dart';
 import 'package:flutter_douban/weiget/custom_scroll_footer.dart';
 import 'package:flutter_douban/weiget/custom_scroll_header.dart';
@@ -30,6 +31,11 @@ class _ComingSoonState extends State<ComingSoon> with AutomaticKeepAliveClientMi
   int _total = 0;
   String _requestStatus = '';
 
+  // 筛选
+  String _sort = '';
+  // 搜索类型切换
+  AlignmentGeometry _alignment = Alignment.centerLeft;
+
   RefreshController _controller = RefreshController();
 
     @override
@@ -43,7 +49,8 @@ class _ComingSoonState extends State<ComingSoon> with AutomaticKeepAliveClientMi
   _getComingSoon() async {
     try {
       Map<String,dynamic> params ={
-        'start':_start
+        'start':_start,
+        'sortby':_sort
       };
       Response res = await NetUtils.ajax('get',ApiPath.home['movieSoon'],params: params); 
       // 定义临时数组
@@ -132,54 +139,169 @@ class _ComingSoonState extends State<ComingSoon> with AutomaticKeepAliveClientMi
           _controller.loadNoData();
         }
       },
-      child:_comingSoonList.length > 0 ?  ListView(
-        children: <Widget>[
-          Container(
-            height: ScreenAdapter.height(80),
-            padding: EdgeInsets.only(left: ScreenAdapter.width(30)),
-            child: Row(
-              children: <Widget>[
-                Text('影视 $_total')
-              ],
+      child:_comingSoonList.length > 0 ?  CustomScrollView(
+        slivers: <Widget>[
+          SliverPersistentHeader(
+            pinned: true,
+            delegate: SliverHeaderDelegate(
+              PreferredSize(
+                preferredSize: Size.fromHeight(40),
+                child: Container(
+                  color: Colors.white,
+                  height: ScreenAdapter.height(90),
+                  padding: EdgeInsets.only(left: ScreenAdapter.width(30),right:ScreenAdapter.width(30)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text('影视 $_total'),
+                      // 类型切换
+                      _toggleBtn()
+                    ],
+                  ),
+                ),
+              )
             ),
           ),
-          ListView.builder(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemBuilder: (context,index){
-              String _tempDate =  _comingSoonList[index]['date'];
-              // 格式化日期
-              if(_tempDate.length != 10){
-                _tempDate = _tempDate.replaceFirst('-', '年') + '月待定';
-              }else{
-                _tempDate =  _tempDate.replaceRange(4, 5, '年');
-                _tempDate =  _tempDate.replaceRange(7, 8,'月');
-                _tempDate =  _tempDate+'日';
-              }
-              return Column(
-                children: <Widget>[
-                  Container(
-                    height: ScreenAdapter.height(70),
-                    alignment: Alignment.centerLeft,
-                    color: Colors.grey[200],
-                    padding: EdgeInsets.only(left: ScreenAdapter.width(30)),
-                    child: Text('$_tempDate',style: TextStyle(color: Colors.grey[600])),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(left: ScreenAdapter.width(30),right:ScreenAdapter.width(30)),
-                    child: Column(
-                      children:  _comingSoonList[index]['list'].map<Widget>((item){
-                        return FilmRowItem(item);
-                      }).toList(),
+          SliverToBoxAdapter(
+            child: ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemBuilder: (context,index){
+                String _tempDate =  _comingSoonList[index]['date'];
+                // 格式化日期
+                if(_tempDate.length != 10){
+                  _tempDate = _tempDate.replaceFirst('-', '年') + '月待定';
+                }else{
+                  _tempDate =  _tempDate.replaceRange(4, 5, '年');
+                  _tempDate =  _tempDate.replaceRange(7, 8,'月');
+                  _tempDate =  _tempDate+'日, 星期${Utils.formatWeek(DateTime.parse(_comingSoonList[index]['date']).weekday)}';
+                }
+                return Column(
+                  children: <Widget>[
+                    Container(
+                      height: ScreenAdapter.height(70),
+                      alignment: Alignment.centerLeft,
+                      color: Colors.grey[200],
+                      padding: EdgeInsets.only(left: ScreenAdapter.width(30)),
+                      child: Text('$_tempDate',style: TextStyle(color: Colors.grey[600])),
                     ),
-                  )
-                ],
-              );
-            },
-            itemCount: _comingSoonList.length,
+                    Container(
+                      margin: EdgeInsets.only(left: ScreenAdapter.width(30),right:ScreenAdapter.width(30)),
+                      child: Column(
+                        children:  _comingSoonList[index]['list'].map<Widget>((item){
+                          return FilmRowItem(item);
+                        }).toList(),
+                      ),
+                    )
+                  ],
+                );
+              },
+              itemCount: _comingSoonList.length,
+            ),
           )
         ],
       ):BaseLoading(type: _requestStatus)
     );
   }
+
+          
+          
+  // 类型切换
+  _toggleBtn(){
+    return Container(
+      height: ScreenAdapter.height(50),
+      width: ScreenAdapter.width(150),
+      decoration: BoxDecoration(
+        borderRadius:BorderRadius.circular(15),
+        color: Colors.grey[300],
+      ),
+      child: Stack(
+        alignment: Alignment.center,
+        children: <Widget>[
+          Container(
+            width: ScreenAdapter.width(150),
+            child: AnimatedAlign(
+              alignment: _alignment,
+              curve: Curves.ease,
+              duration: Duration(milliseconds: 500),
+              child: Opacity(
+                opacity: 1,
+                child: Container(
+                  height: ScreenAdapter.height(50),
+                  width: ScreenAdapter.width(80),
+                  decoration: BoxDecoration(
+                    borderRadius:BorderRadius.circular(15),
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Row(
+            mainAxisAlignment:  MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              GestureDetector(
+                onTap: (){
+                  setState(() {
+                    _alignment = Alignment.centerLeft; 
+                    _start = 0;
+                    _comingSoonList = [];
+                    _requestStatus = '';
+                    _sort = '';
+                    _dateList = [];
+                  });
+                  _getComingSoon();
+                },
+                child: Text('时间',style: TextStyle(fontSize: 11,color:_alignment == Alignment.centerLeft ?  Colors.black: Colors.grey[500])),
+              ),
+              GestureDetector(
+                onTap: (){
+                  setState(() {
+                    _start = 0;
+                    _comingSoonList = [];
+                    _requestStatus = '';
+                    _dateList = [];
+                    _sort = 'wish';
+                    _alignment = Alignment.centerRight; 
+                  });
+                  _getComingSoon();
+                },
+                child: Text('热度',style: TextStyle(fontSize: 11,color:_alignment == Alignment.centerRight ?  Colors.black: Colors.grey[500])),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+ 
+}
+
+
+class SliverHeaderDelegate extends SliverPersistentHeaderDelegate {
+  final widget;
+  final Color color;
+
+  const SliverHeaderDelegate(this.widget, {this.color})
+      : assert(widget != null);
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return new Container(
+      child: widget,
+      color: color,
+    );
+  }
+
+  @override
+  bool shouldRebuild(SliverHeaderDelegate oldDelegate) {
+    return false;
+  }
+
+  @override
+  double get maxExtent => widget.preferredSize.height;
+
+  @override
+  double get minExtent => widget.preferredSize.height;
 }

@@ -15,6 +15,12 @@ class Utils {
   static colorTransform(color){
     return Color(int.parse('0xff' + color));
   }
+
+  // 数字星期转化为文字
+  static formatWeek(int weekNum){
+    List<String> weekList = ['一','二','三','四','五','六','日'];
+    return weekList[weekNum - 1];
+  }
 }
 
 
