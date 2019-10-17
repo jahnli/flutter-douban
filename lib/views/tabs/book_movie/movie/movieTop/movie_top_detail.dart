@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_douban/pages/tabs/book_movie/movie/movieTop/top_250.dart';
-import 'package:flutter_douban/pages/tabs/book_movie/movie/movieTop/week_hot.dart';
-import 'package:flutter_douban/pages/tabs/book_movie/movie/movieTop/week_praise.dart';
+import 'package:flutter_douban/views/tabs/book_movie/movie/movieTop/top_250.dart';
+import 'package:flutter_douban/views/tabs/book_movie/movie/movieTop/week_hot.dart';
+import 'package:flutter_douban/views/tabs/book_movie/movie/movieTop/week_praise.dart';
 
 
 class MovieTopDetail extends StatefulWidget {

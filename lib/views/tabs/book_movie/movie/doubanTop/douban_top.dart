@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_douban/pages/tabs/book_movie/movie/doubanTop/movie.dart';
+import 'package:flutter_douban/views/tabs/book_movie/movie/doubanTop/movie.dart';
 
 class DoubanTop extends StatefulWidget {
   @override

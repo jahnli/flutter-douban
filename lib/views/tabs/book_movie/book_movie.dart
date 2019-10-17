@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_douban/pages/tabs/book_movie/movie/movie.dart';
+import 'package:flutter_douban/views/tabs/book_movie/movie/movie.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
 class BookMoviePage extends StatefulWidget {
   @override
