@@ -1,11 +1,11 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_douban/pages/tabs/book_movie/movie/doubanTop/douban_top.dart';
-import 'package:flutter_douban/pages/tabs/book_movie/movie/movieHot/movie_hot_detail.dart';
-import 'package:flutter_douban/pages/tabs/book_movie/movie/movieShow/theatricalFilm/theatrical_film.dart';
-import 'package:flutter_douban/pages/tabs/book_movie/movie/movieTop/movie_top_detail.dart';
-import 'package:flutter_douban/pages/tabs/book_movie/movie_detail/movie_detail.dart';
-import 'package:flutter_douban/pages/tabs/tabs.dart';
+import 'package:flutter_douban/views/tabs/book_movie/movie/doubanTop/douban_top.dart';
+import 'package:flutter_douban/views/tabs/book_movie/movie/movieHot/movie_hot_detail.dart';
+import 'package:flutter_douban/views/tabs/book_movie/movie/movieShow/theatricalFilm/theatrical_film.dart';
+import 'package:flutter_douban/views/tabs/book_movie/movie/movieTop/movie_top_detail.dart';
+import 'package:flutter_douban/views/tabs/book_movie/movie_detail/movie_detail.dart';
+import 'package:flutter_douban/views/tabs/tabs.dart';
 
 // 配置清单路由
 // tabs

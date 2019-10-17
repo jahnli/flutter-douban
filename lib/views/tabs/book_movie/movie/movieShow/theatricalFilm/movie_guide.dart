@@ -15,7 +15,7 @@ class MovieGuide extends StatefulWidget {
 
 class _MovieGuideState extends State<MovieGuide> with AutomaticKeepAliveClientMixin{
 
-  bool get wantKeepAlive => true;
+  bool get wantKeepAlive => false;
 
   String _requestStatus = '';
 
@@ -55,7 +55,7 @@ class _MovieGuideState extends State<MovieGuide> with AutomaticKeepAliveClientMi
   }
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return _guideList.length > 0 ? Container(
       child: ListView(
         children: <Widget>[
           Container(
@@ -63,7 +63,7 @@ class _MovieGuideState extends State<MovieGuide> with AutomaticKeepAliveClientMi
             padding: EdgeInsets.all(ScreenAdapter.width(30)),
             child: Text('豆瓣为你整理出当月最值得看的院线电影。点击"想看"来收藏喜欢的电影，当影片上映、有播放源时会通知你。',style: TextStyle(color: Colors.grey[600])),
           ),
-          _guideList.length > 0 ? ListView.builder(
+          ListView.builder(
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
             itemCount: _guideList.length,
@@ -91,11 +91,11 @@ class _MovieGuideState extends State<MovieGuide> with AutomaticKeepAliveClientMi
                 )
               );
             },
-          ):Center(
-            child: BaseLoading(type: _requestStatus),
           )
         ],
       ),
+    ):Center(
+      child: BaseLoading(type: _requestStatus),
     );
   }
 
