@@ -15,7 +15,7 @@ class MovieGuide extends StatefulWidget {
 
 class _MovieGuideState extends State<MovieGuide> with AutomaticKeepAliveClientMixin{
 
-  bool get wantKeepAlive => false;
+  bool get wantKeepAlive => true;
 
   String _requestStatus = '';
 

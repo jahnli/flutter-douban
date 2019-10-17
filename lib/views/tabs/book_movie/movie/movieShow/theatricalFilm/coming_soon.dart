@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_douban/netUtils/api.dart';
 import 'package:flutter_douban/netUtils/netUtils.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
+import 'package:flutter_douban/weiget/base_loading.dart';
 import 'package:flutter_douban/weiget/custom_scroll_footer.dart';
 import 'package:flutter_douban/weiget/custom_scroll_header.dart';
 import 'package:flutter_douban/weiget/film_row_item.dart';
@@ -83,11 +84,15 @@ class _ComingSoonState extends State<ComingSoon> with AutomaticKeepAliveClientMi
           }
           _comingSoonList.addAll(temp); 
           _total = res.data['total'];
+          _requestStatus = '获取即将上映数据成功';
         });
       }
     }
     catch (e) {
       print(e);
+      setState(() {
+        _requestStatus = '获取即将上映数据失败'; 
+      });
     }
 
   }
@@ -127,7 +132,7 @@ class _ComingSoonState extends State<ComingSoon> with AutomaticKeepAliveClientMi
           _controller.loadNoData();
         }
       },
-      child: ListView(
+      child:_comingSoonList.length > 0 ?  ListView(
         children: <Widget>[
           Container(
             height: ScreenAdapter.height(80),
@@ -174,7 +179,7 @@ class _ComingSoonState extends State<ComingSoon> with AutomaticKeepAliveClientMi
             itemCount: _comingSoonList.length,
           )
         ],
-      )
+      ):BaseLoading(type: _requestStatus)
     );
   }
 }

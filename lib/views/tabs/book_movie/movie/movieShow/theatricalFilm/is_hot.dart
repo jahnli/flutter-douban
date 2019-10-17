@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_douban/netUtils/api.dart';
 import 'package:flutter_douban/netUtils/netUtils.dart';
+import 'package:flutter_douban/weiget/base_loading.dart';
 import 'package:flutter_douban/weiget/custom_scroll_footer.dart';
 import 'package:flutter_douban/weiget/custom_scroll_header.dart';
 import 'package:flutter_douban/weiget/film_row_item.dart';
@@ -24,6 +25,7 @@ class _IsHotState extends State<IsHot> with SingleTickerProviderStateMixin , Aut
   // 总数量
   int _total = 0;
 
+  String _requestStatus = '';
 
   RefreshController _controller = RefreshController();
 
@@ -48,11 +50,15 @@ class _IsHotState extends State<IsHot> with SingleTickerProviderStateMixin , Aut
           }
           _isHotList.addAll(res.data['subjects']);
           _total = res.data['total'];
+          _requestStatus = '获取热映数据成功';
         });
       }
     }
     catch (e) {
       print(e);
+      setState(() {
+          _requestStatus = '获取热映数据失败';
+      });
     }
 
   }
@@ -90,13 +96,13 @@ class _IsHotState extends State<IsHot> with SingleTickerProviderStateMixin , Aut
           _controller.loadNoData();
         }
       },
-      child: ListView.builder(
+      child: _isHotList.length > 0 ? ListView.builder(
         shrinkWrap: true,
         itemBuilder: (context,index){
           return FilmRowItem(_isHotList[index]);
         },
         itemCount: _isHotList.length,
-      ),
+      ):BaseLoading(type: _requestStatus),
     );
   }
 }
