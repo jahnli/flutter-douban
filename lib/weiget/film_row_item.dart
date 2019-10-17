@@ -16,12 +16,12 @@ class FilmRowItem extends StatefulWidget {
 
 class _FilmRowItemState extends State<FilmRowItem> {
 
-  theatricalFimeListModelSubjects _data;
+  TheatricalFimeListModelSubjects _data;
 
   @override
   void initState() { 
     super.initState();
-    _data = theatricalFimeListModelSubjects.fromJson(widget.data);
+    _data = TheatricalFimeListModelSubjects.fromJson(widget.data);
   }
 
   @override
@@ -61,7 +61,7 @@ class _FilmRowItemState extends State<FilmRowItem> {
   // 左侧缩略图
   Widget _thumb(){
     return ClipRRect(
-      child: Image.network('${_data.pic.normal}', height:ScreenAdapter.height(230),width: ScreenAdapter.width(160),fit: BoxFit.cover),
+      child: Image.network('${_data.pic.normal}', height:ScreenAdapter.height(230),width: ScreenAdapter.width(170),fit: BoxFit.cover),
       borderRadius: BorderRadius.circular(5),
     );
   }
@@ -97,7 +97,7 @@ class _FilmRowItemState extends State<FilmRowItem> {
   // 右侧操作区域
   Widget _actions(){
     return Container(
-      height: ScreenAdapter.height(240),
+      height: ScreenAdapter.height(230),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[

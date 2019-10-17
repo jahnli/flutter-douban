@@ -91,7 +91,9 @@ class _MovieGuideState extends State<MovieGuide> with AutomaticKeepAliveClientMi
                 )
               );
             },
-          ):BaseLoading(type: _requestStatus)
+          ):Center(
+            child: BaseLoading(type: _requestStatus),
+          )
         ],
       ),
     );
@@ -100,16 +102,17 @@ class _MovieGuideState extends State<MovieGuide> with AutomaticKeepAliveClientMi
   // 左侧缩略图
   Widget _thumb(item){
     return ClipRRect(
-      borderRadius: BorderRadius.circular(8),
-      child: Image.network('${item['cover']['url']}',width: ScreenAdapter.width(200),height: ScreenAdapter.height(220),fit: BoxFit.cover,),
+      child: Image.network('${item['cover']['url']}', height:ScreenAdapter.height(230),width: ScreenAdapter.width(170),fit: BoxFit.cover),
+      borderRadius: BorderRadius.circular(5),
     );
+     
   }
   // 中间信息区域
   Widget _info(item){
     return Expanded(
       child: Container(
         constraints: BoxConstraints(
-          minHeight: ScreenAdapter.height(220)
+          minHeight: ScreenAdapter.height(230)
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

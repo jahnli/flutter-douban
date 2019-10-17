@@ -1,12 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_douban/model/theatricalFimeList/theatricalFimeList.dart';
 import 'package:flutter_douban/netUtils/api.dart';
 import 'package:flutter_douban/netUtils/netUtils.dart';
-import 'package:flutter_douban/routes/application.dart';
-import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
-import 'package:flutter_douban/weiget/base_grade.dart';
-import 'package:flutter_douban/weiget/base_loading.dart';
 import 'package:flutter_douban/weiget/custom_scroll_footer.dart';
 import 'package:flutter_douban/weiget/custom_scroll_header.dart';
 import 'package:flutter_douban/weiget/film_row_item.dart';
@@ -101,7 +96,7 @@ class _IsHotState extends State<IsHot> with SingleTickerProviderStateMixin , Aut
           return FilmRowItem(_isHotList[index]);
         },
         itemCount: _isHotList.length,
-      )
+      ),
     );
   }
 }
