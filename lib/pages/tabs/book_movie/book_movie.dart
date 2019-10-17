@@ -67,7 +67,7 @@ class _BookMoviePageState extends State<BookMoviePage> with SingleTickerProvider
       children: <Widget>[
         Container(
             width: ScreenAdapter.getScreenWidth() - ScreenAdapter.width(160),
-            height: ScreenAdapter.height(80),
+            height: ScreenAdapter.height(70),
             child: TextField(
               decoration: InputDecoration(
                 contentPadding:  EdgeInsets.symmetric(vertical: ScreenAdapter.height(12)),
