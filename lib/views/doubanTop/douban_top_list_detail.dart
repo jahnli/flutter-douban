@@ -65,9 +65,9 @@ class _DoubanTopListDetailState extends State<DoubanTopListDetail> {
 
   @override
   void dispose() { 
-    super.dispose();
     _innerControll.dispose();
     _otherControll.dispose();
+    super.dispose();
   }
 
   @override

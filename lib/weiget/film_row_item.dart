@@ -23,11 +23,11 @@ class _FilmRowItemState extends State<FilmRowItem> {
   @override
   void initState() { 
     super.initState();
-    _data = widget.dataType == 1 ? _data = TheatricalFimeListModelSubjects.fromJson(widget.data) :MovieShowModelDataSubjectCollectionBoardsItems .fromJson(widget.data);
   }
 
   @override
   Widget build(BuildContext context) {
+    _data = widget.dataType == 1 ? _data = TheatricalFimeListModelSubjects.fromJson(widget.data) :MovieShowModelDataSubjectCollectionBoardsItems .fromJson(widget.data);
     return Container(
       margin: EdgeInsets.only(top:widget.index == 0 ? ScreenAdapter.height(40):ScreenAdapter.height(20)),
       padding: EdgeInsets.only(bottom: ScreenAdapter.height(20)),

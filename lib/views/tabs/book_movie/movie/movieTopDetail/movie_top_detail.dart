@@ -1,12 +1,7 @@
 import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_douban/views/doubanTop/douban_top_list_detail.dart';
-import 'package:flutter_douban/views/tabs/book_movie/movie/movieTop/top_250.dart';
-import 'package:flutter_douban/views/tabs/book_movie/movie/movieTop/week_hot.dart';
-import 'package:flutter_douban/views/tabs/book_movie/movie/movieTop/week_praise.dart';
-import 'package:flutter_douban/weiget/base_loading.dart';
 
 
 class MovieTopDetail extends StatefulWidget {
@@ -25,15 +20,15 @@ class _MovieTopDetailState extends State<MovieTopDetail> {
   // 过滤条件
   List _filterList = [];
   int _currentFilter = 0; 
-
+  // 定义请求url列表
   List<String> _urlList = [
-    'https://m.douban.com/rexxar/api/v2/subject_collection/movie_hot_weekly/items?start=0&count=20&for_mobile=1',
+    'https://m.douban.com/rexxar/api/v2/subject_collection/movie_weekly_best/items?start=0&count=20&for_mobile=1',
     'https://m.douban.com/rexxar/api/v2/subject_collection/movie_top250/items?start=0&count=250&for_mobile=1',
-    'https://m.douban.com/rexxar/api/v2/subject_collection/movie_weekly_best/items?start=0&count=20&for_mobile=1'
+    'https://m.douban.com/rexxar/api/v2/subject_collection/movie_hot_weekly/items?start=0&count=20&for_mobile=1'
   ];
 
+  // 定义显示
   List<String> _filterDescCharList = ['更新时间','Top','更新时间'];
-  
   List<String> _footerFieldTypeList = [ 'evaluate','desc','evaluate'];
 
   @override
@@ -41,7 +36,7 @@ class _MovieTopDetailState extends State<MovieTopDetail> {
     super.initState();
     
     _getData();
-
+    // 如果不是top250 就请求筛选日期数据
     if(widget.index != 1){
       _getFillterDate();
     }else{
@@ -58,7 +53,6 @@ class _MovieTopDetailState extends State<MovieTopDetail> {
       updatedAt = _filterList.length > 0 ? '${DateTime.now().year}-${_filterList[_currentFilter]}':''; 
       url = url + '&updated_at=' + updatedAt;
     }
-    print(url);
     try {
       Response res = await Dio().get(url, options: Options(
       headers: {
