@@ -21,6 +21,7 @@ class _TheatricalFilmState extends State<TheatricalFilm> {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
+          elevation:0 ,
           backgroundColor: Colors.white,
           brightness: Brightness.light,
           textTheme: TextTheme(
