@@ -82,18 +82,15 @@ class _MovieHotDetailState extends State<MovieHotDetail> {
           dataList: _hotList,
           onLoading:()=>_onLoading(),
           enablePullDown: false,
-          headWidget:_headFilter(),
+          headWidget:Container(
+            padding: EdgeInsets.only(top: ScreenAdapter.height(30)),
+            child: Text('影视 500'),
+          ),
         ),
       )
     );
   }
-  // 头部筛选
-  Widget _headFilter(){
-    return Container(
-      padding: EdgeInsets.only(top: ScreenAdapter.height(30)),
-      child: Text('影视 500'),
-    );
-  }
+
   // 加载
   _onLoading() async {
     if(_start + 10 < _total){

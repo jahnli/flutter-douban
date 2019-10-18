@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_douban/model/home/todayPlay.dart';
 import 'package:flutter_douban/netUtils/api.dart';
 import 'package:flutter_douban/netUtils/netUtils.dart';
+import 'package:flutter_douban/views/doubanTop/douban_top_list.dart';
 import 'package:flutter_douban/views/tabs/book_movie/movie/movieShow/movie_show.dart';
 import 'package:flutter_douban/routes/application.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
 import 'package:flutter_douban/utils/utils.dart';
-import 'package:flutter_douban/weiget/doubanTopList/douban_top_list.dart';
 import 'package:flutter_douban/weiget/grid_view.dart';
 import 'package:flutter_douban/weiget/rowTitle.dart';
 
@@ -73,7 +73,7 @@ class _MoviePageState extends State<MoviePage> with AutomaticKeepAliveClientMixi
   Widget _doubanTopList(data){
     return Column(
       children: <Widget>[
-        RowTitle(title:data['title'],count:data['total']),
+        RowTitle(title:data['title'],count:data['total'],url:'/doubanTop'),
         DoubanTopList(dataList: data['selected_collections'])
       ],
     );

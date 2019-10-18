@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_douban/routes/application.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
 import 'package:flutter_douban/weiget/base_loading.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-class TopList extends StatefulWidget {
+import 'package:flutter_douban/weiget/film_row_item.dart';
+
+class DoubanTopListDetail extends StatefulWidget {
 
    // 列表数据
   final Map data;
@@ -11,8 +11,6 @@ class TopList extends StatefulWidget {
   List filterList = [];
   // 当前过滤条件索引
   int currentFilterCondition = 0;
-  // 状态
-  String requestStatus = '';
   // 回调函数用于筛选过滤
   Function cb;
   // 筛选描述文字
@@ -20,10 +18,9 @@ class TopList extends StatefulWidget {
   // 底部描述类型
   String footerFieldType;
 
-  TopList({
+  DoubanTopListDetail({
       this.footerFieldType = 'evaluate', 
       @required this.filterDescChar,
-      @required this.requestStatus,
       @required this.filterList,
       @required this.data,
       @required this.currentFilterCondition,
@@ -31,10 +28,10 @@ class TopList extends StatefulWidget {
   });
 
   @override
-  _TopListState createState() => _TopListState();
+  _DoubanTopListDetailState createState() => _DoubanTopListDetailState();
 }
 
-class _TopListState extends State<TopList> {
+class _DoubanTopListDetailState extends State<DoubanTopListDetail> {
 
    // 控制滚动
   ScrollController _innerControll =  ScrollController();
@@ -76,7 +73,7 @@ class _TopListState extends State<TopList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: widget.requestStatus.isNotEmpty ?  NestedScrollView(
+      body: widget.data != null ? NestedScrollView(
         controller: _otherControll,
         headerSliverBuilder: (context,isScroll){  
           return [
@@ -86,6 +83,7 @@ class _TopListState extends State<TopList> {
                 color:_isExpand ? Colors.white: Colors.black
               ),
               brightness: Brightness.light,
+              elevation: 0,
               pinned: true,
               expandedHeight: 200,
               flexibleSpace: FlexibleSpaceBar(
@@ -126,7 +124,7 @@ class _TopListState extends State<TopList> {
           controller: _innerControll,
           slivers: <Widget>[
             SliverFixedExtentList(
-              itemExtent: ScreenAdapter.height(460),
+              itemExtent: ScreenAdapter.height(500),
               delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
                   return  Column(
                     children: <Widget>[
@@ -145,27 +143,9 @@ class _TopListState extends State<TopList> {
                       ),
                       // 具体内容
                       Container(
-                        margin: EdgeInsets.only(left:ScreenAdapter.width(30),right:ScreenAdapter.width(30),top: ScreenAdapter.height(30)),
-                        padding: EdgeInsets.only(bottom: ScreenAdapter.height(20)),
-                        child:GestureDetector(
-                          onTap: (){
-                            Application.router.navigateTo(context, '/movieDetail?id=${widget.data['subject_collection_items'][index]['id']}');
-                          },
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              // 缩略图
-                              _thumb(widget.data['subject_collection_items'][index]), 
-                              // 中间信息区域
-                              SizedBox(width: ScreenAdapter.width(30)),
-                              _info(widget.data['subject_collection_items'][index]),
-                              SizedBox(width: ScreenAdapter.width(30)),
-                              // 右侧操作区域
-                              _actions(widget.data['subject_collection_items'][index])
-                            ],
-                          ),
-                        )
-                      ),
+                        margin: EdgeInsets.only(left: ScreenAdapter.width(30),right: ScreenAdapter.width(30)),
+                        child:FilmRowItem(widget.data['subject_collection_items'][index],dataType: 2),
+                      ) ,
                       // 底部描述
                       Container(
                         decoration: BoxDecoration(
@@ -194,79 +174,6 @@ class _TopListState extends State<TopList> {
     ); 
   }
 
-  // 左侧缩略图
-  Widget _thumb(item){
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(8),
-      child: Image.network('${item['cover']['url']}',width: ScreenAdapter.width(200),height: ScreenAdapter.height(220),fit: BoxFit.cover,),
-    );
-  }
-  // 中间信息区域
-  Widget _info(item){
-    return Expanded(
-      child: Container(
-        constraints: BoxConstraints(
-          minHeight: ScreenAdapter.height(220)
-        ),
-        child: Column(
-          children: <Widget>[
-            Container(
-              alignment: Alignment.centerLeft,
-              margin: EdgeInsets.only(bottom: ScreenAdapter.height(10)),
-              child: Text('${item['title']}',maxLines: 1,overflow: TextOverflow.ellipsis,style: TextStyle(fontSize: 20,fontWeight: FontWeight.w400)),
-            ),
-            Row(
-              children: <Widget>[
-                RatingBarIndicator(
-                  rating:item['rating']['value'] / 2,
-                  alpha:0,
-                  unratedColor:Colors.grey,
-                  itemPadding: EdgeInsets.all(0),
-                  itemBuilder: (context, index) => Icon(
-                      Icons.star,
-                      color: Colors.amber,
-                  ),
-                  itemCount: 5,
-                  itemSize: 11,
-                ),
-                SizedBox(width: ScreenAdapter.width(15)),
-                Text('${item['rating']['value']}',style: TextStyle(color: Colors.grey,fontSize: 12))
-              ],
-            ),
-            SizedBox(height: ScreenAdapter.width(15)),
-            Text('${item['card_subtitle']}',maxLines: 3,overflow: TextOverflow.ellipsis,style: TextStyle(color: Colors.grey,fontSize: 12))
-          ],
-        ),
-      ), 
-    );
-  }
- // 右侧操作区域
-  Widget _actions(item){
-    return Container(
-      height: ScreenAdapter.height(180),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          GestureDetector(
-            onTap: (){
-
-            },
-            child: Column(
-              children: <Widget>[
-                GestureDetector(
-                  onTap: (){
-                  },
-                  child: Image.network('http://cdn.jahnli.cn/favorite.png',width: ScreenAdapter.width(40))
-                ),
-                SizedBox(height: ScreenAdapter.height(10)),
-                Text('想看',style: TextStyle(fontSize: 12,color: Colors.orange))
-              ],
-            ),
-          ),
-        ],
-      )
-    );
-  }
   // 头部操作
   Widget _headActions(){
     return Container(

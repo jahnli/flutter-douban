@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_douban/weiget/top_list.dart';
+import 'package:flutter_douban/views/doubanTop/douban_top_list_detail.dart';
 class WeekPraise extends StatefulWidget {
   @override
   _WeekPraiseState createState() => _WeekPraiseState();
@@ -69,12 +69,11 @@ class _WeekPraiseState extends State<WeekPraise> {
   
   @override
   Widget build(BuildContext context) {
-    return TopList(
+    return DoubanTopListDetail(
       data:_weekPraise,
       filterList: _dateList,
       currentFilterCondition: _currentFilterDate,
       cb:(index)=> filterHandle(index),
-      requestStatus: _requestStatus,
       filterDescChar:'更新时间',
       footerFieldType:'evaluate'
     );

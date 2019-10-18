@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_douban/views/tabs/book_movie/movie/doubanTop/movie.dart';
+import 'package:flutter_douban/views/doubanTop/movie.dart';
 
-class DoubanTop extends StatefulWidget {
+class DoubanTopTabs extends StatefulWidget {
   @override
-  _DoubanTopState createState() => _DoubanTopState();
+  _DoubanTopTabsState createState() => _DoubanTopTabsState();
 }
 
 
-class _DoubanTopState extends State<DoubanTop> with SingleTickerProviderStateMixin{
+class _DoubanTopTabsState extends State<DoubanTopTabs> with SingleTickerProviderStateMixin{
 
   // tab控制器
   TabController _tabController;
@@ -23,8 +23,8 @@ class _DoubanTopState extends State<DoubanTop> with SingleTickerProviderStateMix
 
   @override
   void dispose() {
-    super.dispose();
     _tabController.dispose();
+    super.dispose();
   }
 
   @override
@@ -37,6 +37,7 @@ class _DoubanTopState extends State<DoubanTop> with SingleTickerProviderStateMix
       ),
       child: Scaffold(
         appBar: AppBar(
+          elevation: 0,
           title: Text('豆瓣榜单',style: TextStyle(fontSize: 20)),
           backgroundColor: Colors.white,
           textTheme: TextTheme(

@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_douban/weiget/top_list.dart';
+import 'package:flutter_douban/views/doubanTop/douban_top_list_detail.dart';
 
 class Top250 extends StatefulWidget {
   @override
@@ -19,7 +19,7 @@ class _Top250State extends State<Top250> {
   int _currentFilter = 0;
 
   @override
-  void initState() { 
+  void initState() {
     super.initState();
     _getTopList();
   }
@@ -51,12 +51,11 @@ class _Top250State extends State<Top250> {
   
   @override
   Widget build(BuildContext context) {
-    return TopList(
+    return DoubanTopListDetail(
       data:_top250,
       filterList: _topList,
       currentFilterCondition: _currentFilter,
       cb:(index)=> filterHandle(index),
-      requestStatus: _requestStatus,
       filterDescChar: 'Top',
       footerFieldType:'desc'
     );
