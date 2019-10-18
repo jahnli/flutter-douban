@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_douban/views/doubanTop/douban_top_tabs.dart';
 import 'package:flutter_douban/views/tabs/book_movie/movie/movieHotDetail/movie_hot_detail.dart';
 import 'package:flutter_douban/views/tabs/book_movie/movie/movieShow/theatricalFilm/theatrical_film.dart';
-import 'package:flutter_douban/views/tabs/book_movie/movie/movieTop/movie_top_detail.dart';
+import 'package:flutter_douban/views/tabs/book_movie/movie/movieTopDetail/movie_top_detail.dart';
 import 'package:flutter_douban/views/tabs/book_movie/movie_detail/movie_detail.dart';
 import 'package:flutter_douban/views/tabs/tabs.dart';
 
