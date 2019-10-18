@@ -29,7 +29,6 @@ class _ComingSoonState extends State<ComingSoon> with AutomaticKeepAliveClientMi
   int _start = 0;
   // 总数量
   int _total = 0;
-  String _requestStatus = '';
 
   // 筛选
   String _sort = '';
@@ -91,14 +90,12 @@ class _ComingSoonState extends State<ComingSoon> with AutomaticKeepAliveClientMi
           }
           _comingSoonList.addAll(temp); 
           _total = res.data['total'];
-          _requestStatus = '获取即将上映数据成功';
         });
       }
     }
     catch (e) {
       print(e);
       setState(() {
-        _requestStatus = '获取即将上映数据失败'; 
       });
     }
 
@@ -200,7 +197,7 @@ class _ComingSoonState extends State<ComingSoon> with AutomaticKeepAliveClientMi
             ),
           )
         ],
-      ):BaseLoading(type: _requestStatus)
+      ):BaseLoading()
     );
   }
 
@@ -246,7 +243,6 @@ class _ComingSoonState extends State<ComingSoon> with AutomaticKeepAliveClientMi
                     _alignment = Alignment.centerLeft; 
                     _start = 0;
                     _comingSoonList = [];
-                    _requestStatus = '';
                     _sort = '';
                     _dateList = [];
                   });
@@ -259,7 +255,6 @@ class _ComingSoonState extends State<ComingSoon> with AutomaticKeepAliveClientMi
                   setState(() {
                     _start = 0;
                     _comingSoonList = [];
-                    _requestStatus = '';
                     _dateList = [];
                     _sort = 'wish';
                     _alignment = Alignment.centerRight; 

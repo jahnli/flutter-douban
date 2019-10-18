@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_douban/routes/application.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
-import 'package:flutter_douban/weiget/film_item.dart';
 import 'package:flutter_douban/weiget/grid_view.dart';
 
 class MovieShow extends StatefulWidget {

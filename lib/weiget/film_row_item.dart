@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_douban/model/home/movieShow.dart';
 import 'package:flutter_douban/model/theatricalFimeList/theatricalFimeList.dart';
 import 'package:flutter_douban/routes/application.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
@@ -8,7 +9,8 @@ class FilmRowItem extends StatefulWidget {
 
   Map data;
   int index;
-  FilmRowItem(this.data,{this.index = 0});
+  int dataType;
+  FilmRowItem(this.data,{this.index = 0,this.dataType = 1});
 
   @override
   _FilmRowItemState createState() => _FilmRowItemState();
@@ -16,12 +18,12 @@ class FilmRowItem extends StatefulWidget {
 
 class _FilmRowItemState extends State<FilmRowItem> {
 
-  TheatricalFimeListModelSubjects _data;
+  var _data;
 
   @override
   void initState() { 
     super.initState();
-    _data = TheatricalFimeListModelSubjects.fromJson(widget.data);
+    _data = widget.dataType == 1 ? _data = TheatricalFimeListModelSubjects.fromJson(widget.data) :MovieShowModelDataSubjectCollectionBoardsItems .fromJson(widget.data);
   }
 
   @override
@@ -61,7 +63,7 @@ class _FilmRowItemState extends State<FilmRowItem> {
   // 左侧缩略图
   Widget _thumb(){
     return ClipRRect(
-      child: Image.network('${_data.pic.normal}', height:ScreenAdapter.height(230),width: ScreenAdapter.width(170),fit: BoxFit.cover),
+      child: Image.network('${ widget.dataType == 1 ? _data.pic.normal:_data.cover.url}', height:ScreenAdapter.height(230),width: ScreenAdapter.width(170),fit: BoxFit.cover),
       borderRadius: BorderRadius.circular(5),
     );
   }
@@ -117,7 +119,7 @@ class _FilmRowItemState extends State<FilmRowItem> {
             ),
           ),
           SizedBox(height: ScreenAdapter.height(10)),
-          Text('${_data.wishCount}人看过',style: TextStyle(fontSize: 10,color: Colors.grey))
+          widget.dataType == 1 ? Text('${_data.wishCount}人看过',style: TextStyle(fontSize: 10,color: Colors.grey)):Container()
         ],
       )
     );

@@ -92,7 +92,7 @@ class _MovieTopState extends State<MovieTop> {
                 },
                 child: Container(
                   margin: EdgeInsets.only(left: ScreenAdapter.width(30)),
-                  child: _weekMovie !=null  ? _item(_weekMovie,'weekMovie'):BaseLoading(type:_requestStatus),
+                  child: _weekMovie !=null  ? _item(_weekMovie,'weekMovie'):BaseLoading(),
                 ),
               ),
               GestureDetector(
@@ -101,7 +101,7 @@ class _MovieTopState extends State<MovieTop> {
                 },
                 child: Container(
                   margin: EdgeInsets.only(left: ScreenAdapter.width(30)),
-                  child:  _topMovie !=null  ? _item(_topMovie,'topMovie'):BaseLoading(type:_requestStatus),
+                  child:  _topMovie !=null  ? _item(_topMovie,'topMovie'):BaseLoading(),
                 ),
               ),
               GestureDetector(
@@ -110,12 +110,12 @@ class _MovieTopState extends State<MovieTop> {
                 },
                 child: Container(
                   margin: EdgeInsets.only(left: ScreenAdapter.width(30),right: ScreenAdapter.width(30)),
-                  child: _hotMovie  !=null  ? _item(_hotMovie,'hotMovie'):BaseLoading(type:_requestStatus),
+                  child: _hotMovie  !=null  ? _item(_hotMovie,'hotMovie'):BaseLoading(),
                 ),
               ),
             ],
           ),
-        ):BaseLoading(type: _requestStatus)
+        ):BaseLoading()
       ],
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_douban/routes/application.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
 
 class RowTitle extends StatelessWidget {
@@ -19,7 +20,7 @@ class RowTitle extends StatelessWidget {
           Text('$title',style: TextStyle(fontSize: 22,fontWeight: FontWeight.w600)),
           GestureDetector(
             onTap: (){
-              
+              Application.router.navigateTo(context, url);
             },
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,

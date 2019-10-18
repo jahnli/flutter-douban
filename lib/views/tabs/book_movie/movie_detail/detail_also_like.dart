@@ -66,7 +66,7 @@ class _DetailAlsoLikeState extends State<DetailAlsoLike> {
             title: Text('喜欢这部电影的也喜欢',style: TextStyle(color: _baseTextColor,fontSize: 20)),
             trailing: Icon(Icons.keyboard_arrow_right,color: _baseTextColor,size: 28),
           ),
-          _alsoLikeList.length > 0 ? _item(_alsoLikeList):BaseLoading(type:_requestStatus),
+          _alsoLikeList.length > 0 ? _item(_alsoLikeList):BaseLoading(),
         ],
       ),
     );

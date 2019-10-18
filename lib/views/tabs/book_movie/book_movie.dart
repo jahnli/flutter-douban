@@ -34,6 +34,7 @@ class _BookMoviePageState extends State<BookMoviePage> with SingleTickerProvider
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
+        elevation: 0,
         brightness: Brightness.light,
         bottom: TabBar(
           labelColor:Colors.black,

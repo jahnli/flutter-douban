@@ -190,7 +190,7 @@ class _TopListState extends State<TopList> {
             ),
           ],
         )
-      ):BaseLoading(type: widget.requestStatus),
+      ):BaseLoading(),
     ); 
   }
 

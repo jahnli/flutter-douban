@@ -95,7 +95,7 @@ class _MovieGuideState extends State<MovieGuide> with AutomaticKeepAliveClientMi
         ],
       ),
     ):Center(
-      child: BaseLoading(type: _requestStatus),
+      child: BaseLoading(),
     );
   }
 

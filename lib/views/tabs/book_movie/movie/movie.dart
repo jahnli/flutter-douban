@@ -83,7 +83,11 @@ class _MoviePageState extends State<MoviePage> with AutomaticKeepAliveClientMixi
     data = data['subject_collection_boards'][0];
     return Column(
       children: <Widget>[
-        RowTitle(title: '豆瓣热门',count: data['subject_collection']['subject_count']),
+        RowTitle(
+          title: '豆瓣热门',
+          count: data['subject_collection']['subject_count'],
+          url:'/movieHotDetail'
+        ),
         GridViewItems(
           data: data['items'],
           itemCount: 6,

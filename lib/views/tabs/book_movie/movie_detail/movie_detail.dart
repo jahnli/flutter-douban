@@ -212,7 +212,7 @@ class _MovieDetailState extends State<MovieDetail> with TickerProviderStateMixin
         ),
         brightness: Brightness.light,
       ),
-      body: BaseLoading(type: _requestStatus),
+      body: BaseLoading(),
     );
   }
   // 内容区域

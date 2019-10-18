@@ -185,7 +185,7 @@ class _DoubanTopMovieState extends State<DoubanTopMovie> with AutomaticKeepAlive
               DefaultTopItem(_hotTop),
               DefaultTopItem(_top250,showTrend:false),
             ],
-          ):BaseLoading(type: _requestStatus),
+          ):BaseLoading(),
           // 豆瓣年度榜单
           _requestYearTopStatus.isNotEmpty ?  Column(
             children: <Widget>[
@@ -207,7 +207,7 @@ class _DoubanTopMovieState extends State<DoubanTopMovie> with AutomaticKeepAlive
               YearTopItem(_yearTop['highRateForeignMovie'],'评分最高外语电影','评分最高'),
               YearTopItem(_yearTop['notInPopular'],'年度最佳冷片','年度电影'),
             ],
-          ):BaseLoading(type: _requestYearTopStatus),
+          ):BaseLoading(),
           // 高分榜
           Container(
             alignment: Alignment.centerLeft,
