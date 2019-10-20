@@ -34,7 +34,7 @@ class _FilmItemState extends State<FilmItem> {
         child: Column(
           children: <Widget>[
             ClipRRect(
-              child: Image.network('${_item.cover.url}',width: double.infinity,height:ScreenAdapter.height(Configs.thumbHeight),fit: BoxFit.fill),
+              child: Image.network('${_item.cover.url}',width: double.infinity,height:ScreenAdapter.height(Configs.thumbHeight()),fit: BoxFit.fill),
               borderRadius: BorderRadius.circular(5),
             ),
             Container(

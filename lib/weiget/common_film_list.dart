@@ -14,6 +14,8 @@ class CommonFilmList extends StatefulWidget {
   bool enablePullDown;
   int dataType;
   Widget headWidget;
+  String thumbHeight;
+
   CommonFilmList({
     @required this.dataList,
     this.onRefresh,
@@ -21,7 +23,8 @@ class CommonFilmList extends StatefulWidget {
     this.enablePullDown = true,
     this.enablePullUp = true,
     this.dataType = 1,
-    this.headWidget
+    this.headWidget,
+    this.thumbHeight = 'default'
   });
 
 
@@ -69,7 +72,11 @@ class _CommonFilmListState extends State<CommonFilmList> {
               shrinkWrap: true, 
               physics: NeverScrollableScrollPhysics(),
               itemBuilder: (context,index){
-                return FilmRowItem(widget.dataList[index],dataType:widget.dataType);
+                return FilmRowItem(
+                  widget.dataList[index],
+                  dataType:widget.dataType,
+                  thumbHeight: widget.thumbHeight,
+                );
               },
               itemCount: widget.dataList.length,
             )

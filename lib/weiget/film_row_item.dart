@@ -11,7 +11,8 @@ class FilmRowItem extends StatefulWidget {
   Map data;
   int index;
   int dataType;
-  FilmRowItem(this.data,{this.index = 0,this.dataType = 1});
+  String thumbHeight;
+  FilmRowItem(this.data,{this.index = 0,this.dataType = 1,this.thumbHeight = 'default'});
 
   @override
   _FilmRowItemState createState() => _FilmRowItemState();
@@ -64,7 +65,7 @@ class _FilmRowItemState extends State<FilmRowItem> {
   // 左侧缩略图
   Widget _thumb(){
     return ClipRRect(
-      child: Image.network('${ widget.dataType == 1 ? _data.pic.normal:_data.cover.url}',height:ScreenAdapter.height(Configs.thumbHeight),width: ScreenAdapter.width(170),fit: BoxFit.fill),
+      child: Image.network('${ widget.dataType == 1 ? _data.pic.normal:_data.cover.url}',height:ScreenAdapter.height(Configs.thumbHeight(size: widget.thumbHeight)),width: ScreenAdapter.width(170),fit: BoxFit.fill),
       borderRadius: BorderRadius.circular(5),
     );
   }
@@ -76,7 +77,7 @@ class _FilmRowItemState extends State<FilmRowItem> {
         style: TextStyle(fontSize: 13,color: Colors.grey),
         child: Container(
           constraints: BoxConstraints(
-            minHeight: ScreenAdapter.height(Configs.thumbHeight)
+            minHeight: ScreenAdapter.height(Configs.thumbHeight(size: widget.thumbHeight))
           ),
           child: Column(
             children: <Widget>[
@@ -100,7 +101,7 @@ class _FilmRowItemState extends State<FilmRowItem> {
   // 右侧操作区域
   Widget _actions(){
     return Container(
-      height: ScreenAdapter.height(Configs.thumbHeight),
+      height: ScreenAdapter.height(Configs.thumbHeight(size: widget.thumbHeight)),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
