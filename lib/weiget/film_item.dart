@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_douban/model/home/movieShow.dart';
 import 'package:flutter_douban/routes/application.dart';
+import 'package:flutter_douban/utils/configs.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
 import 'package:flutter_douban/weiget/base_grade.dart';
 
@@ -35,7 +36,7 @@ class _FilmItemState extends State<FilmItem> {
             ClipRRect(
               child: Image.network('${_item.cover.url}',
               width: double.infinity,
-              height:ScreenAdapter.height(300),fit: BoxFit.fill),
+              height:ScreenAdapter.height(Configs.thumbHeight),fit: BoxFit.fill),
               borderRadius: BorderRadius.circular(5),
             ),
             Container(

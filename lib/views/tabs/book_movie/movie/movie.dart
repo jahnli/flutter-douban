@@ -53,20 +53,24 @@ class _MoviePageState extends State<MoviePage> with AutomaticKeepAliveClientMixi
 
   @override
   Widget build(BuildContext context) {
-    return _homeData.length >  0 ? ListView(
-      children: <Widget>[
-        SizedBox(height: ScreenAdapter.height(30)),
-        // 分类
-        _marginContainer(_homeCategory()),
-        // 今日播放
-        _marginContainer(_todayPlay != null ? _homeTodayPlay():Container()),
-        // 影院热映
-        _marginContainer(MovieShow(_homeData[4],_homeData[5])),
-        // 豆瓣热门
-        _marginContainer(_doubanHot(_homeData[7]['data'])),
-        // 豆瓣榜单
-        _marginContainer(_doubanTopList(_homeData[9]['data']))
-      ],
+    return _homeData.length >  0 ? Container(
+      margin: EdgeInsets.fromLTRB(ScreenAdapter.height(30), 0, ScreenAdapter.height(30),0),
+      child: ListView(
+        children: <Widget>[
+          SizedBox(height: ScreenAdapter.height(30)),
+          // 分类
+          _homeCategory(),
+          SizedBox(height: ScreenAdapter.height(30)),
+          // 今日播放
+          _todayPlay != null ? _homeTodayPlay():Container(),
+          // 影院热映
+          MovieShow(_homeData[4],_homeData[5]),
+          // 豆瓣热门
+          _doubanHot(_homeData[7]['data']),
+          // 豆瓣榜单
+          _doubanTopList(_homeData[9]['data'])
+        ],
+      )
     ):Container();
   }
   // 构建豆瓣榜单
@@ -93,13 +97,6 @@ class _MoviePageState extends State<MoviePage> with AutomaticKeepAliveClientMixi
           itemCount: 6,
         )
       ],
-    );
-  }
-  // 边距容器
-  Widget _marginContainer(child){
-    return Container(
-      margin: EdgeInsets.fromLTRB(ScreenAdapter.height(30), ScreenAdapter.height(0), ScreenAdapter.height(30), ScreenAdapter.height(30)),
-      child: child,
     );
   }
   // 构建首页分类

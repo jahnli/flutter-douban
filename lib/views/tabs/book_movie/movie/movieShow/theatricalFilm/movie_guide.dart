@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_douban/routes/application.dart';
+import 'package:flutter_douban/utils/configs.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
 import 'package:flutter_douban/weiget/base_loading.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -102,7 +103,7 @@ class _MovieGuideState extends State<MovieGuide> with AutomaticKeepAliveClientMi
   // 左侧缩略图
   Widget _thumb(item){
     return ClipRRect(
-      child: Image.network('${item['cover']['url']}', height:ScreenAdapter.height(230),width: ScreenAdapter.width(170),fit: BoxFit.cover),
+      child: Image.network('${item['cover']['url']}', height:ScreenAdapter.height(Configs.thumbHeight),width: ScreenAdapter.width(170),fit: BoxFit.cover),
       borderRadius: BorderRadius.circular(5),
     );
      
@@ -112,7 +113,7 @@ class _MovieGuideState extends State<MovieGuide> with AutomaticKeepAliveClientMi
     return Expanded(
       child: Container(
         constraints: BoxConstraints(
-          minHeight: ScreenAdapter.height(230)
+          minHeight: ScreenAdapter.height(Configs.thumbHeight)
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

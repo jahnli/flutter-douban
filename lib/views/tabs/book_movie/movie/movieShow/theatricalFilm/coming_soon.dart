@@ -142,10 +142,10 @@ class _ComingSoonState extends State<ComingSoon> with AutomaticKeepAliveClientMi
             pinned: true,
             delegate: SliverHeaderDelegate(
               PreferredSize(
-                preferredSize: Size.fromHeight(40),
+                preferredSize: Size.fromHeight(60),
                 child: Container(
                   color: Colors.white,
-                  height: ScreenAdapter.height(90),
+                  height: ScreenAdapter.height(120),
                   padding: EdgeInsets.only(left: ScreenAdapter.width(30),right:ScreenAdapter.width(30)),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

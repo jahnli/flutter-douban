@@ -10,11 +10,12 @@ class GridViewItems extends StatelessWidget {
   double height;
   int itemCount;
   int currentType;
-  GridViewItems({this.currentType = 1,this.itemCount,this.height = 480,this.crossAxisCount = 3,this.crossAxisSpacing:10,this.data});
+  GridViewItems({this.currentType = 1,this.itemCount,this.height = 380,this.crossAxisCount = 3,this.crossAxisSpacing:10,this.data});
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.all(0),
       child: GridView.builder(
         shrinkWrap: true,
         physics:NeverScrollableScrollPhysics() ,
@@ -25,7 +26,7 @@ class GridViewItems extends StatelessWidget {
           //横轴间距
           crossAxisSpacing: crossAxisSpacing,
           //子组件宽高长度比例
-          childAspectRatio: ScreenAdapter.getScreenWidth() / crossAxisCount /  ScreenAdapter.height(height)
+          childAspectRatio: (ScreenAdapter.getScreenWidth() / crossAxisCount ) /  ScreenAdapter.height(height)
         ),
         itemBuilder: (context,index){
            return FilmItem(data[index],currentType: currentType,);

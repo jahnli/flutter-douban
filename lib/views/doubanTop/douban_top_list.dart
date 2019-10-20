@@ -11,7 +11,7 @@ class DoubanTopList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: ScreenAdapter.height(450),
+      height: ScreenAdapter.height(420),
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: dataList.asMap().keys.map((index){
@@ -62,7 +62,7 @@ class DoubanTopList extends StatelessWidget {
             ),
           ),
           Container(
-            height: ScreenAdapter.height(270),
+            height: ScreenAdapter.height(200),
             padding: EdgeInsets.all(ScreenAdapter.width(30)),
             child: Column(
               children: data['items'].asMap().keys.map<Widget>((index){

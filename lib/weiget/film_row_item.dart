@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_douban/model/home/movieShow.dart';
 import 'package:flutter_douban/model/theatricalFimeList/theatricalFimeList.dart';
 import 'package:flutter_douban/routes/application.dart';
+import 'package:flutter_douban/utils/configs.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
 import 'package:flutter_douban/weiget/base_grade.dart';
 
@@ -63,7 +64,7 @@ class _FilmRowItemState extends State<FilmRowItem> {
   // 左侧缩略图
   Widget _thumb(){
     return ClipRRect(
-      child: Image.network('${ widget.dataType == 1 ? _data.pic.normal:_data.cover.url}', height:ScreenAdapter.height(230),width: ScreenAdapter.width(170),fit: BoxFit.cover),
+      child: Image.network('${ widget.dataType == 1 ? _data.pic.normal:_data.cover.url}', height:ScreenAdapter.height(Configs.thumbHeight),width: ScreenAdapter.width(170),fit: BoxFit.cover),
       borderRadius: BorderRadius.circular(5),
     );
   }
@@ -75,7 +76,7 @@ class _FilmRowItemState extends State<FilmRowItem> {
         style: TextStyle(fontSize: 13,color: Colors.grey),
         child: Container(
           constraints: BoxConstraints(
-            minHeight: ScreenAdapter.height(240)
+            minHeight: ScreenAdapter.height(Configs.thumbHeight)
           ),
           child: Column(
             children: <Widget>[
@@ -99,7 +100,7 @@ class _FilmRowItemState extends State<FilmRowItem> {
   // 右侧操作区域
   Widget _actions(){
     return Container(
-      height: ScreenAdapter.height(230),
+      height: ScreenAdapter.height(Configs.thumbHeight),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[

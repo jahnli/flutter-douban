@@ -14,18 +14,24 @@ class _BookMoviePageState extends State<BookMoviePage> with SingleTickerProvider
   // tabcontroller
   TabController _tabController;
   // 
-  List _tabsList = [ '电影','电视','读书','原创小说','音乐','同城'];
+  List<String> _tabsList = [ '电影','电视','读书','原创小说','音乐','同城'];
 
 
   @override
   void initState() { 
     super.initState();
     _tabController = TabController(length: _tabsList.length,vsync: this);
-     if (Platform.isAndroid) {
+    if (Platform.isAndroid) {
      // 以下两行 设置android状态栏为透明的沉浸。写在组件渲染之后，是为了在渲染后进行set赋值，覆盖状态栏，写在渲染之前MaterialApp组件会覆盖掉这个值。
       SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(statusBarColor: Colors.transparent);
       SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
     }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _tabController.dispose();
   }
 
   @override
@@ -38,6 +44,7 @@ class _BookMoviePageState extends State<BookMoviePage> with SingleTickerProvider
         brightness: Brightness.light,
         bottom: TabBar(
           labelColor:Colors.black,
+          labelStyle: TextStyle(fontSize: 16),
           indicatorColor: Colors.black,
           unselectedLabelColor: Colors.black45,
           controller: _tabController,
