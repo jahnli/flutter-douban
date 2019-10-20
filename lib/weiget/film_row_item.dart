@@ -64,7 +64,7 @@ class _FilmRowItemState extends State<FilmRowItem> {
   // 左侧缩略图
   Widget _thumb(){
     return ClipRRect(
-      child: Image.network('${ widget.dataType == 1 ? _data.pic.normal:_data.cover.url}', height:ScreenAdapter.height(Configs.thumbHeight),width: ScreenAdapter.width(170),fit: BoxFit.cover),
+      child: Image.network('${ widget.dataType == 1 ? _data.pic.normal:_data.cover.url}',height:ScreenAdapter.height(Configs.thumbHeight),width: ScreenAdapter.width(170),fit: BoxFit.fill),
       borderRadius: BorderRadius.circular(5),
     );
   }
