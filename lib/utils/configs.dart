@@ -11,7 +11,7 @@ class Configs{
         return 260.0;
         break;
       case 'small':
-        return 180.0;
+        return 190.0;
         break;
       default:
     }
