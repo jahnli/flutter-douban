@@ -40,7 +40,8 @@ class DoubanTopList extends StatelessWidget {
       ),
       child: Column(
         children: <Widget>[
-          Stack(
+          Expanded(
+            child: Stack(
               children: <Widget>[
                 Opacity(
                   opacity: 0.6,
@@ -60,6 +61,7 @@ class DoubanTopList extends StatelessWidget {
                 )
               ],
             ),
+          ),
           Container(
             padding: EdgeInsets.all(ScreenAdapter.width(30)),
             child: Column(
