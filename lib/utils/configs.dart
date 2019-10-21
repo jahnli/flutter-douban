@@ -4,11 +4,11 @@ class Configs{
 
   static thumbHeight ({size:'default'}){
     switch (size) {
-      case 'default':
+      case 'large':
         return 230.0;
         break;
-      case 'large':
-        return 260.0;
+      case 'default':
+        return 210.0;
         break;
       case 'small':
         return 190.0;

@@ -30,7 +30,7 @@ class _FilmItemState extends State<FilmItem> {
     MovieShowModelDataSubjectCollectionBoardsItems _item = MovieShowModelDataSubjectCollectionBoardsItems.fromJson(widget.item);
     return GestureDetector(
       onTap: (){
-        Application.router.navigateTo(context, '/movieDetail?id=${_item.id}&type=${widget.currentType}');
+        Application.router.navigateTo(context, '/filmDetail?id=${_item.id}&type=${widget.currentType}');
       },
       child: Container(
         child: Column(

@@ -99,6 +99,7 @@ class _MoviePageState extends State<MoviePage> with AutomaticKeepAliveClientMixi
         GridViewItems(
           data: data['items'],
           itemCount: 6,
+          thumbHeight: 'large',
         )
       ],
     );

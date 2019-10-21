@@ -71,7 +71,8 @@ class _MovieShowState extends State<MovieShow> {
       data:data ,
       height: _currentType == 1 ? 380:420,
       itemCount:6,
-      currentType:_currentType
+      currentType:_currentType,
+      thumbHeight: 'large',
     );
   }
 

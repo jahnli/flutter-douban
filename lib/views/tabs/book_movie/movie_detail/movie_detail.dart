@@ -256,7 +256,7 @@ class _MovieDetailState extends State<MovieDetail> with TickerProviderStateMixin
         child: TabBarView(
           controller: _tabController,
           children: <Widget>[
-           DetailComment(widget.movieId, _bottomSheetController,setMovieCommentCount:(count)=> _setMovieCommentCount(count)),
+            DetailComment(widget.movieId, _bottomSheetController,setMovieCommentCount:(count)=> _setMovieCommentCount(count)),
             Text('data'),
           ],
         ),
