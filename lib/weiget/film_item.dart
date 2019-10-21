@@ -9,8 +9,10 @@ class FilmItem extends StatefulWidget {
 
   Map item;
   int currentType;
+  String thumbHeight;
 
-  FilmItem(this.item,{this.currentType = 1});
+
+  FilmItem(this.item,{this.currentType = 1,this.thumbHeight = 'default'});
 
   @override
   _FilmItemState createState() => _FilmItemState();
@@ -34,7 +36,7 @@ class _FilmItemState extends State<FilmItem> {
         child: Column(
           children: <Widget>[
             ClipRRect(
-              child: Image.network('${_item.cover.url}',width: double.infinity,height:ScreenAdapter.height(Configs.thumbHeight()),fit: BoxFit.fill),
+              child: Image.network('${_item.cover.url}',width: double.infinity,height:ScreenAdapter.height(Configs.thumbHeight(size: widget.thumbHeight)),fit: BoxFit.fill),
               borderRadius: BorderRadius.circular(5),
             ),
             Container(

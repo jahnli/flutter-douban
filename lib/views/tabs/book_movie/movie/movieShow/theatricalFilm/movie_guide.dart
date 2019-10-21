@@ -103,7 +103,7 @@ class _MovieGuideState extends State<MovieGuide> with AutomaticKeepAliveClientMi
   // 左侧缩略图
   Widget _thumb(item){
     return ClipRRect(
-      child: Image.network('${item['cover']['url']}', height:ScreenAdapter.height(Configs.thumbHeight()),width: ScreenAdapter.width(170),fit: BoxFit.cover),
+      child: Image.network('${item['cover']['url']}', height:ScreenAdapter.height(Configs.thumbHeight(size: 'small')),width: ScreenAdapter.width(170),fit: BoxFit.cover),
       borderRadius: BorderRadius.circular(5),
     );
      

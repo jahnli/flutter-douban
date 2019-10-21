@@ -63,12 +63,16 @@ class _MoviePageState extends State<MoviePage> with AutomaticKeepAliveClientMixi
           SizedBox(height: ScreenAdapter.height(30)),
           // 今日播放
           _todayPlay != null ? _homeTodayPlay():Container(),
+          SizedBox(height: ScreenAdapter.height(20)),
           // 影院热映
           MovieShow(_homeData[4],_homeData[5]),
+          SizedBox(height: ScreenAdapter.height(20)),
           // 豆瓣热门
           _doubanHot(_homeData[7]['data']),
+          SizedBox(height: ScreenAdapter.height(20)),
           // 豆瓣榜单
-          _doubanTopList(_homeData[9]['data'])
+          _doubanTopList(_homeData[9]['data']),
+          SizedBox(height: ScreenAdapter.height(30)),
         ],
       )
     ):Container();

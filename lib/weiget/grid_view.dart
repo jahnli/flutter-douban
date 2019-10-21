@@ -10,7 +10,17 @@ class GridViewItems extends StatelessWidget {
   double height;
   int itemCount;
   int currentType;
-  GridViewItems({this.currentType = 1,this.itemCount,this.height = 380,this.crossAxisCount = 3,this.crossAxisSpacing:10,this.data});
+  String thumbHeight;
+  
+  GridViewItems({
+    this.currentType = 1,
+    this.itemCount,
+    this.height = 380,
+    this.crossAxisCount = 3,
+    this.crossAxisSpacing:10,
+    this.data,
+    this.thumbHeight = 'default'
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +39,11 @@ class GridViewItems extends StatelessWidget {
           childAspectRatio: (ScreenAdapter.getScreenWidth() / crossAxisCount ) /  ScreenAdapter.height(height)
         ),
         itemBuilder: (context,index){
-           return FilmItem(data[index],currentType: currentType,);
+          return FilmItem(
+            data[index],
+            currentType: currentType,
+            thumbHeight: thumbHeight
+          );
         },
         itemCount: itemCount
       ),

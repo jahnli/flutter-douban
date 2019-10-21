@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_douban/routes/application.dart';
+import 'package:flutter_douban/utils/configs.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
 
 class DoubanTopList extends StatelessWidget {
@@ -11,7 +12,7 @@ class DoubanTopList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: ScreenAdapter.height(420),
+      height: ScreenAdapter.height(380),
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: dataList.asMap().keys.map((index){
@@ -39,13 +40,12 @@ class DoubanTopList extends StatelessWidget {
       ),
       child: Column(
         children: <Widget>[
-          Expanded(
-            child: Stack(
+          Stack(
               children: <Widget>[
                 Opacity(
                   opacity: 0.6,
                   child: ClipRRect(
-                      child: Image.network('${data['header_bg_image']}',width:  ScreenAdapter.width(450),height: ScreenAdapter.height(220),fit: BoxFit.cover),borderRadius: BorderRadius.only(topLeft: Radius.circular(8),topRight:Radius.circular(8))
+                      child: Image.network('${data['header_bg_image']}',width:  ScreenAdapter.width(450),height: ScreenAdapter.height(Configs.thumbHeight(size: 'small')),fit: BoxFit.cover),borderRadius: BorderRadius.only(topLeft: Radius.circular(8),topRight:Radius.circular(8))
                   ),
                 ),
                 Positioned(
@@ -60,11 +60,10 @@ class DoubanTopList extends StatelessWidget {
                 )
               ],
             ),
-          ),
           Container(
-            height: ScreenAdapter.height(200),
             padding: EdgeInsets.all(ScreenAdapter.width(30)),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: data['items'].asMap().keys.map<Widget>((index){
                 return Container(
                   margin: EdgeInsets.only(bottom: ScreenAdapter.height(5)),

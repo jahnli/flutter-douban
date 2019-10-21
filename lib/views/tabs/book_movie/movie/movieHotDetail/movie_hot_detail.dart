@@ -78,6 +78,7 @@ class _MovieHotDetailState extends State<MovieHotDetail> {
           dataType:2,
           dataList: _hotList,
           onLoading:()=>_onLoading(),
+          thumbHeight: 'small',
           enablePullDown: false,
           headWidget:Container(
             padding: EdgeInsets.only(top: ScreenAdapter.height(30)),
