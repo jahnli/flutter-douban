@@ -202,7 +202,7 @@ class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
             child:_related(),
           ),
           SliverToBoxAdapter(
-            child:SizedBox(height: ScreenAdapter.height(60)),
+            child:SizedBox(height: ScreenAdapter.height(80)),
           )
         ],
       )

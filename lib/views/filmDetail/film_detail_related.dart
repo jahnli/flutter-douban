@@ -43,7 +43,7 @@ class _FilmDetailRelatedState extends State<FilmDetailRelated> {
   @override
   Widget build(BuildContext context) {
     return _data!= null ? Container(
-      height: ScreenAdapter.height(600),
+      height: ScreenAdapter.height(640),
       child: ListView.builder(
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,
@@ -63,7 +63,7 @@ class _FilmDetailRelatedState extends State<FilmDetailRelated> {
   // 片单
   Widget _gather(FilmDetailRelatedModelDoulists item){
     return Container(
-      width:ScreenAdapter.getScreenWidth() / 4 - ScreenAdapter.width(40),
+      width:ScreenAdapter.width(170),
       margin: EdgeInsets.only(right: ScreenAdapter.width(20)),
       child: Column(
         children: <Widget>[
@@ -76,11 +76,11 @@ class _FilmDetailRelatedState extends State<FilmDetailRelated> {
               Positioned(
                 bottom: 0,
                 child: Container(
+                  padding: EdgeInsets.only(left: ScreenAdapter.width(5),right: ScreenAdapter.width(10)),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(3),
                     color: Color.fromRGBO(255, 64, 85, 1),
                   ),
-                  width: ScreenAdapter.width(70),
                   height: ScreenAdapter.height(30),
                   child: Row(
                     children: <Widget>[
@@ -109,7 +109,7 @@ class _FilmDetailRelatedState extends State<FilmDetailRelated> {
   // 喜欢的影片
   Widget _film(FilmDetailRelatedModelSubjects item){
     return  Container(
-      width:ScreenAdapter.getScreenWidth() / 4 - ScreenAdapter.width(40),
+      width:ScreenAdapter.width(170),
       margin: EdgeInsets.only(right: ScreenAdapter.width(20)),
       child: Column(
         children: <Widget>[
