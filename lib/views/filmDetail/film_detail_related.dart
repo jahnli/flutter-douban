@@ -5,7 +5,6 @@ import 'package:flutter_douban/netUtils/netUtils.dart';
 import 'package:flutter_douban/utils/configs.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
 import 'package:flutter_douban/weiget/base_grade.dart';
-import 'package:flutter_douban/weiget/film_item.dart';
 class FilmDetailRelated extends StatefulWidget {
   
   String movieId;
@@ -45,22 +44,73 @@ class _FilmDetailRelatedState extends State<FilmDetailRelated> {
   Widget build(BuildContext context) {
     return _data!= null ? Container(
       height: ScreenAdapter.height(600),
-      child: GridView.count(
-        crossAxisCount: _data.subjects.length,
-        children: _data.subjects.asMap().keys.map<Widget>((index){
+      child: ListView.builder(
+        shrinkWrap: true,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context,index){
           return Column(
             children: <Widget>[
-              _film(_data.subjects[index])
+              _film(_data.subjects[index]),
+              SizedBox(height: ScreenAdapter.height(20)),
+              _gather(_data.doulists[index]),
             ],
           );
-        }).toList(),
-      ),
+        },
+        itemCount: _data.subjects.length,
+      )
     ):Container();
   }
-
+  // 片单
+  Widget _gather(FilmDetailRelatedModelDoulists item){
+    return Container(
+      width:ScreenAdapter.getScreenWidth() / 4 - ScreenAdapter.width(40),
+      margin: EdgeInsets.only(right: ScreenAdapter.width(20)),
+      child: Column(
+        children: <Widget>[
+          Stack(
+            children: <Widget>[
+              ClipRRect(
+                child: Image.network('${item.coverUrl}',width: double.infinity,height:ScreenAdapter.height(Configs.thumbHeight(size: 'small')),fit: BoxFit.cover),
+                borderRadius: BorderRadius.circular(5),
+              ),
+              Positioned(
+                bottom: 0,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(3),
+                    color: Color.fromRGBO(255, 64, 85, 1),
+                  ),
+                  width: ScreenAdapter.width(70),
+                  height: ScreenAdapter.height(30),
+                  child: Row(
+                    children: <Widget>[
+                      Icon(Icons.play_arrow,size: 16,),
+                      Text('片单',style: TextStyle(fontSize: 12))
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
+          Container(
+            margin: EdgeInsets.only(top: ScreenAdapter.height(10),bottom: ScreenAdapter.height(10)),
+            alignment: Alignment.centerLeft,
+            child: Text('${item.title}',maxLines: 2,overflow: TextOverflow.ellipsis,style: TextStyle(fontWeight: FontWeight.w600)),
+          ),
+          Container(
+            margin: EdgeInsets.only(top: ScreenAdapter.height(10),bottom: ScreenAdapter.height(10)),
+            alignment: Alignment.centerLeft,
+            child: Text('看过 ${item.doneCount} / ${item.itemsCount}',maxLines: 1,overflow: TextOverflow.ellipsis,style: TextStyle(fontSize: 12)),
+          ),
+        ],
+      )
+    );
+  }
   // 喜欢的影片
   Widget _film(FilmDetailRelatedModelSubjects item){
     return  Container(
+      width:ScreenAdapter.getScreenWidth() / 4 - ScreenAdapter.width(40),
+      margin: EdgeInsets.only(right: ScreenAdapter.width(20)),
       child: Column(
         children: <Widget>[
           ClipRRect(

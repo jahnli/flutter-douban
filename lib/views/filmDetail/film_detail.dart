@@ -6,12 +6,14 @@ import 'package:flutter_douban/netUtils/netUtils.dart';
 import 'package:flutter_douban/utils/configs.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
 import 'package:flutter_douban/views/filmDetail/film_detail_actor.dart';
+import 'package:flutter_douban/views/filmDetail/film_detail_comment.dart';
 import 'package:flutter_douban/views/filmDetail/film_detail_grade.dart';
 import 'package:flutter_douban/views/filmDetail/film_detail_prevue.dart';
 import 'package:flutter_douban/views/filmDetail/film_detail_related.dart';
 import 'package:flutter_douban/views/filmDetail/film_detail_short_comments.dart';
 import 'package:flutter_douban/weiget/base_loading.dart';
 import 'package:flutter_douban/weiget/honor_infos.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:rubber/rubber.dart';
 class FilmDetail extends StatefulWidget {
 
@@ -43,6 +45,7 @@ class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
   int _actorTotal = 0;
   // 预告片数量
   int _prevueTotal = 0 ;
+
 
   @override
   void initState() { 
@@ -130,7 +133,7 @@ class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
                     indicatorSize: TabBarIndicatorSize.label,
                     tabs: <Widget>[
                       Tab(text: '影评 ${_data.reviewCount}'),
-                      Tab(text: '小组讨论 ${_data.forumTopicCount}'),
+                      Tab(text: '小组讨论 ${_data.ugcTabs[1].count}'),
                     ],
                   )
                 ],
@@ -148,7 +151,6 @@ class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
       ),
       body: BaseLoading(),
     );
-    
   }
 
 
@@ -172,7 +174,7 @@ class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
               movieId:_data.id,
               nullRatingReason:_data.nullRatingReason,
               isDark:_data.colorScheme.isDark,
-              rating:_data.rating.value,
+              rating:_data.rating.value.toInt(),
               rateCount: _data.rating.count,
             ),
           ),
@@ -233,7 +235,10 @@ class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
           controller: _tabController,
           children: <Widget>[
             // DetailComment(widget.movieId, _bottomSheetController,setMovieCommentCount:(count)=> _setMovieCommentCount(count),
-            Text('data'),
+            FilmDetailComment(
+              movieId: _data.id,
+              bottomSheetController: _bottomSheetController,
+            ),  
             Text('data'),
           ],
         ),

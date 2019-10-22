@@ -5,7 +5,7 @@ class FilmDetailModelTrailer {
 /*
 {
   "sharing_url": "https://www.douban.com/doubanapp/dispatch?uri=/movie/32659890/trailer%3Ftrailer_id%3D252949%26trailer_type%3DA",
-  "video_url": "http://vt1.doubanio.com/201910211236/b18f4fccbb12c733fb4be23101a60470/view/movie/M/402520949.mp4",
+  "video_url": "http://vt1.doubanio.com/201910222126/5c7b839777825ad068b54ea167b833cf/view/movie/M/402520949.mp4",
   "title": "预告片",
   "uri": "douban://douban.com/movie/32659890/trailer?trailer_id=252949&trailer_type=A",
   "cover_url": "https://img3.doubanio.com/img/trailer/medium/2569021040.jpg?",
@@ -217,7 +217,7 @@ class FilmDetailModelVideo {
 /*
 {
   "sharing_url": "https://www.douban.com/doubanapp/dispatch?uri=/movie/32659890/video%3Fvideo_id%3D104188%26video_type%3DA",
-  "video_url": "https://sv1.doubanio.com/201910211235/395d188628e79828e78b638f083bbf22/video/2019/M/401040188.mp4",
+  "video_url": "https://sv1.doubanio.com/201910222121/ed38b4cba7f8753a61b2f751ddf1a408/video/2019/M/401040188.mp4",
   "title": "《我和我的祖国》引领国庆档冲击30亿元",
   "author": {
     "loc": {
@@ -1133,31 +1133,46 @@ class FilmDetailModelWebviewInfo {
 class FilmDetailModelUgcTabs {
 /*
 {
-  "source": "reviews",
-  "type": "review",
-  "title": "影评"
+  "count": 1064,
+  "title": "小组讨论",
+  "uri": "douban://partial.douban.com/subject/32659890/group_topic/_content?group_id=668889",
+  "source": "小组讨论",
+  "type": "custom",
+  "id": "group"
 } 
 */
 
+  int count;
+  String title;
+  String uri;
   String source;
   String type;
-  String title;
+  String id;
 
   FilmDetailModelUgcTabs({
+    this.count,
+    this.title,
+    this.uri,
     this.source,
     this.type,
-    this.title,
+    this.id,
   });
   FilmDetailModelUgcTabs.fromJson(Map<String, dynamic> json) {
+    count = json["count"]?.toInt();
+    title = json["title"]?.toString();
+    uri = json["uri"]?.toString();
     source = json["source"]?.toString();
     type = json["type"]?.toString();
-    title = json["title"]?.toString();
+    id = json["id"]?.toString();
   }
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
+    data["count"] = count;
+    data["title"] = title;
+    data["uri"] = uri;
     data["source"] = source;
     data["type"] = type;
-    data["title"] = title;
+    data["id"] = id;
     return data;
   }
 }
@@ -1192,17 +1207,17 @@ class FilmDetailModelPic {
 class FilmDetailModelRating {
 /*
 {
-  "count": 419102,
+  "count": 423224,
   "max": 10,
   "star_count": 4,
-  "value": 8
+  "value": 7.9
 } 
 */
 
   int count;
   int max;
   int starCount;
-  int value;
+  double value;
 
   FilmDetailModelRating({
     this.count,
@@ -1214,7 +1229,7 @@ class FilmDetailModelRating {
     count = json["count"]?.toInt();
     max = json["max"]?.toInt();
     starCount = json["star_count"]?.toInt();
-    value = json["value"]?.toInt();
+    value = json["value"]?.toDouble();
   }
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
@@ -1230,10 +1245,10 @@ class FilmDetailModel {
 /*
 {
   "rating": {
-    "count": 419102,
+    "count": 423224,
     "max": 10,
     "star_count": 4,
-    "value": 8
+    "value": 7.9
   },
   "lineticket_url": "douban://douban.com/movie/32659890/ticket",
   "gallery_topic_count": 0,
@@ -1267,14 +1282,17 @@ class FilmDetailModel {
     "剧情"
   ],
   "can_interact": true,
-  "review_count": 1252,
+  "review_count": 1255,
   "title": "我和我的祖国",
   "has_linewatch": false,
   "ugc_tabs": [
     {
-      "source": "reviews",
-      "type": "review",
-      "title": "影评"
+      "count": 1064,
+      "title": "小组讨论",
+      "uri": "douban://partial.douban.com/subject/32659890/group_topic/_content?group_id=668889",
+      "source": "小组讨论",
+      "type": "custom",
+      "id": "group"
     }
   ],
   "forum_topic_count": 14,
@@ -1337,7 +1355,7 @@ class FilmDetailModel {
   "durations": [
     "155分钟"
   ],
-  "comment_count": 133796,
+  "comment_count": 140223,
   "cover": {
     "description": "",
     "author": {
@@ -1436,7 +1454,7 @@ class FilmDetailModel {
   "pre_release_desc": "",
   "video": {
     "sharing_url": "https://www.douban.com/doubanapp/dispatch?uri=/movie/32659890/video%3Fvideo_id%3D104188%26video_type%3DA",
-    "video_url": "https://sv1.doubanio.com/201910211235/395d188628e79828e78b638f083bbf22/video/2019/M/401040188.mp4",
+    "video_url": "https://sv1.doubanio.com/201910222121/ed38b4cba7f8753a61b2f751ddf1a408/video/2019/M/401040188.mp4",
     "title": "《我和我的祖国》引领国庆档冲击30亿元",
     "author": {
       "loc": {
@@ -1474,7 +1492,7 @@ class FilmDetailModel {
   "webisode_count": 0,
   "trailer": {
     "sharing_url": "https://www.douban.com/doubanapp/dispatch?uri=/movie/32659890/trailer%3Ftrailer_id%3D252949%26trailer_type%3DA",
-    "video_url": "http://vt1.doubanio.com/201910211236/b18f4fccbb12c733fb4be23101a60470/view/movie/M/402520949.mp4",
+    "video_url": "http://vt1.doubanio.com/201910222126/5c7b839777825ad068b54ea167b833cf/view/movie/M/402520949.mp4",
     "title": "预告片",
     "uri": "douban://douban.com/movie/32659890/trailer?trailer_id=252949&trailer_type=A",
     "cover_url": "https://img3.doubanio.com/img/trailer/medium/2569021040.jpg?",
