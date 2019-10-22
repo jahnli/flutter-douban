@@ -29,7 +29,6 @@ class _FilmDetailActorState extends State<FilmDetailActor> {
   }
 
   _getActor()async{
-
     try{
       Response res = await NetUtils.ajax('get', 'https://frodo.douban.com/api/v2/movie/${widget.movieId}/celebrities?os_rom=android&apikey=0dad551ec0f84ed02907ff5c42e8ec70&channel=Douban&udid=5440f7d1721c7ec5444c588d26ec3c6b26996bbd&_sig=siDiVxUb%2B%2Bda0ZHtvOe2WIY91cg%3D&_ts=1571710231');
       if(mounted){
@@ -75,7 +74,7 @@ class _FilmDetailActorState extends State<FilmDetailActor> {
             child: Column(
               children: <Widget>[
                 ClipRRect(
-                  child: Image.network('${_res[index]['url']}',width: ScreenAdapter.width(160),height:ScreenAdapter.height(Configs.thumbHeight(size: 'small')),fit: BoxFit.fill),
+                  child: Image.network('${_res[index]['url']}',width: ScreenAdapter.width(160),height:ScreenAdapter.height(Configs.thumbHeight(size: 'small')),fit: BoxFit.cover),
                   borderRadius: BorderRadius.circular(5),
                 ),
                 Container(

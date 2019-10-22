@@ -7,6 +7,9 @@ import 'package:flutter_douban/utils/configs.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
 import 'package:flutter_douban/views/filmDetail/film_detail_actor.dart';
 import 'package:flutter_douban/views/filmDetail/film_detail_grade.dart';
+import 'package:flutter_douban/views/filmDetail/film_detail_prevue.dart';
+import 'package:flutter_douban/views/filmDetail/film_detail_related.dart';
+import 'package:flutter_douban/views/filmDetail/film_detail_short_comments.dart';
 import 'package:flutter_douban/weiget/base_loading.dart';
 import 'package:flutter_douban/weiget/honor_infos.dart';
 import 'package:rubber/rubber.dart';
@@ -38,6 +41,8 @@ class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
   int _showMore = 4;
   // 演职员数量
   int _actorTotal = 0;
+  // 预告片数量
+  int _prevueTotal = 0 ;
 
   @override
   void initState() { 
@@ -179,15 +184,45 @@ class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
           SliverToBoxAdapter(
             child: _actor()
           ),
-          // 演职员
+          // 预告片
           SliverToBoxAdapter(
-            child:SizedBox(height: ScreenAdapter.height(50)),
+            child:_prevue(),
+          ),
+          // 短评
+          SliverToBoxAdapter(
+            child:FilmDetailShortComments(
+              movieId:_data.id,
+              isDark:_data.colorScheme.isDark,
+            ),
+          ),
+          // 喜欢这部电影的人也喜欢
+          SliverToBoxAdapter(
+            child:_related(),
+          ),
+          SliverToBoxAdapter(
+            child:SizedBox(height: ScreenAdapter.height(60)),
           )
         ],
       )
     );
   }
-
+  // 喜欢大这部电影的人也喜欢
+  Widget _related(){
+    return Container(
+      child: Column(
+        children: <Widget>[
+          _rowTitle(
+            title: '喜欢这部电影的人也喜欢',
+            rightDesc:'全部'
+          ),
+          FilmDetailRelated(
+            movieId: _data.id,
+            isDark:_data.colorScheme.isDark,
+          )
+        ],
+      ),
+    ); 
+  }
   // bottomSheet
   Widget _bottomSheet() {
     return DefaultTextStyle(
@@ -205,7 +240,27 @@ class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
       ),
     );
   }
-  
+  // 预告片
+  Widget _prevue(){
+    return Container(
+      child: Column(
+        children: <Widget>[
+          _rowTitle(
+            title: '预告片 / 剧照',
+            rightDesc:'全部 $_prevueTotal'
+          ),
+          FilmDetailPrevue(
+            movieId: _data.id,
+            setPrevueTotal:(total){
+              setState(() {
+               _prevueTotal = total; 
+              });
+            }
+          )
+        ],
+      ),
+    );
+  }
   // 演职员
   Widget _actor(){
     return Container(
@@ -363,7 +418,6 @@ class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
       ),
     );
   }
-
   // 想看 看过 按钮
   Widget _iconbtn(icon,text){
     return Expanded(
