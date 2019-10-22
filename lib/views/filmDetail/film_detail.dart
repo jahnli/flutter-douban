@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_douban/api/api_config.dart';
 import 'package:flutter_douban/model/filmDetail/film_detail_model.dart';
 import 'package:flutter_douban/netUtils/api.dart';
 import 'package:flutter_douban/netUtils/netUtils.dart';
 import 'package:flutter_douban/utils/configs.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
+import 'package:flutter_douban/views/filmDetail/film_detail_actor.dart';
 import 'package:flutter_douban/views/filmDetail/film_detail_grade.dart';
 import 'package:flutter_douban/weiget/base_loading.dart';
 import 'package:flutter_douban/weiget/honor_infos.dart';
@@ -36,6 +36,8 @@ class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
   Color _baseTextColor;
   // 剧情简介显示更多
   int _showMore = 4;
+  // 演职员数量
+  int _actorTotal = 0;
 
   @override
   void initState() { 
@@ -59,12 +61,17 @@ class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
   }
   
   _getDetail()async{
-    Response res = await NetUtils.ajax('get', 'https://frodo.douban.com/api/v2/movie/${widget.movieId}'+ApiPath.home['filmDetail']);
-    if(mounted){
-      setState(() {
-        _data = FilmDetailModel.fromJson(res.data); 
-        _baseTextColor = _data.colorScheme.isDark ? Colors.white:Colors.black;
-      });
+    try{
+      Response res = await NetUtils.ajax('get', 'https://frodo.douban.com/api/v2/movie/${widget.movieId}'+ApiPath.home['filmDetail']);
+      if(mounted){
+        setState(() {
+          _data = FilmDetailModel.fromJson(res.data); 
+          _baseTextColor = _data.colorScheme.isDark ? Colors.white:Colors.black;
+        });
+      }
+    }
+    catch(e){
+      print(e);
     }
   }
 
@@ -170,7 +177,11 @@ class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
           ),
           // 演职员
           SliverToBoxAdapter(
-            child: _actor(),
+            child: _actor()
+          ),
+          // 演职员
+          SliverToBoxAdapter(
+            child:SizedBox(height: ScreenAdapter.height(50)),
           )
         ],
       )
@@ -202,8 +213,16 @@ class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
         children: <Widget>[
           _rowTitle(
             title: '演职员',
-            rightDesc:'全部 12000'
+            rightDesc:'全部 $_actorTotal'
           ),
+          FilmDetailActor(
+            movieId: _data.id,
+            setActorTotal:(total){
+              setState(() {
+               _actorTotal = total; 
+              });
+            }
+          )
         ],
       ),
     );
@@ -244,7 +263,6 @@ class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
           ),
           _rowTitle(title: '剧情简介'),
           Container(
-            margin: EdgeInsets.only(top: ScreenAdapter.height(15)),
             alignment: Alignment.centerLeft,
             child: Text('${_data.intro}',style: TextStyle(fontSize: 16,color: _baseTextColor),maxLines: _showMore,overflow: TextOverflow.ellipsis,),
           ),
@@ -314,7 +332,7 @@ class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
   // 头部标题
   Widget _rowTitle({String title,String rightDesc}){
     return Container(
-      margin: EdgeInsets.only(top: ScreenAdapter.height(30)),
+      margin: EdgeInsets.only(top: ScreenAdapter.height(30),bottom: ScreenAdapter.height(30)),
       alignment: Alignment.centerLeft,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
