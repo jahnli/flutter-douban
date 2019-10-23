@@ -93,12 +93,13 @@ class _FilmDetailRelatedState extends State<FilmDetailRelated> {
             ],
           ),
           Container(
-            margin: EdgeInsets.only(top: ScreenAdapter.height(10),bottom: ScreenAdapter.height(10)),
-            alignment: Alignment.centerLeft,
+            height: ScreenAdapter.height(60),
+            margin: EdgeInsets.only(top: ScreenAdapter.height(10)),
+            alignment: Alignment.topLeft,
             child: Text('${item.title}',maxLines: 2,overflow: TextOverflow.ellipsis,style: TextStyle(fontWeight: FontWeight.w600)),
           ),
           Container(
-            margin: EdgeInsets.only(top: ScreenAdapter.height(10),bottom: ScreenAdapter.height(10)),
+            margin: EdgeInsets.only(bottom: ScreenAdapter.height(10)),
             alignment: Alignment.centerLeft,
             child: Text('看过 ${item.doneCount} / ${item.itemsCount}',maxLines: 1,overflow: TextOverflow.ellipsis,style: TextStyle(fontSize: 12)),
           ),

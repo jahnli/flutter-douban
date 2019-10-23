@@ -110,7 +110,6 @@ class _DetailAlsoLikeState extends State<DetailAlsoLike> {
                   children: <Widget>[
                     RatingBarIndicator(
                       rating:double.parse(data[index]['rate']) / 2,
-                      alpha:0,
                       unratedColor:Colors.grey,
                       itemPadding: EdgeInsets.all(0),
                       itemBuilder: (context, index) => Icon(

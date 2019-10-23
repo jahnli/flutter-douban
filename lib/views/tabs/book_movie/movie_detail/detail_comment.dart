@@ -124,7 +124,6 @@ class _DetailCommentState extends State<DetailComment> {
                   SizedBox(width: ScreenAdapter.width(10)),
                   _item['rating']['value'] != 0 ? RatingBarIndicator(
                     rating: _item['rating']['value'],
-                    alpha:0,
                     unratedColor:Colors.grey,
                     itemPadding: EdgeInsets.all(0),
                     itemBuilder: (context, index) => Icon(

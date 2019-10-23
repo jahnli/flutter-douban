@@ -152,7 +152,6 @@ class _DetailGradeState extends State<DetailGrade> {
   Widget _ratingBar(double rating,[int count = 5,double size = 11]){
     return RatingBarIndicator(
       rating:rating,
-      alpha:0,
       unratedColor:Colors.grey,
       itemPadding: EdgeInsets.all(0),
       itemBuilder: (context, index) => Icon(

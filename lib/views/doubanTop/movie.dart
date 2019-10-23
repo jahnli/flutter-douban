@@ -7,6 +7,7 @@ import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
 import 'package:flutter_douban/utils/utils.dart';
 import 'package:flutter_douban/views/doubanTop/topItems/default_top_item.dart';
 import 'package:flutter_douban/views/doubanTop/topItems/year_top_item.dart';
+import 'package:flutter_douban/weiget/base_grade.dart';
 import 'package:flutter_douban/weiget/base_loading.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 // 数据格式
@@ -280,25 +281,8 @@ class _DoubanTopMovieState extends State<DoubanTopMovie> with AutomaticKeepAlive
                       alignment: Alignment.centerLeft,
                       child: Text('${item['title']}',maxLines: 1,overflow: TextOverflow.ellipsis,style: TextStyle(color: Colors.black,fontWeight: FontWeight.w600)),
                     ),
-                    Row(
-                      children: <Widget>[
-                        RatingBarIndicator(
-                          rating:item['rating']['value'] / 2,
-                          alpha:0,
-                          unratedColor:Colors.grey,
-                          itemPadding: EdgeInsets.all(0),
-                          itemBuilder: (context, index) => Icon(
-                              Icons.star,
-                              color: Colors.amber,
-                          ),
-                          itemCount: 5,
-                          itemSize: 12,
-                        ),
-                        SizedBox(width: ScreenAdapter.width(20)),
-                        Text('${item['rating']['value']}',style: TextStyle(color: Colors.grey,fontSize: 12))
-                      ],
-                    )
-                  ],
+                    BaseGrade(value: item['rating']['value'])
+                  ]
                 ),
               ),
             );

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_douban/model/filmDetail/film_detail_grade_model.dart';
 import 'package:flutter_douban/netUtils/netUtils.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
+import 'package:flutter_douban/weiget/base_grade.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 class FilmDetailGrade extends StatefulWidget {
 
@@ -67,7 +68,8 @@ class _FilmDetailGradeState extends State<FilmDetailGrade> {
                 widget.nullRatingReason.isEmpty ? Column(
                   children: <Widget>[
                     Text('${double.parse(widget.rating.toString())}',style: TextStyle(fontSize: 30,color: _baseTextColor)),
-                    _ratingBar(widget.rating / 2)
+                    _ratingBar(widget.rating / 2),
+                    BaseGrade(value: double.parse(widget.rating.toString()),showText: false)
                   ],
                 ):Container(
                   margin: EdgeInsets.only(top: ScreenAdapter.height(15),bottom: ScreenAdapter.height(15)),
@@ -153,7 +155,6 @@ class _FilmDetailGradeState extends State<FilmDetailGrade> {
   Widget _ratingBar(double rating,[int count = 5,double size = 11]){
     return RatingBarIndicator(
       rating:rating,
-      alpha:0,
       unratedColor:Colors.grey,
       itemPadding: EdgeInsets.all(0),
       itemBuilder: (context, index) => Icon(

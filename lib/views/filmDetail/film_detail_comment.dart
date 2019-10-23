@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_douban/model/filmDetail/film_detail_bottom_comment.dart';
 import 'package:flutter_douban/netUtils/netUtils.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
+import 'package:flutter_douban/weiget/base_grade.dart';
 import 'package:flutter_douban/weiget/custom_scroll_footer.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 class FilmDetailComment extends StatefulWidget {
 
@@ -112,17 +112,9 @@ class _FilmDetailCommentState extends State<FilmDetailComment> {
                   SizedBox(width: ScreenAdapter.width(10)),
                   item.rating != null ? Text('看过',style: TextStyle(color: Colors.grey,fontSize: 16)):Container(),
                   SizedBox(width: ScreenAdapter.width(10)),
-                  item.rating != null ? RatingBarIndicator(
-                    rating: double.parse(item.rating.value.toString()),
-                    alpha:0,
-                    unratedColor:Colors.grey,
-                    itemPadding: EdgeInsets.all(0),
-                    itemBuilder: (context, index) => Icon(
-                        Icons.star,
-                        color: Colors.amber,
-                    ),
-                    itemCount: 5,
-                    itemSize: 12,
+                  item.rating != null ? BaseGrade(
+                    value: double.parse(item.rating.value.toString()),
+                    showText: false,
                   ):Container(),
                 ],
               ),

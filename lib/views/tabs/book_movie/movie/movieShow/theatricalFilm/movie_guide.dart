@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_douban/routes/application.dart';
 import 'package:flutter_douban/utils/configs.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
+import 'package:flutter_douban/weiget/base_grade.dart';
 import 'package:flutter_douban/weiget/base_loading.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class MovieGuide extends StatefulWidget {
   @override
@@ -123,24 +123,8 @@ class _MovieGuideState extends State<MovieGuide> with AutomaticKeepAliveClientMi
               margin: EdgeInsets.only(bottom: ScreenAdapter.height(10)),
               child: Text('${item['title']}',maxLines: 1,overflow: TextOverflow.ellipsis,style: TextStyle(fontSize: 20,fontWeight: FontWeight.w400)),
             ),
-            item['rating'] != null ? Row(
-              children: <Widget>[
-                RatingBarIndicator(
-                  rating:item['rating']['value'] / 2,
-                  alpha:0,
-                  unratedColor:Colors.grey,
-                  itemPadding: EdgeInsets.all(0),
-                  itemBuilder: (context, index) => Icon(
-                      Icons.star,
-                      color: Colors.amber,
-                  ),
-                  itemCount: 5,
-                  itemSize: 11,
-                ),
-                SizedBox(width: ScreenAdapter.width(15)),
-                Text('${item['rating']['value']}',style: TextStyle(color: Colors.grey,fontSize: 12))
-              ],
-            ):Container(
+            item['rating'] != null ? BaseGrade( value: item['rating']['value']):
+            Container(
               alignment: Alignment.centerLeft,
               child: Text('${item['wish_count']}人想看',style: TextStyle(color: Colors.grey,fontSize: 12)),
             ),

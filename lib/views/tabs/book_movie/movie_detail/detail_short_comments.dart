@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
+import 'package:flutter_douban/weiget/base_grade.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 class DetailShortComments extends StatefulWidget {
 
@@ -138,7 +139,6 @@ class _DetailShortCommentsState extends State<DetailShortComments> {
               children: <Widget>[
                 RatingBarIndicator(
                   rating:item['rating']['value'] > 0 ? item['rating']['value']:0,
-                  alpha:0,
                   unratedColor:Colors.grey,
                   itemPadding: EdgeInsets.all(0),
                   itemBuilder: (context, index) => Icon(
