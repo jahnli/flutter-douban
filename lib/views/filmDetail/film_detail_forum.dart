@@ -111,7 +111,7 @@ class _FilmDetailForumState extends State<FilmDetailForum>  {
             child: Column(
               children: <Widget>[
                 Icon(Icons.chat_bubble,color: item.commentsCount > 0 ? Color.fromRGBO(250, 210, 136, 1):Colors.grey),
-                Text('${item.commentsCount}')
+                item.commentsCount > 0 ? Text('${item.commentsCount}'):Container()
               ],
             ),
           ),
@@ -134,7 +134,16 @@ class _FilmDetailForumState extends State<FilmDetailForum>  {
                 Container(
                   alignment: Alignment.centerLeft,
                   margin: EdgeInsets.only(top: ScreenAdapter.height(10),bottom: ScreenAdapter.height(20)),
-                  child: Text('${item.author.name}     ${Utils.timeLine(item.updateTime)}更新',style: TextStyle(color: Colors.grey)),
+                  child: Row(
+                    children: <Widget>[
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(30),
+                        child: Image.network('${item.author.avatar}',width: ScreenAdapter.width(30)),
+                      ),
+                      SizedBox(width: ScreenAdapter.width(10)),
+                      Text('${item.author.name}     ${Utils.timeLine(item.updateTime)}更新',style: TextStyle(color: Colors.grey)),
+                    ],
+                  )
                 )
               ],
             ),
