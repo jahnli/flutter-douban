@@ -259,9 +259,11 @@ class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
               movieId: _data.id,
               bottomSheetController: _bottomSheetController,
               setForumTotal:(total){
-                setState(() {
-                  _forumTotal = total; 
-                });
+                if(mounted){
+                  setState(() {
+                    _forumTotal = total; 
+                  });
+                }
               }
             )
           ],

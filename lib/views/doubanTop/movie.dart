@@ -9,7 +9,6 @@ import 'package:flutter_douban/views/doubanTop/topItems/default_top_item.dart';
 import 'package:flutter_douban/views/doubanTop/topItems/year_top_item.dart';
 import 'package:flutter_douban/weiget/base_grade.dart';
 import 'package:flutter_douban/weiget/base_loading.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 // 数据格式
 // api列表
 List apiList = [

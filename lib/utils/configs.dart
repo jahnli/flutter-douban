@@ -1,6 +1,6 @@
 class Configs{
 
-  // 缩略图告诉
+  // 缩略图高度
 
   static thumbHeight ({size:'default'}){
     switch (size) {

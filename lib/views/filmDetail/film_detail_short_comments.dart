@@ -6,7 +6,6 @@ import 'package:flutter_douban/netUtils/netUtils.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
 import 'package:flutter_douban/utils/utils.dart';
 import 'package:flutter_douban/weiget/base_grade.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class FilmDetailShortComments extends StatefulWidget {
 

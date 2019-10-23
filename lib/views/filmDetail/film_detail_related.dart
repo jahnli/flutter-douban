@@ -43,16 +43,16 @@ class _FilmDetailRelatedState extends State<FilmDetailRelated> {
   @override
   Widget build(BuildContext context) {
     return _data!= null ? Container(
-      height: ScreenAdapter.height(640),
+      height: _data.subjects.length > 0 && _data.doulists.length > 0 ? ScreenAdapter.height(640):ScreenAdapter.height(320),
       child: ListView.builder(
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context,index){
           return Column(
             children: <Widget>[
-              _film(_data.subjects[index]),
+              _data.subjects.length > 0 ? _film(_data.subjects[index]):Container(),
               SizedBox(height: ScreenAdapter.height(20)),
-              _gather(_data.doulists[index]),
+              _data.doulists.length > 0 ? _gather(_data.doulists[index]):Container(),
             ],
           );
         },
