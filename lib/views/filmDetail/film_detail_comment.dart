@@ -4,20 +4,21 @@ import 'package:flutter_douban/model/filmDetail/film_detail_bottom_comment.dart'
 import 'package:flutter_douban/netUtils/netUtils.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
 import 'package:flutter_douban/weiget/base_grade.dart';
+import 'package:flutter_douban/weiget/base_loading.dart';
 import 'package:flutter_douban/weiget/custom_scroll_footer.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 class FilmDetailComment extends StatefulWidget {
 
   String movieId = '';
   ScrollController bottomSheetController;
-
   FilmDetailComment({this.movieId,this.bottomSheetController});
 
   @override
   _FilmDetailCommentState createState() => _FilmDetailCommentState();
 }
 
-class _FilmDetailCommentState extends State<FilmDetailComment> {
+class _FilmDetailCommentState extends State<FilmDetailComment>{
+
   // 评论内容
   FilmDetailBottomCommentModel _data;
   // 影评分页
@@ -31,6 +32,8 @@ class _FilmDetailCommentState extends State<FilmDetailComment> {
     super.initState();
     _getFilmComment();
   }
+
+
   _getFilmComment()async{
     try{
       Response res = await NetUtils.ajax('get','https://frodo.douban.com/api/v2/movie/${widget.movieId}/reviews?rtype=review&count=10&version=0&start=$_filmCommentStart&order_by=$_sort&os_rom=android&apikey=0dad551ec0f84ed02907ff5c42e8ec70&channel=Douban&udid=5440f7d1721c7ec5444c588d26ec3c6b26996bbd&_sig=dBXQ2ywjcuzRQ7p1xbBVzpeahNk%3D&_ts=1571750670');
@@ -78,7 +81,7 @@ class _FilmDetailCommentState extends State<FilmDetailComment> {
             padding: EdgeInsets.all(ScreenAdapter.width(20)),
             child: Text('影评列表',style: TextStyle(fontSize: 17)),
           ),
-          _data != null ? ListView.builder(
+          _data != null ? _data.reviews.length > 0 ? ListView.builder(
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
             controller: widget.bottomSheetController,
@@ -86,9 +89,7 @@ class _FilmDetailCommentState extends State<FilmDetailComment> {
               return _item(_data.reviews[index]);
             },
             itemCount:_data.reviews.length,
-          ):Center(
-            child: Text('还没有影评',style:TextStyle(fontSize:18,color: Colors.grey)),
-          )
+          ):Text('还没有影评',style:TextStyle(fontSize:18,color: Colors.grey)):BaseLoading()
         ],
       ),
     );

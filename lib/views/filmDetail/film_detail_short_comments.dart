@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_douban/model/filmDetail/film_detail_short_comments_model.dart';
 import 'package:flutter_douban/netUtils/netUtils.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
+import 'package:flutter_douban/utils/utils.dart';
 import 'package:flutter_douban/weiget/base_grade.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
@@ -162,7 +163,7 @@ class _FilmDetailShortCommentsState extends State<FilmDetailShortComments> {
                     SizedBox(width: ScreenAdapter.width(20)),
                   ],
                 ):Container(),
-                Text('${((DateTime.now().millisecondsSinceEpoch - DateTime.parse(item.createTime).millisecondsSinceEpoch) / 1000 / 60 / 60 / 24 / 31).round()}个月前',style: TextStyle(color: widget.isDark ? Colors.white54:Colors.grey[600]))
+                Text('${Utils.timeLine(item.createTime)}',style: TextStyle(color: widget.isDark ? Colors.white54:Colors.grey[600])),
               ],
             ),
             trailing: IconButton(

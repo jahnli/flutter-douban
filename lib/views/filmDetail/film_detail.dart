@@ -7,13 +7,13 @@ import 'package:flutter_douban/utils/configs.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
 import 'package:flutter_douban/views/filmDetail/film_detail_actor.dart';
 import 'package:flutter_douban/views/filmDetail/film_detail_comment.dart';
+import 'package:flutter_douban/views/filmDetail/film_detail_forum.dart';
 import 'package:flutter_douban/views/filmDetail/film_detail_grade.dart';
 import 'package:flutter_douban/views/filmDetail/film_detail_prevue.dart';
 import 'package:flutter_douban/views/filmDetail/film_detail_related.dart';
 import 'package:flutter_douban/views/filmDetail/film_detail_short_comments.dart';
 import 'package:flutter_douban/weiget/base_loading.dart';
 import 'package:flutter_douban/weiget/honor_infos.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:rubber/rubber.dart';
 class FilmDetail extends StatefulWidget {
 
@@ -45,16 +45,19 @@ class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
   int _actorTotal = 0;
   // 预告片数量
   int _prevueTotal = 0 ;
-
+  // 讨论数量
+  int _forumTotal = 0;
 
   @override
   void initState() { 
     super.initState();
-    _controller = RubberAnimationController(
-      vsync: this,
-      halfBoundValue: AnimationControllerValue(percentage: 0.5),
-      duration: Duration(milliseconds: 200)
-    );
+    if(mounted){
+      _controller = RubberAnimationController(
+        vsync: this,
+        halfBoundValue: AnimationControllerValue(percentage: 0.5),
+        duration: Duration(milliseconds: 200)
+      );
+    }
     _tabController = TabController(length: 2,vsync: this);
     _getDetail();
   }
@@ -67,7 +70,20 @@ class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
     _bottomSheetController.dispose();
     super.dispose();
   }
-  
+  // 获取评论数量
+  _getFilmForum()async{
+    try{
+      Response res = await NetUtils.ajax('get','https://frodo.douban.com/api/v2/subject/${_data.id}/forum_topic/topics?start=0&count=10&os_rom=android&apikey=0dad551ec0f84ed02907ff5c42e8ec70&channel=Douban&udid=5440f7d1721c7ec5444c588d26ec3c6b26996bbd&_sig=HApqGiSWyuoJD%2FmeeL2pAWOQerE%3D&_ts=1571799819');
+      if(mounted){
+        setState(() {
+          _forumTotal = res.data['total']; 
+        });
+      }
+    }
+    catch(e){
+      print(e);
+    }
+  }
   _getDetail()async{
     try{
       Response res = await NetUtils.ajax('get', 'https://frodo.douban.com/api/v2/movie/${widget.movieId}'+ApiPath.home['filmDetail']);
@@ -76,6 +92,7 @@ class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
           _data = FilmDetailModel.fromJson(res.data); 
           _baseTextColor = _data.colorScheme.isDark ? Colors.white:Colors.black;
         });
+        _getFilmForum();
       }
     }
     catch(e){
@@ -133,7 +150,7 @@ class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
                     indicatorSize: TabBarIndicatorSize.label,
                     tabs: <Widget>[
                       Tab(text: '影评 ${_data.reviewCount}'),
-                      Tab(text: '小组讨论 ${_data.ugcTabs[1].count}'),
+                      Tab(text: '讨论 $_forumTotal'),
                     ],
                   )
                 ],
@@ -234,17 +251,26 @@ class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
         child: TabBarView(
           controller: _tabController,
           children: <Widget>[
-            // DetailComment(widget.movieId, _bottomSheetController,setMovieCommentCount:(count)=> _setMovieCommentCount(count),
             FilmDetailComment(
               movieId: _data.id,
               bottomSheetController: _bottomSheetController,
             ),  
-            Text('data'),
+            FilmDetailForum(
+              movieId: _data.id,
+              bottomSheetController: _bottomSheetController,
+              setForumTotal:(total){
+                setState(() {
+                  _forumTotal = total; 
+                });
+              }
+            )
           ],
         ),
       ),
     );
   }
+
+
   // 预告片
   Widget _prevue(){
     return Container(
