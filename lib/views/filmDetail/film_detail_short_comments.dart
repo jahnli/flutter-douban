@@ -148,51 +148,70 @@ class _FilmDetailShortCommentsState extends State<FilmDetailShortComments> {
       ),
       child: Column(
         children: <Widget>[
-          ListTile(
-            contentPadding:EdgeInsets.all(0),
-            leading: ClipOval(
-              child: Image.network('${item.user.avatar}',width: ScreenAdapter.width(60),fit: BoxFit.cover),
-            ),
-            title: Text('${item.user.name}',style: TextStyle(fontSize: 14,color: _baseTextColor)),
-            subtitle: Row(
-              children: <Widget>[
-                item.rating != null ? Row(
-                  children: <Widget>[
-                    BaseGrade(value: double.parse(item.rating.value.toString()),showText: false),
-                    SizedBox(width: ScreenAdapter.width(20)),
-                  ],
-                ):Container(),
-                Text('${Utils.timeLine(item.createTime)}',style: TextStyle(color: widget.isDark ? Colors.white54:Colors.grey[600])),
-              ],
-            ),
-            trailing: IconButton(
-              icon: Icon(Icons.more_horiz,color:widget.isDark ?Colors.white54:Colors.grey[600]),
-              onPressed: (){
-                print('object');
-                showCupertinoModalPopup(
-                  context: context,
-                  builder: (context){
-                    return CupertinoActionSheet(
-                      actions: <Widget>[
-                        CupertinoActionSheetAction(
-                          child: Text('分享'),
-                          onPressed: () { /** */ },
-                        ),
-                        CupertinoActionSheetAction(
-                          child: Text('举报'),
-                          onPressed: () { /** */ },
-                        ),
-                      ],
-                      cancelButton: CupertinoActionSheetAction(
-                        isDefaultAction: true,
-                        child: Text('取消'),
-                        onPressed: () { /** */ },
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.only(right: ScreenAdapter.width(20)),
+                    child: ClipOval(
+                      child: Image.network('${item.user.avatar}',width: ScreenAdapter.width(60),fit: BoxFit.cover),
+                    ),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        child: Text('${item.user.name}',style: TextStyle(fontSize: 14,color: _baseTextColor)),
                       ),
-                    );
-                  }
-                );
-              },
-            )
+                      Row(
+                        children: <Widget>[
+                          item.rating != null ? Row(
+                            children: <Widget>[
+                              BaseGrade(value: double.parse(item.rating.value.toString()),showText: false),
+                              SizedBox(width: ScreenAdapter.width(20)),
+                            ],
+                          ):Container(),
+                          Container(
+                            alignment: Alignment.centerLeft,
+                            child: Text('${Utils.timeLine(item.createTime)}',style: TextStyle(color: widget.isDark ? Colors.white54:Colors.grey[600]))
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              IconButton(
+                icon: Icon(Icons.more_horiz,color:widget.isDark ?Colors.white54:Colors.grey[600]),
+                onPressed: (){
+                  showCupertinoModalPopup(
+                    context: context,
+                    builder: (context){
+                      return CupertinoActionSheet(
+                        actions: <Widget>[
+                          CupertinoActionSheetAction(
+                            child: Text('分享'),
+                            onPressed: () { /** */ },
+                          ),
+                          CupertinoActionSheetAction(
+                            child: Text('举报'),
+                            onPressed: () { /** */ },
+                          ),
+                        ],
+                        cancelButton: CupertinoActionSheetAction(
+                          isDefaultAction: true,
+                          child: Text('取消'),
+                          onPressed: () { /** */ },
+                        ),
+                      );
+                    }
+                  );
+                },
+              )
+            ],
           ),
           Container(
             alignment: Alignment.centerLeft,
