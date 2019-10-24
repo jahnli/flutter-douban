@@ -186,7 +186,7 @@ class _ComingSoonState extends State<ComingSoon> with AutomaticKeepAliveClientMi
                       margin: EdgeInsets.only(left: ScreenAdapter.width(30),right:ScreenAdapter.width(30)),
                       child: Column(
                         children:  _comingSoonList[index]['list'].map<Widget>((item){
-                          return FilmRowItem(item,thumbHeight: 'small');
+                          return FilmRowItem(item,thumbHeight: 'smaller');
                         }).toList(),
                       ),
                     )

@@ -127,6 +127,7 @@ class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
       child: Scaffold(
         backgroundColor:Color(int.parse('0xff' + _data.headerBgColor)),
         appBar: AppBar(
+          elevation: 0,
           centerTitle: true,
           title: _showTitleGrade ? Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -394,7 +395,7 @@ class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
           Container(
             margin: EdgeInsets.only(right: ScreenAdapter.width(20)),
             child: ClipRRect(
-              child: Image.network('${_data.pic.normal}',height:ScreenAdapter.height(Configs.thumbHeight()),width: ScreenAdapter.width(Configs.thumbHeight()),fit: BoxFit.fill),
+              child: Image.network('${_data.pic.normal}',height:ScreenAdapter.height(Configs.thumbHeight(size: 'middle')),width: ScreenAdapter.width(Configs.thumbHeight(size: 'small')),fit: BoxFit.fill),
               borderRadius: BorderRadius.circular(5),
             ),
           ),

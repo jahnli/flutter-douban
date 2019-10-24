@@ -58,7 +58,7 @@ class _IsHotState extends State<IsHot> with SingleTickerProviderStateMixin , Aut
       dataList: _isHotList,
       onRefresh: ()=> _onRefresh(),
       onLoading:()=>_onLoading(),
-      thumbHeight:'small'
+      thumbHeight:'smaller'
     );
   }
   // 刷新
