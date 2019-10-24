@@ -12,6 +12,7 @@ import 'package:flutter_douban/views/filmDetail/film_detail_grade.dart';
 import 'package:flutter_douban/views/filmDetail/film_detail_prevue.dart';
 import 'package:flutter_douban/views/filmDetail/film_detail_related.dart';
 import 'package:flutter_douban/views/filmDetail/film_detail_short_comments.dart';
+import 'package:flutter_douban/weiget/base_grade.dart';
 import 'package:flutter_douban/weiget/base_loading.dart';
 import 'package:flutter_douban/weiget/honor_infos.dart';
 import 'package:rubber/rubber.dart';
@@ -57,6 +58,18 @@ class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
         halfBoundValue: AnimationControllerValue(percentage: 0.5),
         duration: Duration(milliseconds: 200)
       );
+      // 监听滚动
+      _scrollController.addListener((){
+        if(_scrollController.offset > 40){
+          setState(() {
+            _showTitleGrade = true; 
+          });
+        }else{
+          setState(() {
+            _showTitleGrade = false; 
+          });
+        }
+      });
     }
     _tabController = TabController(length: 2,vsync: this);
     _getDetail();
@@ -122,7 +135,7 @@ class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
                 alignment: Alignment.centerLeft,
                 child: Text('${_data.title}',style: TextStyle(fontSize: 14)),
               ),
-              // BaseGrade(value:_movie['rating']['average'], nullRatingReason:_movie['mainland_pubdate'])
+              BaseGrade(value:_data.rating.value, nullRatingReason:_data.nullRatingReason)
             ],
           ) : Text('电影') ,
           backgroundColor: Color(int.parse('0xff' +  _data.headerBgColor))
@@ -163,6 +176,7 @@ class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
         ),
     ):Scaffold(
       appBar: AppBar(
+        elevation: 0,
         backgroundColor: Colors.white,
         brightness: Brightness.light,
       ),

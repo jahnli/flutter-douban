@@ -43,13 +43,13 @@ class _FilmDetailPrevueState extends State<FilmDetailPrevue> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return _data != null ?  Container(
       height: ScreenAdapter.height(300),
       child: ListView.builder(
         shrinkWrap: true,
         scrollDirection:Axis.horizontal,
         itemBuilder: (context,index){
-          return _data != null ? Container(
+          return Container(
             margin: EdgeInsets.only(right: ScreenAdapter.width(20)),
             child: Stack(
               children: <Widget>[
@@ -64,10 +64,10 @@ class _FilmDetailPrevueState extends State<FilmDetailPrevue> {
                 ):Container()
               ],
             ),
-          ):Container();
+          );
         },
         itemCount: 8,
       ),
-    );
+    ):Container();;
   }
 }

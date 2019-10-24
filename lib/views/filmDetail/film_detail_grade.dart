@@ -76,7 +76,13 @@ class _FilmDetailGradeState extends State<FilmDetailGrade> {
                   child: Text('${widget.nullRatingReason}',style: TextStyle(color:widget.isDark ? Colors.grey[400] :Colors.grey[600],fontSize: 12)),
                 ),
                 SizedBox(width: ScreenAdapter.width(20)),
-                widget.nullRatingReason.isNotEmpty  ? Text('${_compute(_data.wishCount)}想看',style: TextStyle(color: _baseTextColor)):Expanded(
+                widget.nullRatingReason.isNotEmpty  ? Row(
+                  children: <Widget>[
+                    Image.network('http://cdn.jahnli.cn/fire.png',width:17),
+                    SizedBox(width: ScreenAdapter.width(8)),
+                    Text('${_data.wishCount}人想看',style: TextStyle(color: _baseTextColor))
+                  ],
+                ):Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
