@@ -77,6 +77,7 @@ class _FilmDetailGradeState extends State<FilmDetailGrade> {
                 ),
                 SizedBox(width: ScreenAdapter.width(20)),
                 widget.nullRatingReason.isNotEmpty  ? Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
                     Image.network('http://cdn.jahnli.cn/fire.png',width:17),
                     SizedBox(width: ScreenAdapter.width(8)),
