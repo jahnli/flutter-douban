@@ -41,7 +41,7 @@ class _TabsState extends State<Tabs> {
         type: BottomNavigationBarType.fixed,
         onTap: (index){
           setState(() {
-           _currentIndex = index; 
+            _currentIndex = index; 
           });
         },
         currentIndex: _currentIndex,

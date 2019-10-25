@@ -41,7 +41,6 @@ class _MoviePageState extends State<MoviePage> with AutomaticKeepAliveClientMixi
       setState(() {
         _homeData = res.data['modules'];
       });
-      print('x');
     }
   }
   // 获取今日播放
