@@ -43,7 +43,7 @@ class _FilmRowItemState extends State<FilmRowItem> {
       ),
       child: GestureDetector(
         onTap: (){
-          Application.router.navigateTo(context, '/movieDetail?id=${_data.id}');
+          Application.router.navigateTo(context, '/filmDetail?id=${_data.id}');
         },
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,

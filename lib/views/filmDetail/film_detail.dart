@@ -175,13 +175,20 @@ class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
           )
         ),
         ),
-    ):Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        brightness: Brightness.light,
+    ):Theme(
+      data: ThemeData(
+        iconTheme: IconThemeData(
+          color: Colors.black
+        )
       ),
-      body: BaseLoading(),
+      child: Scaffold(
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.white,
+          brightness: Brightness.light,
+        ),
+        body: BaseLoading(),
+      ),
     );
   }
 

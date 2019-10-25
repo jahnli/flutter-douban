@@ -264,7 +264,7 @@ class _DoubanTopMovieState extends State<DoubanTopMovie> with AutomaticKeepAlive
             Map item = data['subject_collection_items'][index];
             return GestureDetector(
               onTap: (){
-                Application.router.navigateTo(context, '/movieDetail?id=${item['id']}');
+                Application.router.navigateTo(context, '/filmDetail?id=${item['id']}');
               },
               child: Container(
                 child: Column(

@@ -5,7 +5,6 @@ import 'package:flutter_douban/views/filmDetail/film_detail.dart';
 import 'package:flutter_douban/views/tabs/book_movie/movie/movieHotDetail/movie_hot_detail.dart';
 import 'package:flutter_douban/views/tabs/book_movie/movie/movieShow/theatricalFilm/theatrical_film.dart';
 import 'package:flutter_douban/views/tabs/book_movie/movie/movieTopDetail/movie_top_detail.dart';
-import 'package:flutter_douban/views/tabs/book_movie/movie_detail/movie_detail.dart';
 import 'package:flutter_douban/views/tabs/tabs.dart';
 
 // 配置清单路由
@@ -15,12 +14,6 @@ Handler tabHandler = Handler(
   return Tabs();
 });
 
-// 电影详情页
-Handler movieDetailHandler = Handler(
-  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-    String movieId = params['id']?.first;
-  return MovieDetail(movieId:movieId);
-});
 
 // 院线电影页
 Handler theatricalFilmHandler = Handler(
