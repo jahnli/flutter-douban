@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_douban/model/doubanTop/movie.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
 
 class DefaultTopItem extends StatelessWidget {
 
-  final Map data;
+  final DoubanTopMovieModelGroupsSelectedCollections data;
   final bool showTrend;
   DefaultTopItem(this.data,{this.showTrend = true});
 
@@ -13,22 +14,17 @@ class DefaultTopItem extends StatelessWidget {
       margin: EdgeInsets.only(bottom: ScreenAdapter.height(20)),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        color: Color(int.parse('0xff' + data['background_color_scheme']['primary_color_dark'])),
+        color: Color(int.parse('0xff' + data.backgroundColorScheme.primaryColorDark)),
       ),
       height: ScreenAdapter.height(170),
       child: Row(
         children: <Widget>[
-           _title(
-            iconFgImage:data['icon_fg_image'],
-            mediumName:data['medium_name'],
-            typeText:data['type_text'],
-            bgColor:data['background_color_scheme']['primary_color_dark'],
-          ),
+           _title(data),
           Expanded(
             child: _content(
-              data:data['items'].sublist(0,3),
-              bg:data['header_bg_image'],
-              bgColor:data['background_color_scheme']['primary_color_dark'],
+              data:data.items,
+              bg:data.headerBgImage,
+              bgColor:data.backgroundColorScheme.primaryColorDark,
               showTrend:showTrend
             ),
           ),
@@ -38,21 +34,32 @@ class DefaultTopItem extends StatelessWidget {
   }
 
   // 左侧头部
-  Widget _title({iconFgImage,typeText,mediumName,bgColor}){
+  Widget _title(DoubanTopMovieModelGroupsSelectedCollections data){
     return Container(
       width: ScreenAdapter.width(210),
-      child: iconFgImage == null ? Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: data.iconFgImage.isEmpty ? Stack(
         children: <Widget>[
           Container(
-            child: Text('$typeText',style: TextStyle(color: Colors.grey[200])),
+            alignment: Alignment.center,
+            child: Text('${data.typeIconBgText}',style: TextStyle(color: Color(int.parse('0xff' + data.backgroundColorScheme.primaryColorLight)),fontWeight: FontWeight.bold,fontSize: 28)),
           ),
-          SizedBox(height: ScreenAdapter.height(10)),
           Container(
-            child: Text('$mediumName',style: TextStyle(fontSize: 20)),
+            alignment: Alignment.center,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  child: Text('${data.typeText}',style: TextStyle(color: Colors.grey[200])),
+                ),
+                SizedBox(height: ScreenAdapter.height(10)),
+                Container(
+                  child: Text('${data.mediumName}',style: TextStyle(fontSize: 20)),
+                )
+              ],
+            ),
           )
         ],
-      ):Image.network('$iconFgImage',fit: BoxFit.cover),
+      ):Image.network('${data.iconFgImage}',fit: BoxFit.cover),
     );
   }
 
@@ -85,6 +92,7 @@ class DefaultTopItem extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children:data.asMap().keys.map<Widget>((index){
+                DoubanTopMovieModelGroupsSelectedCollectionsItems _item = data[index];
                 return Container(
                   width: double.infinity,
                   margin: EdgeInsets.only(bottom: ScreenAdapter.height(5)),
@@ -93,12 +101,12 @@ class DefaultTopItem extends StatelessWidget {
                     children: <Widget>[
                       Row(
                         children: <Widget>[
-                          Text('${index+1}.${data[index]['title']}'),
+                          Text('${index+1}.${_item.title}'),
                           SizedBox(width: ScreenAdapter.width(10)),
-                          Text('${data[index]['rating']['value']}',style: TextStyle(color: Color(int.parse('0xff' + 'ffac2d')))),
+                          Text('${_item.rating.value}',style: TextStyle(color: Color(int.parse('0xff' + 'ffac2d')))),
                         ],
                       ),
-                      showTrend ? Icon(data[index]['trend_up'] == true ? Icons.arrow_upward : Icons.arrow_downward,color: Colors.grey,size: 16):Container()
+                      showTrend ? Icon(_item.trendUp == true ? Icons.arrow_upward : Icons.arrow_downward,color: Colors.grey,size: 16):Container()
                     ],
                   ),
                 );

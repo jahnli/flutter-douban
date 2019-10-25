@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_douban/model/doubanTop/movie.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
 
 class YearTopItem extends StatelessWidget {
 
-  final Map data;
-  final String honor;
-  final String desc;
-  YearTopItem(this.data,this.honor,this.desc);
+  final DoubanTopMovieModelGroupsSelectedCollections data;
+  YearTopItem(this.data);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +15,7 @@ class YearTopItem extends StatelessWidget {
       margin: EdgeInsets.only(bottom: ScreenAdapter.height(20)),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        color: Color(int.parse('0xff' + data['subject']['color_scheme']['primary_color_dark'])),
+        color: Color(int.parse('0xff' + data.backgroundColorScheme.primaryColorDark)),
       ),
       child: Stack(
         children: <Widget>[
@@ -24,7 +23,7 @@ class YearTopItem extends StatelessWidget {
             alignment: Alignment.centerRight,
             child: ClipPath(
               clipper: CustomCliper(),
-              child: Image.network('${data['payload']['mobile_background_img']}',fit: BoxFit.cover,width: ScreenAdapter.width(300)),
+              child: Image.network('${data.headerBgImage}',fit: BoxFit.cover,width: ScreenAdapter.width(300)),
             ),
           ),
           Positioned(
@@ -38,14 +37,14 @@ class YearTopItem extends StatelessWidget {
                   Stack(
                     children: <Widget>[
                       Container(
-                          alignment: Alignment.centerLeft,
-                          child: Text('${DateTime.now().year - 1}',style: TextStyle(color: Color(int.parse('0xff' + data['subject']['color_scheme']['primary_color_light'])),fontWeight: FontWeight.bold,fontSize: 28)),
-                        ),
+                        alignment: Alignment.centerLeft,
+                        child: Text('${data.typeIconBgText}',style: TextStyle(color: Color(int.parse('0xff' + data.backgroundColorScheme.primaryColorLight)),fontWeight: FontWeight.bold,fontSize: 28)),
+                      ),
                       Positioned(
                         top: ScreenAdapter.height(10),
                         child: Container(
                           alignment: Alignment.centerLeft,
-                          child: Text('$desc',style: TextStyle(color: Colors.grey[300])),
+                          child: Text('${data.typeText}',style: TextStyle(color: Colors.grey[300])),
                         ),
                       )
                     ],
@@ -53,7 +52,7 @@ class YearTopItem extends StatelessWidget {
                   SizedBox(height: ScreenAdapter.height(10)),
                   Container(
                     alignment: Alignment.centerLeft,
-                    child: Text('$honor',style: TextStyle(fontSize: 24)),
+                    child: Text('${data.mediumName}',style: TextStyle(fontSize: 24)),
                   )
                 ],
               )

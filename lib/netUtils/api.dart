@@ -13,7 +13,12 @@ class ApiPath{
     // 豆瓣热门
     'doubanHot':'$baseUrl/subject_collection/movie_hot_gaia/items?count=10&udid=b176e8889c7eb022716e7c4195eceada4be0be40&rom=android&apikey=0dad551ec0f84ed02907ff5c42e8ec70&s=rexxar_new&channel=Douban&device_id=b176e8889c7eb022716e7c4195eceada4be0be40&os_rom=android&apple=f177f7210511568811cc414dd5ed6f50&icecream=7a77f8513a214ec8aaabf90e4ca99089&mooncake=3117c7243ba057a6c140fe27cee889a8&sugar=46000&loc_id=108296&_sig=mmvS%2BuorRsBuhz3s2ImVqqye4FI%3D&_ts=1571364017',
     // 影片详情
-    'filmDetail':'?os_rom=android&apikey=0dad551ec0f84ed02907ff5c42e8ec70&channel=baidu_applink&udid=9598a52e9e94ae464e8164e2db153c4bc83045b4&_sig=jDgWsMQ8MltCP4pLMZ2BHe7eJEc%3D&_ts=1571623254'
+    'filmDetail':'?os_rom=android&apikey=0dad551ec0f84ed02907ff5c42e8ec70&channel=baidu_applink&udid=9598a52e9e94ae464e8164e2db153c4bc83045b4&_sig=jDgWsMQ8MltCP4pLMZ2BHe7eJEc%3D&_ts=1571623254',
+    
+    // 豆瓣榜单 - 电影页
+    'doubantopMovie':'$baseUrl/movie/rank_list?udid=b176e8889c7eb022716e7c4195eceada4be0be40&rom=android&apikey=0dad551ec0f84ed02907ff5c42e8ec70&s=rexxar_new&channel=Douban&device_id=b176e8889c7eb022716e7c4195eceada4be0be40&os_rom=android&apple=f177f7210511568811cc414dd5ed6f50&icecream=7a77f8513a214ec8aaabf90e4ca99089&mooncake=3117c7243ba057a6c140fe27cee889a8&sugar=46000&loc_id=108288&_sig=%2BAzqysYQdV%2Fv7AhVvgGCYmjw4WU%3D&_ts=1571973252'
+  
+  
   };
 
 }
