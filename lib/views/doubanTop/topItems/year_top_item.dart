@@ -23,7 +23,7 @@ class YearTopItem extends StatelessWidget {
             alignment: Alignment.centerRight,
             child: ClipPath(
               clipper: CustomCliper(),
-              child: Image.network('${data.headerBgImage}',fit: BoxFit.cover,width: ScreenAdapter.width(300)),
+              child: Image.network('${data.headerBgImage}',fit: BoxFit.cover,width: ScreenAdapter.width(300),height: ScreenAdapter.height(180)),
             ),
           ),
           Positioned(

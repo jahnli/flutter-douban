@@ -8,6 +8,7 @@ import 'package:flutter_douban/views/tabs/book_movie/movie/movieShow/movie_show.
 import 'package:flutter_douban/routes/application.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
 import 'package:flutter_douban/utils/utils.dart';
+import 'package:flutter_douban/weiget/base_loading.dart';
 import 'package:flutter_douban/weiget/grid_view.dart';
 import 'package:flutter_douban/weiget/rowTitle.dart';
 
@@ -17,6 +18,9 @@ class MoviePage extends StatefulWidget {
 }
 
 class _MoviePageState extends State<MoviePage> with AutomaticKeepAliveClientMixin{
+
+   // 保持状态
+  bool get wantKeepAlive => true;
 
   // 首页模块数据
   List _homeData = [] ;
@@ -49,7 +53,6 @@ class _MoviePageState extends State<MoviePage> with AutomaticKeepAliveClientMixi
     }
   }
 
-  bool get wantKeepAlive => true;
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +78,7 @@ class _MoviePageState extends State<MoviePage> with AutomaticKeepAliveClientMixi
           SizedBox(height: ScreenAdapter.height(30)),
         ],
       )
-    ):Container();
+    ):BaseLoading();
   }
   // 构建豆瓣榜单
   Widget _doubanTopList(data){
