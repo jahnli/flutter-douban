@@ -32,7 +32,10 @@ class _TabsState extends State<Tabs> {
     // 初始化一次适配
     ScreenAdapter.init(context);
     return Scaffold(
-      body: _pages[_currentIndex],
+      body: IndexedStack(
+        index: _currentIndex,
+        children: _pages,
+      ),
       bottomNavigationBar: BottomNavigationBar(
         fixedColor:Color.fromRGBO(60, 197, 0, 1),
         type: BottomNavigationBarType.fixed,

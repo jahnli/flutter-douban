@@ -19,7 +19,7 @@ class MoviePage extends StatefulWidget {
 
 class _MoviePageState extends State<MoviePage> with AutomaticKeepAliveClientMixin{
 
-   // 保持状态
+  @override
   bool get wantKeepAlive => true;
 
   // 首页模块数据
@@ -41,6 +41,7 @@ class _MoviePageState extends State<MoviePage> with AutomaticKeepAliveClientMixi
       setState(() {
         _homeData = res.data['modules'];
       });
+      print('x');
     }
   }
   // 获取今日播放
@@ -56,7 +57,9 @@ class _MoviePageState extends State<MoviePage> with AutomaticKeepAliveClientMixi
 
   @override
   Widget build(BuildContext context) {
+    
     return _homeData.length >  0 ? Container(
+      key: ObjectKey("movie"),
       margin: EdgeInsets.fromLTRB(ScreenAdapter.height(30), 0, ScreenAdapter.height(30),0),
       child: ListView(
         children: <Widget>[
@@ -78,7 +81,7 @@ class _MoviePageState extends State<MoviePage> with AutomaticKeepAliveClientMixi
           SizedBox(height: ScreenAdapter.height(30)),
         ],
       )
-    ):BaseLoading();
+    ):Container();
   }
   // 构建豆瓣榜单
   Widget _doubanTopList(data){
