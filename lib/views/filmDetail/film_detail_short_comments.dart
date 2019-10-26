@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_douban/main.dart';
 import 'package:flutter_douban/model/filmDetail/film_detail_short_comments_model.dart';
 import 'package:flutter_douban/netUtils/netUtils.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
@@ -78,6 +79,7 @@ class _FilmDetailShortCommentsState extends State<FilmDetailShortComments> {
   @override
   Widget build(BuildContext context) {
     return _data != null ? Container(
+      margin: EdgeInsets.only(top: ScreenAdapter.height(30)),
       padding: EdgeInsets.all(ScreenAdapter.width(20)),
       decoration: BoxDecoration(
         color: Color.fromRGBO(0, 0, 0, 0.1),

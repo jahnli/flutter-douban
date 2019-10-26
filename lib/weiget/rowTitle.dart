@@ -5,10 +5,11 @@ import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
 class RowTitle extends StatelessWidget {
 
   String title;
-  int count = 0;
+  int count;
   String url;
+  bool showRightAction;
 
-  RowTitle({@required this.title,this.count,this.url});
+  RowTitle({@required this.title,this.showRightAction = true,this.count = 0,this.url});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class RowTitle extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Text('$title',style: TextStyle(fontSize: 22,fontWeight: FontWeight.w600)),
-          GestureDetector(
+          showRightAction ? GestureDetector(
             onTap: (){
               Application.router.navigateTo(context, url);
             },
@@ -29,8 +30,8 @@ class RowTitle extends StatelessWidget {
                 Icon(Icons.chevron_right)
               ],
             ),
-          )
-        ],
+          ):Container()
+        ]
       ),
     );
   }

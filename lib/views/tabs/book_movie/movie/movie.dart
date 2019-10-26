@@ -4,6 +4,7 @@ import 'package:flutter_douban/model/home/todayPlay.dart';
 import 'package:flutter_douban/netUtils/api.dart';
 import 'package:flutter_douban/netUtils/netUtils.dart';
 import 'package:flutter_douban/views/doubanTop/douban_top_list.dart';
+import 'package:flutter_douban/views/tabs/book_movie/movie/movieRecomment/movie_recomment.dart';
 import 'package:flutter_douban/views/tabs/book_movie/movie/movieShow/movie_show.dart';
 import 'package:flutter_douban/routes/application.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
@@ -78,9 +79,11 @@ class _MoviePageState extends State<MoviePage> with AutomaticKeepAliveClientMixi
           // 豆瓣榜单
           _doubanTopList(_homeData[9]['data']),
           SizedBox(height: ScreenAdapter.height(30)),
+          // 豆瓣推荐
+          MovieRecomment()
         ],
       )
-    ):Container();
+    ):BaseLoading();
   }
   // 构建豆瓣榜单
   Widget _doubanTopList(data){
