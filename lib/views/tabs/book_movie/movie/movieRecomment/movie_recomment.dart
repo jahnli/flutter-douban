@@ -49,7 +49,7 @@ class _MovieRecommentState extends State<MovieRecomment> {
           // 筛选区域
           _filterAction(),
           // 轮播推荐
-          _carousel()
+          _carousel(),
           // 内容区域
           _content()
         ],
@@ -59,7 +59,6 @@ class _MovieRecommentState extends State<MovieRecomment> {
   // 内容区域
   Widget _content(){
     return Container(
-      child: ,
     );
   }
   // 轮播推荐
