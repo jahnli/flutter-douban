@@ -1,9 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_douban/model/home/movieRecomment.dart';
 import 'package:flutter_douban/netUtils/api.dart';
 import 'package:flutter_douban/netUtils/netUtils.dart';
+import 'package:flutter_douban/utils/configs.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
+import 'package:flutter_douban/weiget/base_loading.dart';
 import 'package:flutter_douban/weiget/rowTitle.dart';
 class MovieRecomment extends StatefulWidget {
   @override
@@ -12,7 +13,7 @@ class MovieRecomment extends StatefulWidget {
 
 class _MovieRecommentState extends State<MovieRecomment> {
 
-  MovieRecommentModel _data;
+  Map _data;
 
   @override
   void initState() { 
@@ -23,12 +24,11 @@ class _MovieRecommentState extends State<MovieRecomment> {
   // 获取主页home推荐
   _getMovieRecomment() async {
     try {
-
       Response res = await NetUtils.ajax('get', ApiPath.home['movieRecomment']);
 
       if(mounted){
         setState(() {
-          _data = MovieRecommentModel.fromJson(res.data);
+          _data = res.data;
         });
       }
     }
@@ -46,29 +46,60 @@ class _MovieRecommentState extends State<MovieRecomment> {
             title: '为你推荐',
             showRightAction: false,
           ),
-          // 筛选区域
-          _filterAction(),
-          // 轮播推荐
-          _carousel(),
-          // 内容区域
-          _content()
+          ListView.builder(
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemBuilder: (context,index){
+              String type = _data['items'][index]['card'] ??= 'null';
+              switch (type) {
+                case 'chart':
+                  // 轮播推荐
+                  return _carousel( _data['items'][index]);
+                  break;
+               case 'doulist':
+                  // 轮播推荐
+                  return _carousel( _data['items'][index]);
+                  break;
+                case 'subject':
+                  // 影片
+                  return _content( _data['items'][index]);
+                  break;
+                case 'null':
+                  // 空
+                  return Container();
+                  break;
+                default:
+              }
+            },
+            itemCount: _data['items'].length,
+          )
         ],
       ),
-    ):Container();
+    ):Container(
+      margin: EdgeInsets.only(top: ScreenAdapter.height(20)),
+      child: BaseLoading(),
+    );
   }
   // 内容区域
-  Widget _content(){
+  Widget _content(item){
     return Container(
+      height: ScreenAdapter.height(400),
+      child: Image.network('${item['pic']['normal']}',height: ScreenAdapter.height(Configs.thumbHeight()))
     );
   }
   // 轮播推荐
-  Widget _carousel(){
-    var _item = _data.items[0];
-    Color _baseTextColor = _item.color_scheme.is_dark ? Colors.white38:Colors.black;
+  Widget _carousel(_item){
     return Container(
       decoration: BoxDecoration(
-        color: Color(int.parse('0xff' + _item.color_scheme.primary_color_dark)),
-        borderRadius: BorderRadius.circular(8)
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(8),
+          topRight: Radius.circular(8)
+        ),
+        border: Border.all(
+          width: 0.5,
+          color: Colors.grey
+        )
       ),
       margin: EdgeInsets.only(top: ScreenAdapter.height(30)),
       child: Column(
@@ -76,12 +107,15 @@ class _MovieRecommentState extends State<MovieRecomment> {
           Container(
             height: ScreenAdapter.height(300),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(8),
+                topRight: Radius.circular(8)
+              ),
               child: Transform.scale(
                 scale: 1.8,
                 child: Transform.rotate(
                   angle: 6,
-                  child: Image.network('${_item.cover_url}',width: ScreenAdapter.getScreenWidth(),fit: BoxFit.fitHeight),
+                  child: Image.network('${_item['cover_url']}',width: ScreenAdapter.getScreenWidth(),fit: BoxFit.fitHeight),
                 ),
               )
             ),
@@ -92,20 +126,24 @@ class _MovieRecommentState extends State<MovieRecomment> {
               children: <Widget>[
                 Container(
                   alignment: Alignment.centerLeft,
-                  child: Text('${_item.subtitle}',style: TextStyle(fontSize: 16,color: _baseTextColor))
+                  child: Text('${_item['subtitle']}',style: TextStyle(fontSize: 16,color:  Colors.grey))
                 ),
                 Container(
                   margin: EdgeInsets.fromLTRB(0, ScreenAdapter.height(10), 0, ScreenAdapter.height(10)),
                   child: Row(
                     children: <Widget>[
-                      Icon(Icons.play_circle_filled,color: Colors.white,size: 28),
-                      Text('${_item.title}',style: TextStyle(fontSize: 22,color:Colors.white))
+                      Icon(Icons.play_circle_filled,color: Colors.black,size: 28),
+                      SizedBox(width: ScreenAdapter.width(10)),
+                      Container(
+                        width: ScreenAdapter.getScreenWidth() - ScreenAdapter.width(170),
+                        child: Text('${_item['title']}',style: TextStyle(fontSize: 22,color:Colors.black)),
+                      )
                     ],
                   ),
                 ),
                 Container(
                   alignment: Alignment.centerLeft,
-                  child: Text('共${_item.items_count}部',style: TextStyle(fontSize: 16,color: _baseTextColor)),
+                  child: Text('共${_item['items_count']}部',style: TextStyle(fontSize: 16,color:  Colors.grey)),
                 ),
               ],
             ),
@@ -138,11 +176,11 @@ class _MovieRecommentState extends State<MovieRecomment> {
                     margin: EdgeInsets.only(right: ScreenAdapter.width(20)),
                     alignment: Alignment.center,
                     child: GestureDetector(
-                      child: Text('${_data.recommend_tags[index]}'),
+                      child: Text('${_data['recommend_tags'][index]}'),
                     ),
                   );
                 },
-                itemCount: _data.recommend_tags.length,
+                itemCount: _data['recommend_tags'].length,
               ),
             ),
             Container(
