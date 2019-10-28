@@ -2,10 +2,14 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_douban/netUtils/api.dart';
 import 'package:flutter_douban/netUtils/netUtils.dart';
+import 'package:flutter_douban/routes/application.dart';
 import 'package:flutter_douban/utils/configs.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
+import 'package:flutter_douban/weiget/base_grade.dart';
 import 'package:flutter_douban/weiget/base_loading.dart';
 import 'package:flutter_douban/weiget/rowTitle.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
+
 class MovieRecomment extends StatefulWidget {
   @override
   _MovieRecommentState createState() => _MovieRecommentState();
@@ -53,16 +57,16 @@ class _MovieRecommentState extends State<MovieRecomment> {
               String type = _data['items'][index]['card'] ??= 'null';
               switch (type) {
                 case 'chart':
-                  // 轮播推荐
-                  return _carousel( _data['items'][index]);
+                  // 卡片
+                  return _card( _data['items'][index]);
                   break;
                case 'doulist':
-                  // 轮播推荐
-                  return _carousel( _data['items'][index]);
+                  // 卡片
+                  return _card( _data['items'][index]);
                   break;
                 case 'subject':
                   // 影片
-                  return _content( _data['items'][index]);
+                  return _film( _data['items'][index]);
                   break;
                 case 'null':
                   // 空
@@ -81,27 +85,86 @@ class _MovieRecommentState extends State<MovieRecomment> {
     );
   }
   // 内容区域
-  Widget _content(item){
-    return Container(
-      height: ScreenAdapter.height(400),
-      child: Image.network('${item['pic']['normal']}',height: ScreenAdapter.height(Configs.thumbHeight()))
+  Widget _film(item){
+    return GestureDetector(
+      onTap: (){
+        Application.router.navigateTo(context, '/filmDetail?id=${item['id']}');
+      },
+      child: Container(
+        margin: EdgeInsets.only(top: ScreenAdapter.height(20),bottom: ScreenAdapter.height(40)),
+        child:Column(
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(5),
+                  child: Image.network('${item['pic']['normal']}',height: ScreenAdapter.height(Configs.thumbHeight())),
+                ),
+                SizedBox(width: ScreenAdapter.width(20)),
+                Expanded(
+                  child: Container(
+                    height: ScreenAdapter.height(Configs.thumbHeight()),
+                    child: Swiper(
+                      itemBuilder: (BuildContext context, int swiperIndex) {
+                        return  ClipRRect(
+                          borderRadius: BorderRadius.circular(5),
+                          child: Image.network('${item['photos'][swiperIndex]}',fit: BoxFit.fill,),
+                        );
+                      },
+                      itemCount: item['photos'].length,
+                      pagination: SwiperPagination(
+                        alignment: Alignment.bottomLeft,
+                        builder: DotSwiperPaginationBuilder(
+                          activeColor: Colors.white,
+                          color: Color.fromRGBO(92, 98, 102, 1),
+                          size: 8,
+                          activeSize: 8
+                        )
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+            Container(
+              alignment: Alignment.centerLeft,
+              margin: EdgeInsets.only(top: ScreenAdapter.height(10),bottom: ScreenAdapter.height(10)),
+              child: Text('${item['title']} (${item['year']})',style: TextStyle(fontSize: 22)),
+            ),
+            BaseGrade(value: item['rating']['value']),
+            Container(
+              alignment: Alignment.centerLeft,
+              margin: EdgeInsets.only(top: ScreenAdapter.height(10),bottom: ScreenAdapter.height(20)),
+              child: Text('${item['comment']['comment']} -- ${item['comment']['user']['name']}',style: TextStyle(color: Colors.grey,fontSize: 16)),
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Container(
+                padding: EdgeInsets.fromLTRB(ScreenAdapter.width(20), ScreenAdapter.width(10), ScreenAdapter.width(20), ScreenAdapter.width(10)),
+                decoration: BoxDecoration(
+                  color: Color.fromRGBO(247, 239, 228, 1),
+                  borderRadius: BorderRadius.circular(35)
+                ),
+                child: Text('${item['tags'][0]['name']}',textAlign: TextAlign.start,style: TextStyle(color: Color.fromRGBO(142, 111, 63, 1))),
+              ),
+            )
+          ],
+        )
+      ),
     );
   }
   // 轮播推荐
-  Widget _carousel(_item){
+  Widget _card(_item){
     return Container(
+      margin: EdgeInsets.only(top: ScreenAdapter.height(30),bottom: ScreenAdapter.height(40)),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(8),
-          topRight: Radius.circular(8)
-        ),
+        borderRadius: BorderRadius.circular(8),
         border: Border.all(
           width: 0.5,
           color: Colors.grey
         )
       ),
-      margin: EdgeInsets.only(top: ScreenAdapter.height(30)),
       child: Column(
         children: <Widget>[
           Container(
