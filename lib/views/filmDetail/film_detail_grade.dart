@@ -69,7 +69,6 @@ class _FilmDetailGradeState extends State<FilmDetailGrade> {
                   children: <Widget>[
                     Text('${double.parse(widget.rating.toString())}',style: TextStyle(fontSize: 30,color: _baseTextColor)),
                     _ratingBar(widget.rating / 2),
-                    BaseGrade(value: double.parse(widget.rating.toString()),showText: false)
                   ],
                 ):Container(
                   margin: EdgeInsets.only(top: ScreenAdapter.height(15),bottom: ScreenAdapter.height(15)),
