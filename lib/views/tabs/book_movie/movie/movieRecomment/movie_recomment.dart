@@ -117,8 +117,8 @@ class _MovieRecommentState extends State<MovieRecomment> {
                         builder: DotSwiperPaginationBuilder(
                           activeColor: Colors.white,
                           color: Color.fromRGBO(92, 98, 102, 1),
-                          size: 8,
-                          activeSize: 8
+                          size: 5,
+                          activeSize: 5
                         )
                       ),
                     ),
