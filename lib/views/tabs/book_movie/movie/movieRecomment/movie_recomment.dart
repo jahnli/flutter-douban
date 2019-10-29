@@ -18,6 +18,24 @@ class MovieRecomment extends StatefulWidget {
 class _MovieRecommentState extends State<MovieRecomment> {
 
   Map _data;
+  // 筛选标签
+  List _recommendTagsList = [];
+
+  // 筛选参数
+  Map<String,dynamic> _filterParams = {
+    "s":'rexxar_new',
+    "device_id":'87697746e90528f98b6ef4df57178fcab999f9fb',
+    "apple":'b8b42270b55ac2d084d865dd261c154d',
+    "icecream":'c780d627b64c3057222c7c6102a2d1a9',
+    "mooncake":'61260adfd35182c0518f765b32c8ad4b',
+    "apikey":'0dad551ec0f84ed02907ff5c42e8ec70',
+    "loc_id":'108296',
+    "_sig":'R0Grs%2FBOc943XTM5BEEv9uFY5Qw%3D',
+    "uuid":"87697746e90528f98b6ef4df57178fcab999f9fb",
+    "rom":"android",
+    "sugar":"46000",
+    "_ts":"1572082252",
+  };
 
   @override
   void initState() { 
@@ -27,12 +45,16 @@ class _MovieRecommentState extends State<MovieRecomment> {
 
   // 获取主页home推荐
   _getMovieRecomment() async {
+
     try {
-      Response res = await NetUtils.ajax('get', ApiPath.home['movieRecomment']);
+      Response res = await NetUtils.ajax('get', ApiPath.home['movieRecomment'],params:_filterParams);
 
       if(mounted){
         setState(() {
           _data = res.data;
+          if(res.data['bottom_recommend_tags'].length > 0){
+            _recommendTagsList = res.data['bottom_recommend_tags'];
+          }
         });
       }
     }
@@ -50,29 +72,24 @@ class _MovieRecommentState extends State<MovieRecomment> {
             title: '为你推荐',
             showRightAction: false,
           ),
+          // 筛选区域
+          _filterAction(),
           ListView.builder(
             physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemBuilder: (context,index){
-              String type = _data['items'][index]['card'] ??= 'null';
+              String type = _data['items'][index]['type'];
               switch (type) {
-                case 'chart':
-                  // 卡片
-                  return _card( _data['items'][index]);
-                  break;
-               case 'doulist':
-                  // 卡片
-                  return _card( _data['items'][index]);
-                  break;
-                case 'subject':
+                case 'movie':
                   // 影片
                   return _film( _data['items'][index]);
                   break;
-                case 'null':
+                case 'ad':
                   // 空
                   return Container();
-                  break;
                 default:
+                  return _card( _data['items'][index]);
+                  break;
               }
             },
             itemCount: _data['items'].length,
@@ -218,16 +235,23 @@ class _MovieRecommentState extends State<MovieRecomment> {
 
   // 筛选区域
   Widget _filterAction(){
-    return Container(
-        height: ScreenAdapter.height(50),
-        child: Row(
-          children: <Widget>[
-            Expanded(
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                shrinkWrap: true,
-                itemBuilder: (context,index){
-                  return Container(
+    return _recommendTagsList.length > 0 ? Container(
+      height: ScreenAdapter.height(50),
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              shrinkWrap: true,
+              itemBuilder: (context,index){
+                return GestureDetector(
+                  onTap: (){
+                    setState(() {
+                      _filterParams['tags'] = _recommendTagsList[index];
+                    });
+                    _getMovieRecomment();
+                  },
+                  child: Container(
                     padding: EdgeInsets.only(left: ScreenAdapter.width(20),right: ScreenAdapter.width(20)),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30),
@@ -239,26 +263,27 @@ class _MovieRecommentState extends State<MovieRecomment> {
                     margin: EdgeInsets.only(right: ScreenAdapter.width(20)),
                     alignment: Alignment.center,
                     child: GestureDetector(
-                      child: Text('${_data['recommend_tags'][index]}'),
+                      child: Text('${_recommendTagsList[index]}'),
                     ),
-                  );
-                },
-                itemCount: _data['recommend_tags'].length,
-              ),
+                  ),
+                );
+              },
+              itemCount: _recommendTagsList.length,
             ),
-            Container(
-              alignment: Alignment.center,
-              width: ScreenAdapter.width(90),
-              child: Row(
-                children: <Widget>[
-                  Image.network('http://cdn.jahnli.cn/filter.png',width: ScreenAdapter.width(25)),
-                  Text('筛选',style: TextStyle(fontSize: 14))
-                ],
-              )
+          ),
+          Container(
+            alignment: Alignment.center,
+            width: ScreenAdapter.width(90),
+            child: Row(
+              children: <Widget>[
+                Image.network('http://cdn.jahnli.cn/filter.png',width: ScreenAdapter.width(25)),
+                Text('筛选',style: TextStyle(fontSize: 14))
+              ],
             )
-          ],
-        )
-      );
+          )
+        ],
+      )
+    ):Container();
   }
 
 

@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_douban/model/filmDetail/film_detail_related_model.dart';
 import 'package:flutter_douban/netUtils/netUtils.dart';
+import 'package:flutter_douban/routes/application.dart';
 import 'package:flutter_douban/utils/configs.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
 import 'package:flutter_douban/weiget/base_grade.dart';
@@ -109,23 +110,28 @@ class _FilmDetailRelatedState extends State<FilmDetailRelated> {
   }
   // 喜欢的影片
   Widget _film(FilmDetailRelatedModelSubjects item){
-    return  Container(
-      width:ScreenAdapter.width(170),
-      margin: EdgeInsets.only(right: ScreenAdapter.width(20)),
-      child: Column(
-        children: <Widget>[
-          ClipRRect(
-            child: Image.network('${item.pic.normal}',width: double.infinity,height:ScreenAdapter.height(Configs.thumbHeight(size: 'small')),fit: BoxFit.cover),
-            borderRadius: BorderRadius.circular(5),
-          ),
-          Container(
-            margin: EdgeInsets.only(top: ScreenAdapter.height(10),bottom: ScreenAdapter.height(10)),
-            alignment: Alignment.centerLeft,
-            child: Text('${item.title}',maxLines: 1,overflow: TextOverflow.ellipsis,style: TextStyle(fontWeight: FontWeight.w600)),
-          ),
-          BaseGrade(nullRatingReason:'',value:item.rating?.value)
-        ],
-      )
+    return  GestureDetector(
+      onTap: (){
+        Application.router.navigateTo(context, '/filmDetail?id=${item.id}');
+      },
+      child: Container(
+        width:ScreenAdapter.width(170),
+        margin: EdgeInsets.only(right: ScreenAdapter.width(20)),
+        child: Column(
+          children: <Widget>[
+            ClipRRect(
+              child: Image.network('${item.pic.normal}',width: double.infinity,height:ScreenAdapter.height(Configs.thumbHeight(size: 'small')),fit: BoxFit.cover),
+              borderRadius: BorderRadius.circular(5),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: ScreenAdapter.height(10),bottom: ScreenAdapter.height(10)),
+              alignment: Alignment.centerLeft,
+              child: Text('${item.title}',maxLines: 1,overflow: TextOverflow.ellipsis,style: TextStyle(fontWeight: FontWeight.w600)),
+            ),
+            BaseGrade(nullRatingReason:'',value:item.rating?.value)
+          ],
+        )
+      ),
     );
   }
 
