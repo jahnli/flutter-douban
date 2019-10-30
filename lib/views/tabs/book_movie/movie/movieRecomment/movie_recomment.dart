@@ -41,6 +41,9 @@ class _MovieRecommentState extends State<MovieRecomment> {
     "_ts":"1572082252",
   };
 
+  // 当前排行
+  double _currentSort = 0;
+
   @override
   void initState() { 
     super.initState();
@@ -80,6 +83,7 @@ class _MovieRecommentState extends State<MovieRecomment> {
           ),
           // 筛选区域
           _filterAction(),
+          _filterParamsList.length > 0 ? _sortAction():Container(),
           !_loading ? _dataList.length > 0 ? ListView.builder(
             physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
@@ -127,6 +131,112 @@ class _MovieRecommentState extends State<MovieRecomment> {
     ):Container(
       margin: EdgeInsets.only(top: ScreenAdapter.height(20)),
       child: BaseLoading(),
+    );
+  }
+  // 排行 区域
+  _sortAction(){
+    return Container(
+      alignment: Alignment.centerLeft,
+      margin: EdgeInsets.only(top: ScreenAdapter.height(30)),
+      child: Container(
+        height: ScreenAdapter.height(50),
+        width: ScreenAdapter.width(300),
+        decoration: BoxDecoration(
+          borderRadius:BorderRadius.circular(30),
+          color: Colors.grey[300],
+        ),
+        child: Stack(
+          children: <Widget>[    
+            AnimatedPositioned(
+              left: ScreenAdapter.width(_currentSort * 75),
+              curve: Curves.ease,
+              duration: Duration(milliseconds: 500),
+              child: Opacity(
+                opacity: 1,
+                child: Container(
+                  height: ScreenAdapter.height(50),
+                  width: ScreenAdapter.width(75),
+                  decoration: BoxDecoration(
+                    borderRadius:BorderRadius.circular(30),
+                    color: Colors.white,
+                    border: Border.all(
+                      width: 0.5,
+                      color: Colors.grey
+                    )
+                  ),
+                ),
+              ),
+            ),
+            Row(
+              children: <Widget>[ 
+                GestureDetector(
+                  onTap: (){
+                    if(_currentSort == 0) return;
+                    setState(() {
+                      _currentSort = 0; 
+                      _loading = true;
+                    });
+                    _getMovieRecomment();
+                  },
+                  child:Container(
+                    alignment: Alignment.center,
+                    width: ScreenAdapter.width(75),
+                    child: Text('默认'),
+                  )
+                ),
+                GestureDetector(
+                  onTap: (){
+                    if(_currentSort == 1) return;
+                    setState(() {
+                      _loading = true;
+                      _currentSort = 1; 
+                      _filterParams['sort'] = 'T'; 
+                    });
+                    _getMovieRecomment();
+                  },
+                  child:Container(
+                    alignment: Alignment.center,
+                    width: ScreenAdapter.width(75),
+                    child: Text('热度'),
+                  )
+                ),
+                GestureDetector(
+                  onTap: (){
+                    if(_currentSort == 2) return;
+                    setState(() {
+                      _loading = true;
+                      _currentSort = 2; 
+                      _filterParams['sort'] = 'S'; 
+                    });
+                    _getMovieRecomment();
+                  },
+                  child:Container(
+                    alignment: Alignment.center,
+                    width: ScreenAdapter.width(75),
+                    child: Text('评分'),
+                  )
+                ),
+                GestureDetector(
+                  onTap: (){
+                    if(_currentSort == 3) return;
+                    setState(() {
+                      _loading = true;
+                      _currentSort = 3; 
+                      _filterParams['sort'] = 'R'; 
+                    });
+                    _getMovieRecomment();
+                  },
+                  child:Container(
+                    alignment: Alignment.center,
+                    width: ScreenAdapter.width(75),
+                    child: Text('时间'),
+                  )
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
   // 内容区域
@@ -291,9 +401,13 @@ class _MovieRecommentState extends State<MovieRecomment> {
                         _filterParamsList.add(_recommendTagsList[index]);
                       });
                     }
-
                     for (int i = 0; i < _filterParamsList.length; i++) {
                       _tempParams += i == 0 ? '${_filterParamsList[i]}':',${_filterParamsList[i]}';
+                    }
+                    if(_filterParamsList.length == 0){
+                      setState(() {
+                        _currentSort = 0; 
+                      });
                     }
                     setState(() {
                       _loading = true;

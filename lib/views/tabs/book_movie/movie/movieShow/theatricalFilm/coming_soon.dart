@@ -209,7 +209,7 @@ class _ComingSoonState extends State<ComingSoon> with AutomaticKeepAliveClientMi
       height: ScreenAdapter.height(50),
       width: ScreenAdapter.width(150),
       decoration: BoxDecoration(
-        borderRadius:BorderRadius.circular(15),
+        borderRadius:BorderRadius.circular(30),
         color: Colors.grey[300],
       ),
       child: Stack(
@@ -227,8 +227,12 @@ class _ComingSoonState extends State<ComingSoon> with AutomaticKeepAliveClientMi
                   height: ScreenAdapter.height(50),
                   width: ScreenAdapter.width(80),
                   decoration: BoxDecoration(
-                    borderRadius:BorderRadius.circular(15),
+                    borderRadius:BorderRadius.circular(30),
                     color: Colors.white,
+                    border: Border.all(
+                      width: 0.5,
+                      color: Colors.grey
+                    )
                   ),
                 ),
               ),
