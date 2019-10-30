@@ -101,7 +101,23 @@ class _MovieRecommentState extends State<MovieRecomment> {
             itemCount: _dataList.length,
           ):Container(
             margin: EdgeInsets.fromLTRB(0, ScreenAdapter.height(40), 0, ScreenAdapter.height(40)),
-            child: Text('暂无${_filterParams['tags'].replaceAll(',','·')}的电影',style: TextStyle(color: Colors.grey,fontSize: 20)),
+            child:Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                 Text('暂无${_filterParams['tags'].replaceAll(',',' · ')}的电影，',style: TextStyle(color: Colors.grey,fontSize: 20)),
+                 GestureDetector(
+                   onTap: (){
+                     setState(() {
+                       _loading = true;
+                       _filterParamsList = [];
+                       _filterParams['tags'] = '';
+                     });
+                     _getMovieRecomment();
+                   },
+                   child: Text('重置',style: TextStyle(color:Color.fromRGBO(104, 203, 120, 1),fontSize: 20)),
+                 )
+              ],
+            ),
           ):Container(
             margin: EdgeInsets.fromLTRB(0, ScreenAdapter.height(40), 0, ScreenAdapter.height(40)),
             child: BaseLoading()
