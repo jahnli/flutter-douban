@@ -20,7 +20,11 @@ class _MovieRecommentState extends State<MovieRecomment> {
   Map _data;
   // 筛选标签
   List _recommendTagsList = [];
-
+  // 筛选参数列表
+  List _filterParamsList = [];
+  // 数据列表
+  List _dataList = [];
+  bool _loading = true;
   // 筛选参数
   Map<String,dynamic> _filterParams = {
     "s":'rexxar_new',
@@ -52,9 +56,11 @@ class _MovieRecommentState extends State<MovieRecomment> {
       if(mounted){
         setState(() {
           _data = res.data;
+          _dataList = res.data['items'];
           if(res.data['bottom_recommend_tags'].length > 0){
             _recommendTagsList = res.data['bottom_recommend_tags'];
           }
+          _loading = false;
         });
       }
     }
@@ -74,25 +80,31 @@ class _MovieRecommentState extends State<MovieRecomment> {
           ),
           // 筛选区域
           _filterAction(),
-          ListView.builder(
+          !_loading ? _dataList.length > 0 ? ListView.builder(
             physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemBuilder: (context,index){
-              String type = _data['items'][index]['type'];
+              String type = _dataList[index]['type'];
               switch (type) {
                 case 'movie':
                   // 影片
-                  return _film( _data['items'][index]);
+                  return _film( _dataList[index]);
                   break;
                 case 'ad':
                   // 空
                   return Container();
                 default:
-                  return _card( _data['items'][index]);
+                  return _card( _dataList[index]);
                   break;
               }
             },
-            itemCount: _data['items'].length,
+            itemCount: _dataList.length,
+          ):Container(
+            margin: EdgeInsets.fromLTRB(0, ScreenAdapter.height(40), 0, ScreenAdapter.height(40)),
+            child: Text('暂无${_filterParams['tags'].replaceAll(',','·')}的电影',style: TextStyle(color: Colors.grey,fontSize: 20)),
+          ):Container(
+            margin: EdgeInsets.fromLTRB(0, ScreenAdapter.height(40), 0, ScreenAdapter.height(40)),
+            child: BaseLoading()
           )
         ],
       ),
@@ -148,23 +160,28 @@ class _MovieRecommentState extends State<MovieRecomment> {
               margin: EdgeInsets.only(top: ScreenAdapter.height(10),bottom: ScreenAdapter.height(10)),
               child: Text('${item['title']} (${item['year']})',style: TextStyle(fontSize: 22)),
             ),
-            BaseGrade(value: item['rating']['value']),
-            Container(
+            BaseGrade(value: item['rating']['value'] == 0 ? 0.0:item['rating']['value']),
+            item['comment'] != null ?Container(
               alignment: Alignment.centerLeft,
               margin: EdgeInsets.only(top: ScreenAdapter.height(10),bottom: ScreenAdapter.height(20)),
               child: Text('${item['comment']['comment']} -- ${item['comment']['user']['name']}',style: TextStyle(color: Colors.grey,fontSize: 16)),
-            ),
-            Align(
+            ):Container(),
+            item['tags'].length >  0 ? Align(
               alignment: Alignment.centerLeft,
-              child: Container(
-                padding: EdgeInsets.fromLTRB(ScreenAdapter.width(20), ScreenAdapter.width(10), ScreenAdapter.width(20), ScreenAdapter.width(10)),
-                decoration: BoxDecoration(
-                  color: Color.fromRGBO(247, 239, 228, 1),
-                  borderRadius: BorderRadius.circular(35)
-                ),
-                child: Text('${item['tags'][0]['name']}',textAlign: TextAlign.start,style: TextStyle(color: Color.fromRGBO(142, 111, 63, 1))),
-              ),
-            )
+              child: Wrap(
+                children:  item['tags'].map<Widget>((tagsItem){
+                  return Container(
+                    margin: EdgeInsets.only(right: ScreenAdapter.width(20)),
+                    padding: EdgeInsets.fromLTRB(ScreenAdapter.width(20), ScreenAdapter.width(10), ScreenAdapter.width(20), ScreenAdapter.width(10)),
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(247, 239, 228, 1),
+                      borderRadius: BorderRadius.circular(35)
+                    ),
+                    child: Text('${tagsItem['name']}',textAlign: TextAlign.start,style: TextStyle(color: Color.fromRGBO(142, 111, 63, 1)))
+                  );
+                }).toList(),
+              ) 
+            ):Container()
           ],
         )
       ),
@@ -244,26 +261,44 @@ class _MovieRecommentState extends State<MovieRecomment> {
               scrollDirection: Axis.horizontal,
               shrinkWrap: true,
               itemBuilder: (context,index){
+                bool _isSelect = _filterParamsList.contains('${_recommendTagsList[index]}');
+                String _tempParams = '';
                 return GestureDetector(
                   onTap: (){
+                    // 如果已选中，取消选中
+                    if(_isSelect){
+                      setState(() {
+                        _filterParamsList.remove(_recommendTagsList[index]);
+                      });
+                    }else{
+                      setState(() {
+                        _filterParamsList.add(_recommendTagsList[index]);
+                      });
+                    }
+
+                    for (int i = 0; i < _filterParamsList.length; i++) {
+                      _tempParams += i == 0 ? '${_filterParamsList[i]}':',${_filterParamsList[i]}';
+                    }
                     setState(() {
-                      _filterParams['tags'] = _recommendTagsList[index];
+                      _loading = true;
+                      _filterParams['tags'] = _tempParams; 
                     });
                     _getMovieRecomment();
                   },
                   child: Container(
                     padding: EdgeInsets.only(left: ScreenAdapter.width(20),right: ScreenAdapter.width(20)),
                     decoration: BoxDecoration(
+                      color:_isSelect ? Color.fromRGBO(104, 203, 120, 1):Colors.white,
                       borderRadius: BorderRadius.circular(30),
-                      border: Border.all(
+                      border:!_isSelect ? Border.all(
                         width: 1,
                         color: Colors.grey
-                      )
+                      ):null
                     ),
                     margin: EdgeInsets.only(right: ScreenAdapter.width(20)),
                     alignment: Alignment.center,
                     child: GestureDetector(
-                      child: Text('${_recommendTagsList[index]}'),
+                      child: Text('${_recommendTagsList[index]}',style: TextStyle(color: _isSelect ? Colors.white:Colors.black)),
                     ),
                   ),
                 );
