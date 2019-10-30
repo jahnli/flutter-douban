@@ -423,7 +423,7 @@ class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
                 Container(
                   alignment: Alignment.centerLeft,
                   margin: EdgeInsets.only(bottom: ScreenAdapter.height(10)),
-                  child: Text('${_data.countries.first} / ${_data.genres.first} 上映时间：${_data.pubdate.first} / 片长：${_data.durations.first}',style: TextStyle(color: _data.colorScheme.isDark ? Colors.grey[300]:Colors.grey[600])),
+                  child: Text('${_data.countries.first} / ${_data.genres.first} 上映时间：${_data.pubdate.first} / 片长：${_data.durations.length > 0 ? _data.durations.first:'暂无时长'}',style: TextStyle(color: _data.colorScheme.isDark ? Colors.grey[300]:Colors.grey[600])),
                 ),
                 Row(
                   children: <Widget>[
