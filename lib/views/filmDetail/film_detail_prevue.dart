@@ -66,8 +66,8 @@ class _FilmDetailPrevueState extends State<FilmDetailPrevue> {
             ),
           );
         },
-        itemCount: 8,
+        itemCount: _data.photos.length,
       ),
-    ):Container();;
+    ):Container();
   }
 }

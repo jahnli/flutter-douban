@@ -53,7 +53,7 @@ class DefaultTopItem extends StatelessWidget {
                 ),
                 SizedBox(height: ScreenAdapter.height(10)),
                 Container(
-                  child: Text('${data.mediumName}',style: TextStyle(fontSize: 20)),
+                  child: Text('${data.mediumName}',textAlign: TextAlign.center,style: TextStyle(fontSize: 20)),
                 )
               ],
             ),
@@ -101,12 +101,18 @@ class DefaultTopItem extends StatelessWidget {
                     children: <Widget>[
                       Row(
                         children: <Widget>[
-                          Text('${index+1}.${_item.title}'),
+                          Container(
+                            width: _item.title.length > 10 ? ScreenAdapter.width(290):null,
+                            child: Text('${index+1}.${_item.title}',overflow: TextOverflow.ellipsis,maxLines: 1,),
+                          ),
                           SizedBox(width: ScreenAdapter.width(10)),
                           Text('${_item.rating.value}',style: TextStyle(color: Color(int.parse('0xff' + 'ffac2d')))),
                         ],
                       ),
-                      showTrend ? Icon(_item.trendUp == true ? Icons.arrow_upward : Icons.arrow_downward,color: Colors.grey,size: 16):Container()
+                      Container(
+                        width: ScreenAdapter.width(50),
+                        child: showTrend ? Icon(_item.trendUp == true ? Icons.arrow_upward : Icons.arrow_downward,color: Colors.grey,size: 16):Container(),
+                      )
                     ],
                   ),
                 );
