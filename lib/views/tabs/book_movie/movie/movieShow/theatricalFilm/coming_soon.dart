@@ -206,8 +206,8 @@ class _ComingSoonState extends State<ComingSoon> with AutomaticKeepAliveClientMi
   // 类型切换
   _toggleBtn(){
     return Container(
-      height: ScreenAdapter.height(50),
-      width: ScreenAdapter.width(150),
+      height: ScreenAdapter.height(60),
+      width: ScreenAdapter.width(160),
       decoration: BoxDecoration(
         borderRadius:BorderRadius.circular(30),
         color: Colors.grey[300],
@@ -216,7 +216,7 @@ class _ComingSoonState extends State<ComingSoon> with AutomaticKeepAliveClientMi
         alignment: Alignment.center,
         children: <Widget>[
           Container(
-            width: ScreenAdapter.width(150),
+            width: ScreenAdapter.width(160),
             child: AnimatedAlign(
               alignment: _alignment,
               curve: Curves.ease,
@@ -224,7 +224,7 @@ class _ComingSoonState extends State<ComingSoon> with AutomaticKeepAliveClientMi
               child: Opacity(
                 opacity: 1,
                 child: Container(
-                  height: ScreenAdapter.height(50),
+                  height: ScreenAdapter.height(60),
                   width: ScreenAdapter.width(80),
                   decoration: BoxDecoration(
                     borderRadius:BorderRadius.circular(30),

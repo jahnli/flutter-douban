@@ -89,7 +89,11 @@ class _FilmDetailCommentState extends State<FilmDetailComment>{
               return _item(_data.reviews[index]);
             },
             itemCount:_data.reviews.length,
-          ):Text('还没有影评',style:TextStyle(fontSize:18,color: Colors.grey)):BaseLoading()
+          ):Container(
+            width: double.infinity,
+            margin: EdgeInsets.only(top: ScreenAdapter.height(30)),
+            child: Text('还没有影评',textAlign: TextAlign.center,style:TextStyle(fontSize:18,color: Colors.grey)),
+          ):BaseLoading()
         ],
       ),
     );

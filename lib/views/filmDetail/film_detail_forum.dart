@@ -95,7 +95,10 @@ class _FilmDetailForumState extends State<FilmDetailForum>  {
               return _item(_data.forumTopics[index]);
             },
             itemCount:_data.forumTopics.length,
-          ):Text('还没有讨论',style:TextStyle(fontSize:18,color: Colors.grey)):BaseLoading()
+          ):Container(
+            margin: EdgeInsets.only(top: ScreenAdapter.height(30)),
+            child: Text('还没有讨论',textAlign: TextAlign.center,style:TextStyle(fontSize:18,color: Colors.grey)),
+          ):BaseLoading()
         ],
       ),
     );
