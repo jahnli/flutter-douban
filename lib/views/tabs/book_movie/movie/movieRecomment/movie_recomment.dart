@@ -105,8 +105,7 @@ class _MovieRecommentState extends State<MovieRecomment> {
             itemCount: _dataList.length,
           ):Container(
             margin: EdgeInsets.fromLTRB(0, ScreenAdapter.height(40), 0, ScreenAdapter.height(40)),
-            child:Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            child:Wrap(
               children: <Widget>[
                  Text('暂无${_filterParams['tags'].replaceAll(',',' · ')}的电影，',style: TextStyle(color: Colors.grey,fontSize: 20)),
                  GestureDetector(
@@ -139,10 +138,10 @@ class _MovieRecommentState extends State<MovieRecomment> {
       alignment: Alignment.centerLeft,
       margin: EdgeInsets.only(top: ScreenAdapter.height(30)),
       child: Container(
-        height: ScreenAdapter.height(60),
+        height: ScreenAdapter.height(55),
         width: ScreenAdapter.width(400),
         decoration: BoxDecoration(
-          borderRadius:BorderRadius.circular(30),
+          borderRadius:BorderRadius.circular(20),
           color: Colors.grey[300],
         ),
         child: Stack(
@@ -154,10 +153,10 @@ class _MovieRecommentState extends State<MovieRecomment> {
               child: Opacity(
                 opacity: 1,
                 child: Container(
-                  height: ScreenAdapter.height(60),
+                  height: ScreenAdapter.height(55),
                   width: ScreenAdapter.width(100),
                   decoration: BoxDecoration(
-                    borderRadius:BorderRadius.circular(30),
+                    borderRadius:BorderRadius.circular(20),
                     color: Colors.white,
                     border: Border.all(
                       width: 0.5,
