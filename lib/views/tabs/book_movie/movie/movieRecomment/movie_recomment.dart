@@ -139,8 +139,8 @@ class _MovieRecommentState extends State<MovieRecomment> {
       alignment: Alignment.centerLeft,
       margin: EdgeInsets.only(top: ScreenAdapter.height(30)),
       child: Container(
-        height: ScreenAdapter.height(50),
-        width: ScreenAdapter.width(300),
+        height: ScreenAdapter.height(60),
+        width: ScreenAdapter.width(400),
         decoration: BoxDecoration(
           borderRadius:BorderRadius.circular(30),
           color: Colors.grey[300],
@@ -148,14 +148,14 @@ class _MovieRecommentState extends State<MovieRecomment> {
         child: Stack(
           children: <Widget>[    
             AnimatedPositioned(
-              left: ScreenAdapter.width(_currentSort * 75),
+              left: ScreenAdapter.width(_currentSort * 100),
               curve: Curves.ease,
               duration: Duration(milliseconds: 500),
               child: Opacity(
                 opacity: 1,
                 child: Container(
-                  height: ScreenAdapter.height(50),
-                  width: ScreenAdapter.width(75),
+                  height: ScreenAdapter.height(60),
+                  width: ScreenAdapter.width(100),
                   decoration: BoxDecoration(
                     borderRadius:BorderRadius.circular(30),
                     color: Colors.white,
@@ -180,7 +180,7 @@ class _MovieRecommentState extends State<MovieRecomment> {
                   },
                   child:Container(
                     alignment: Alignment.center,
-                    width: ScreenAdapter.width(75),
+                    width: ScreenAdapter.width(100),
                     child: Text('默认'),
                   )
                 ),
@@ -196,7 +196,7 @@ class _MovieRecommentState extends State<MovieRecomment> {
                   },
                   child:Container(
                     alignment: Alignment.center,
-                    width: ScreenAdapter.width(75),
+                    width: ScreenAdapter.width(100),
                     child: Text('热度'),
                   )
                 ),
@@ -212,7 +212,7 @@ class _MovieRecommentState extends State<MovieRecomment> {
                   },
                   child:Container(
                     alignment: Alignment.center,
-                    width: ScreenAdapter.width(75),
+                    width: ScreenAdapter.width(100),
                     child: Text('评分'),
                   )
                 ),
@@ -228,7 +228,7 @@ class _MovieRecommentState extends State<MovieRecomment> {
                   },
                   child:Container(
                     alignment: Alignment.center,
-                    width: ScreenAdapter.width(75),
+                    width: ScreenAdapter.width(100),
                     child: Text('时间'),
                   )
                 ),
