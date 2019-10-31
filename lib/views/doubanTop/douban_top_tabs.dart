@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_douban/views/doubanTop/movie.dart';
+import 'package:flutter_douban/views/doubanTop/tv.dart';
 
 class DoubanTopTabs extends StatefulWidget {
   @override
@@ -62,7 +63,7 @@ class _DoubanTopTabsState extends State<DoubanTopTabs> with SingleTickerProvider
           children: <Widget>[
             // 电影榜单 - 电影页
             DoubanTopMovie(),
-            Text('data'),
+            DoubanTopTv(),
             Text('data'),
             Text('data'),
           ],

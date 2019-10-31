@@ -17,7 +17,9 @@ class ApiPath{
     // 豆瓣榜单 - 电影页
     'doubantopMovie':'$baseUrl/movie/rank_list?udid=b176e8889c7eb022716e7c4195eceada4be0be40&rom=android&apikey=0dad551ec0f84ed02907ff5c42e8ec70&s=rexxar_new&channel=Douban&device_id=b176e8889c7eb022716e7c4195eceada4be0be40&os_rom=android&apple=f177f7210511568811cc414dd5ed6f50&icecream=7a77f8513a214ec8aaabf90e4ca99089&mooncake=3117c7243ba057a6c140fe27cee889a8&sugar=46000&loc_id=108288&_sig=%2BAzqysYQdV%2Fv7AhVvgGCYmjw4WU%3D&_ts=1571973252',
     // 书影音 - 推荐
-    'movieRecomment':'$baseUrl/movie/recommend'
+    'movieRecomment':'$baseUrl/movie/recommend',
+    // 豆瓣榜单 - 电视页
+    'doubanTopTv':'$baseUrl/tv/rank_list?udid=5440f7d1721c7ec5444c588d26ec3c6b26996bbd&rom=android&apikey=0dad551ec0f84ed02907ff5c42e8ec70&s=rexxar_new&channel=Douban&device_id=5440f7d1721c7ec5444c588d26ec3c6b26996bbd&os_rom=android&apple=05a7f1aebedb438a6c6488e5a77865e8&icecream=46ab93f9ce8d30cfbecf92fef4a67cfc&mooncake=85b03e07e49eec172718cf3eb73c6bfd&loc_id=108288&_sig=TbInuahuuz4xDtEakkEduy3Pgbc%3D&_ts=1572489740'
     
   };
 
