@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_douban/views/doubanTop/book.dart';
+import 'package:flutter_douban/views/doubanTop/fiction.dart';
 import 'package:flutter_douban/views/doubanTop/movie.dart';
 import 'package:flutter_douban/views/doubanTop/tv.dart';
 
@@ -63,9 +65,12 @@ class _DoubanTopTabsState extends State<DoubanTopTabs> with SingleTickerProvider
           children: <Widget>[
             // 电影榜单 - 电影页
             DoubanTopMovie(),
+            // 电影榜单 - 电视页
             DoubanTopTv(),
-            Text('data'),
-            Text('data'),
+            // 电影榜单 - 读书页
+            DoubanTopBook(),
+            // 电影榜单 - 小说原创页
+            DoubanTopFiction()
           ],
         ),
       ),
