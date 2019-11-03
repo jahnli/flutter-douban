@@ -4,7 +4,7 @@ import 'package:flutter_douban/model/home/todayPlay.dart';
 import 'package:flutter_douban/netUtils/api.dart';
 import 'package:flutter_douban/netUtils/netUtils.dart';
 import 'package:flutter_douban/views/doubanTop/douban_top_list.dart';
-import 'package:flutter_douban/views/tabs/book_movie/movie/movieRecomment/movie_recommend.dart';
+import 'package:flutter_douban/views/tabs/book_movie/movie/movieRecommend/movie_recommend.dart';
 import 'package:flutter_douban/views/tabs/book_movie/movie/movieShow/movie_show.dart';
 import 'package:flutter_douban/routes/application.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
