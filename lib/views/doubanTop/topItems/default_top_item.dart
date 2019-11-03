@@ -53,6 +53,7 @@ class DefaultTopItem extends StatelessWidget {
                 ),
                 SizedBox(height: ScreenAdapter.height(10)),
                 Container(
+                  padding:EdgeInsets.only(left: ScreenAdapter.width(20),right: ScreenAdapter.width(20)) ,
                   child: Text('${data.mediumName}',textAlign: TextAlign.center,style: TextStyle(fontSize: 20)),
                 )
               ],

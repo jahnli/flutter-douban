@@ -31,7 +31,7 @@ dependencies:
   provider: ^3.1.0
   fluro: ^1.5.1
   rubber: ^0.4.0
-  dio: ^3.0.3
+  dio: ^3.0.4
 
 dev_dependencies:
   flutter_test:

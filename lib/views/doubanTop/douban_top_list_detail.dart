@@ -170,7 +170,17 @@ class _DoubanTopListDetailState extends State<DoubanTopListDetail> {
             ),
           ],
         )
-      ):BaseLoading(),
+      ):Scaffold(
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.grey[300],
+          brightness: Brightness.light,
+          iconTheme: IconThemeData(
+            color: Colors.black
+          )
+        ),
+        body: BaseLoading(),
+      )
     ); 
   }
 
