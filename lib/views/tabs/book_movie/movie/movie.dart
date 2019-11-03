@@ -161,10 +161,10 @@ class _MoviePageState extends State<MoviePage> with AutomaticKeepAliveClientMixi
             pinned: true,
             delegate: SliverHeaderDelegate(
               PreferredSize(
-                preferredSize: Size.fromHeight(ScreenAdapter.height(180)),
+                preferredSize: Size.fromHeight(_filterParamsList.length > 0 ? ScreenAdapter.height(180):ScreenAdapter.height(100)),
                 child: Container(
                   color: Color.fromRGBO(250, 250, 250, 1),
-                  height: ScreenAdapter.height(180),
+                  height: _filterParamsList.length > 0 ? ScreenAdapter.height(180):ScreenAdapter.height(100),
                   padding: EdgeInsets.only(top: ScreenAdapter.width(20),bottom:ScreenAdapter.width(20)),
                   child: Column(
                     children: <Widget>[
