@@ -169,7 +169,7 @@ class _MoviePageState extends State<MoviePage> with AutomaticKeepAliveClientMixi
                   child: Column(
                     children: <Widget>[
                       _filterAction(),
-                      _sortAction(),
+                      _filterParamsList.length > 0 ? _sortAction():Container(),
                     ],
                   )
                 ),
