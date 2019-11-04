@@ -101,8 +101,18 @@ class _DoubanTopMovieState extends State<DoubanTopMovie> with AutomaticKeepAlive
                 },
                 child: YearTopItem(_dataList.groups[1].selectedCollections[0]),
               ),
-              YearTopItem(_dataList.groups[1].selectedCollections[1]),
-              YearTopItem(_dataList.groups[1].selectedCollections[2]),
+              GestureDetector(
+                onTap: (){
+                  Application.router.navigateTo(context, '/doubanTopDetail?index=4&showFilter=false');
+                },
+                child: YearTopItem(_dataList.groups[1].selectedCollections[1]),
+              ),
+              GestureDetector(
+                onTap: (){
+                  Application.router.navigateTo(context, '/doubanTopDetail?index=5&showFilter=false');
+                },
+                child: YearTopItem(_dataList.groups[1].selectedCollections[2]),
+              ),
             ],
           ),
           // 高分榜

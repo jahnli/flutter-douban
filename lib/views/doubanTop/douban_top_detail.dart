@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_douban/netUtils/netUtils.dart';
 import 'package:flutter_douban/views/doubanTop/douban_top_list_detail.dart';
 
+String baseUrl = 'https://frodo.douban.com/api/v2/subject_collection';
 String baseParams = '&udid=b176e8889c7eb022716e7c4195eceada4be0be40&rom=android&apikey=0dad551ec0f84ed02907ff5c42e8ec70&s=rexxar_new&channel=Douban&device_id=b176e8889c7eb022716e7c4195eceada4be0be40&os_rom=android&apple=f177f7210511568811cc414dd5ed6f50&icecream=7a77f8513a214ec8aaabf90e4ca99089&mooncake=3117c7243ba057a6c140fe27cee889a8&sugar=46000&loc_id=108288&_sig=GRYsUGyd89RDqLTQzMLqjISvmU8%3D&_ts=1572833298';
 
 class DoubanTopDetail extends StatefulWidget {
@@ -31,13 +32,17 @@ class _DoubanTopDetailState extends State<DoubanTopDetail> {
   List<String> _urlList = [
     // 书影音 - 豆瓣榜单
     // 一周口碑
-    'https://frodo.douban.com/api/v2/subject_collection/movie_weekly_best/items?start=0&count=20$baseParams',
+    '$baseUrl/movie_weekly_best/items?start=0&count=20$baseParams',
     // top250
-    'https://frodo.douban.com/api/v2/subject_collection/movie_top250/items?start=0&count=250$baseParams',
+    '$baseUrl/movie_top250/items?start=0&count=250$baseParams',
     // 一周热门电影
-    'https://frodo.douban.com/api/v2/subject_collection/movie_hot_weekly/items?start=0&count=20$baseParams',
+    '$baseUrl/movie_hot_weekly/items?start=0&count=20$baseParams',
     // 豆瓣榜单 - 评分最高华语电影
-    'https://frodo.douban.com/api/v2/subject_collection/2018_movie_1/items?start=0&count=20$baseParams',
+    '$baseUrl/${DateTime.now().year - 1}_movie_1/items?start=0&count=20$baseParams',
+    // 豆瓣榜单 - 评分最高外语电影
+    '$baseUrl/${DateTime.now().year - 1}_movie_0/items?start=0&count=20$baseParams',
+    // 豆瓣榜单 - 年度冷门佳片
+    '$baseUrl/${DateTime.now().year - 1}_movie_14/items?start=0&count=20$baseParams'
   ];
 
 
