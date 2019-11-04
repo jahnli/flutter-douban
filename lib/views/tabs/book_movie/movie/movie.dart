@@ -167,6 +167,7 @@ class _MoviePageState extends State<MoviePage> with AutomaticKeepAliveClientMixi
                   height: _filterParamsList.length > 0 ? ScreenAdapter.height(180):ScreenAdapter.height(100),
                   padding: EdgeInsets.only(top: ScreenAdapter.width(20),bottom:ScreenAdapter.width(20)),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       _filterAction(),
                       _filterParamsList.length > 0 ? _sortAction():Container(),
