@@ -18,7 +18,7 @@ class DoubanTopList extends StatelessWidget {
         children: dataList.asMap().keys.map((index){
           return GestureDetector(
             onTap: (){
-              Application.router.navigateTo(context, '/movieTopDetail?index=$index');
+              Application.router.navigateTo(context, '/doubanTopDetail?index=$index&dataType=${index == 1 ? 2:1}');
             },
             child: Container(
               margin: EdgeInsets.only(right: index == 2 ? 0: ScreenAdapter.width(30)),

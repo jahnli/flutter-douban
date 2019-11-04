@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_douban/model/filmDetail/film_detail_grade_model.dart';
 import 'package:flutter_douban/netUtils/netUtils.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
-import 'package:flutter_douban/weiget/base_grade.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 class FilmDetailGrade extends StatefulWidget {
 

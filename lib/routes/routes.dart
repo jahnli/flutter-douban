@@ -8,7 +8,7 @@ class Routes {
   static String root = "/";
   static String theatricalFilm = "/theatricalFilm";
   static String movieHotDetail = "/movieHotDetail";
-  static String movieTopDetail = "/movieTopDetail";
+  static String doubanTopDetail = "/doubanTopDetail";
   static String doubanTop = "/doubanTop";
   static String filmDetail = "/filmDetail";
   
@@ -22,7 +22,7 @@ class Routes {
     router.define(root, handler:tabHandler);
     router.define(theatricalFilm, handler:theatricalFilmHandler);
     router.define(movieHotDetail, handler:movieHotDetailHandler);
-    router.define(movieTopDetail, handler:movieTopDetailHandler);
+    router.define(doubanTopDetail, handler:doubanTopDetailHandler);
     router.define(doubanTop, handler:doubanTopHandler);
     router.define(filmDetail, handler:filmDetailHandler);
 

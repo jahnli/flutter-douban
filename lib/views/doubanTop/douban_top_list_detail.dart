@@ -17,6 +17,8 @@ class DoubanTopListDetail extends StatefulWidget {
   String filterDescChar = '';
   // 底部描述类型
   String footerFieldType;
+  // 是否显示过滤
+  bool showFilter;
 
   DoubanTopListDetail({
       this.footerFieldType = 'evaluate', 
@@ -24,7 +26,8 @@ class DoubanTopListDetail extends StatefulWidget {
       @required this.filterList,
       @required this.data,
       @required this.currentFilterCondition,
-      @required this.cb
+      @required this.cb,
+      this.showFilter = true
   });
 
   @override
@@ -193,10 +196,12 @@ class _DoubanTopListDetailState extends State<DoubanTopListDetail> {
       padding: EdgeInsets.only(left:ScreenAdapter.width(30),right:ScreenAdapter.width(30)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Text('片单列表 · 共${widget.data['total']}部'),
           Container(
+            child: Text('片单列表 · 共${widget.data['total']}部'),
+          ),
+          widget.showFilter ? Container(
             padding: EdgeInsets.fromLTRB(8, 2, 8, 2),
             decoration: BoxDecoration(
               border: Border.all(
@@ -213,8 +218,8 @@ class _DoubanTopListDetailState extends State<DoubanTopListDetail> {
                 Text('${widget.filterList.length > 0 ? widget.filterList[widget.currentFilterCondition]:''}',style: TextStyle(fontSize: 11))
               ],
             ),
-          ),
-          GestureDetector(
+          ):Container(),
+          widget.showFilter ? GestureDetector(
             onTap:(){
               _timeFilter();
             },
@@ -225,7 +230,7 @@ class _DoubanTopListDetailState extends State<DoubanTopListDetail> {
                 Text('筛选',style: TextStyle(fontSize: 14))
               ],  
             ),
-          )
+          ):Container()
         ]
       ),
     );

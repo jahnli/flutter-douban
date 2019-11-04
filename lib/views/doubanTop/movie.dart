@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_douban/model/doubanTop/movie.dart';
 import 'package:flutter_douban/netUtils/api.dart';
 import 'package:flutter_douban/netUtils/netUtils.dart';
+import 'package:flutter_douban/routes/application.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
 import 'package:flutter_douban/views/doubanTop/topItems/category_top20.dart';
 import 'package:flutter_douban/views/doubanTop/topItems/default_top_item.dart';
@@ -57,9 +58,24 @@ class _DoubanTopMovieState extends State<DoubanTopMovie> with AutomaticKeepAlive
           Column(
             children: <Widget>[
               SizedBox(height: ScreenAdapter.height(30)),
-              DefaultTopItem(_dataList.groups[0].selectedCollections[0]),
-              DefaultTopItem(_dataList.groups[0].selectedCollections[1]),
-              DefaultTopItem(_dataList.groups[0].selectedCollections[2],showTrend:false),
+              GestureDetector(
+                child: DefaultTopItem(_dataList.groups[0].selectedCollections[0]),
+                onTap: (){
+                  Application.router.navigateTo(context, '/doubanTopDetail?index=0');
+                },
+              ),
+              GestureDetector(
+                child: DefaultTopItem(_dataList.groups[0].selectedCollections[1]),
+                onTap: (){
+                  Application.router.navigateTo(context, '/doubanTopDetail?index=2');
+                },
+              ),
+              GestureDetector(
+                child: DefaultTopItem(_dataList.groups[0].selectedCollections[2],showTrend:false),
+                onTap: (){
+                  Application.router.navigateTo(context, '/doubanTopDetail?index=1&dataType=2');
+                },
+              ),
             ],
           ),
           // 豆瓣年度榜单
@@ -79,7 +95,12 @@ class _DoubanTopMovieState extends State<DoubanTopMovie> with AutomaticKeepAlive
                 ],
               ),
               SizedBox(height: ScreenAdapter.height(20)),
-              YearTopItem(_dataList.groups[1].selectedCollections[0]),
+              GestureDetector(
+                onTap: (){
+                  Application.router.navigateTo(context, '/doubanTopDetail?index=3&showFilter=false');
+                },
+                child: YearTopItem(_dataList.groups[1].selectedCollections[0]),
+              ),
               YearTopItem(_dataList.groups[1].selectedCollections[1]),
               YearTopItem(_dataList.groups[1].selectedCollections[2]),
             ],
