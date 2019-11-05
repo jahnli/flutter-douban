@@ -98,7 +98,10 @@ class _FilmDetailForumState extends State<FilmDetailForum>  {
           ):Container(
             margin: EdgeInsets.only(top: ScreenAdapter.height(30)),
             child: Text('还没有讨论',textAlign: TextAlign.center,style:TextStyle(fontSize:18,color: Colors.grey)),
-          ):BaseLoading()
+          ):Container(
+            margin: EdgeInsets.only(top:ScreenAdapter.height(40)),
+            child: BaseLoading(),
+          )
         ],
       ),
     );

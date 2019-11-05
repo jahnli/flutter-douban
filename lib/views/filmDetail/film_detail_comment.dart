@@ -93,7 +93,10 @@ class _FilmDetailCommentState extends State<FilmDetailComment>{
             width: double.infinity,
             margin: EdgeInsets.only(top: ScreenAdapter.height(30)),
             child: Text('还没有影评',textAlign: TextAlign.center,style:TextStyle(fontSize:18,color: Colors.grey)),
-          ):BaseLoading()
+          ):Container(
+            margin: EdgeInsets.only(top:ScreenAdapter.height(40)),
+            child: BaseLoading(),
+          )
         ],
       ),
     );
