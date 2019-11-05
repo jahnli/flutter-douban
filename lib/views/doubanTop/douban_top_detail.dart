@@ -9,12 +9,12 @@ String baseParams = '&udid=b176e8889c7eb022716e7c4195eceada4be0be40&rom=android&
 
 class DoubanTopDetail extends StatefulWidget {
 
-  int index;
+  String id;
   int dataType;
   bool showFilter;
   
   //  1:默认日期  2:top筛选
-  DoubanTopDetail({this.index,this.dataType = 1,this.showFilter = true});
+  DoubanTopDetail(this.id,{this.dataType = 1,this.showFilter = true});
   
   @override
   _DoubanTopDetailState createState() => _DoubanTopDetailState();
@@ -28,28 +28,9 @@ class _DoubanTopDetailState extends State<DoubanTopDetail> {
   List _filterList = [];
   int _currentFilter = 0; 
 
-  // 定义请求url列表
-  List<String> _urlList = [
-    // 书影音 - 豆瓣榜单
-    // 一周口碑
-    '$baseUrl/movie_weekly_best/items?start=0&count=20$baseParams',
-    // top250
-    '$baseUrl/movie_top250/items?start=0&count=250$baseParams',
-    // 一周热门电影
-    '$baseUrl/movie_hot_weekly/items?start=0&count=20$baseParams',
-    // 豆瓣榜单 - 评分最高华语电影
-    '$baseUrl/${DateTime.now().year - 1}_movie_1/items?start=0&count=20$baseParams',
-    // 豆瓣榜单 - 评分最高外语电影
-    '$baseUrl/${DateTime.now().year - 1}_movie_0/items?start=0&count=20$baseParams',
-    // 豆瓣榜单 - 年度冷门佳片
-    '$baseUrl/${DateTime.now().year - 1}_movie_14/items?start=0&count=20$baseParams'
-  ];
-
-
   @override
   void initState() { 
     super.initState();
-    print('${widget.index} ${widget.dataType}');
     _getData();
     // 如果不是top250 就请求筛选日期数据
     if(widget.dataType == 1){
@@ -62,7 +43,8 @@ class _DoubanTopDetailState extends State<DoubanTopDetail> {
   }
   // 获取数据
   _getData()async{
-    String url = _urlList[widget.index];
+    // String url = _urlList[widget.index];
+    String url = '$baseUrl/${widget.id}/items?start=0&count=20$baseParams';
     if(widget.dataType == 1){
       String updatedAt = '';
       updatedAt = _filterList.length > 0 ? '${DateTime.now().year}-${_filterList[_currentFilter]}':''; 

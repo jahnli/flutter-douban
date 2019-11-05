@@ -127,7 +127,7 @@ class _DoubanTopListDetailState extends State<DoubanTopListDetail> {
           controller: _innerControll,
           slivers: <Widget>[
             SliverFixedExtentList(
-              itemExtent: ScreenAdapter.height(500),
+              itemExtent: ScreenAdapter.height(widget.data['subject_collection']['subject_type'] != 'ark_column' ? 500:380),
               delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
                   return  Column(
                     children: <Widget>[
@@ -149,8 +149,8 @@ class _DoubanTopListDetailState extends State<DoubanTopListDetail> {
                         margin: EdgeInsets.only(left: ScreenAdapter.width(30),right: ScreenAdapter.width(30)),
                         child:FilmRowItem(widget.data['subject_collection_items'][index],dataType: 2),
                       ) ,
-                      // 底部描述
-                      Container(
+                      // 底部描述 如果不是小说类目
+                      widget.data['subject_collection_items'][index]['type'] != 'ark_column' ? Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(4),
                           color: Color.fromRGBO(243, 243, 243, 1),
@@ -160,7 +160,7 @@ class _DoubanTopListDetailState extends State<DoubanTopListDetail> {
                         margin: EdgeInsets.only(left:ScreenAdapter.width(30),right:ScreenAdapter.width(30),bottom: ScreenAdapter.height(30)),
                         alignment: Alignment.centerLeft,
                         child: Text(_footerDesc(widget.data['subject_collection_items'][index]),style: TextStyle(color: Color.fromRGBO(0, 0, 0, 0.5),fontSize: 12)),
-                      ),
+                      ):Container(),
                       Container(
                         height: ScreenAdapter.height(20),
                         color: Color.fromRGBO(235, 235, 235, 1),
@@ -199,7 +199,7 @@ class _DoubanTopListDetailState extends State<DoubanTopListDetail> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Container(
-            child: Text('片单列表 · 共${widget.data['total']}部'),
+            child: Text('${widget.data['subject_collection']['subject_type'] == 'ark_column' ? '共${widget.data['total']}本':'片单列表 · 共${widget.data['total']}部'}'),
           ),
           widget.showFilter ? Container(
             padding: EdgeInsets.fromLTRB(8, 2, 8, 2),

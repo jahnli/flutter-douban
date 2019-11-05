@@ -54,30 +54,20 @@ class _DoubanTopMovieState extends State<DoubanTopMovie> with AutomaticKeepAlive
       padding: EdgeInsets.fromLTRB(ScreenAdapter.width(30),0,ScreenAdapter.width(30),ScreenAdapter.width(30)),
       child: ListView(
         children: <Widget>[
+          SizedBox(height: ScreenAdapter.height(30)),
           // 榜单
           Column(
-            children: <Widget>[
-              SizedBox(height: ScreenAdapter.height(30)),
-              GestureDetector(
-                child: DefaultTopItem(_dataList.groups[0].selectedCollections[0]),
+            children:_dataList.groups[0].selectedCollections.asMap().keys.map((index){
+              DoubanTopMovieModelGroupsSelectedCollections item = _dataList.groups[0].selectedCollections[index];
+              return GestureDetector(
+                child: DefaultTopItem(item,showTrend: item.rankType == 'top250' ? false:true),
                 onTap: (){
-                  Application.router.navigateTo(context, '/doubanTopDetail?index=0');
+                  Application.router.navigateTo(context, '/doubanTopDetail?id=${item.id}');
                 },
-              ),
-              GestureDetector(
-                child: DefaultTopItem(_dataList.groups[0].selectedCollections[1]),
-                onTap: (){
-                  Application.router.navigateTo(context, '/doubanTopDetail?index=2');
-                },
-              ),
-              GestureDetector(
-                child: DefaultTopItem(_dataList.groups[0].selectedCollections[2],showTrend:false),
-                onTap: (){
-                  Application.router.navigateTo(context, '/doubanTopDetail?index=1&dataType=2');
-                },
-              ),
-            ],
+              );
+            }).toList(),
           ),
+          SizedBox(height: ScreenAdapter.height(20)),
           // 豆瓣年度榜单
           Column(
             children: <Widget>[
@@ -86,51 +76,44 @@ class _DoubanTopMovieState extends State<DoubanTopMovie> with AutomaticKeepAlive
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text('豆瓣年度榜单',style: TextStyle(fontSize: 24,color:Colors.black,fontWeight: FontWeight.w600)),
-                  Row(
-                    children: <Widget>[
-                      Text('全部',style: TextStyle(color:Colors.black87,fontSize: 16)),
-                      Icon(Icons.keyboard_arrow_right,color:Colors.black87)
-                    ],
+                  GestureDetector(
+                    onTap: (){
+                      Application.router.navigateTo(context,'/doubanYearTop');
+                    },
+                    child: Row(
+                      children: <Widget>[
+                        Text('全部',style: TextStyle(color:Colors.black87,fontSize: 16)),
+                        Icon(Icons.keyboard_arrow_right,color:Colors.black87)
+                      ],
+                    ),
                   )
                 ],
               ),
               SizedBox(height: ScreenAdapter.height(20)),
-              GestureDetector(
-                onTap: (){
-                  Application.router.navigateTo(context, '/doubanTopDetail?index=3&showFilter=false');
-                },
-                child: YearTopItem(_dataList.groups[1].selectedCollections[0]),
-              ),
-              GestureDetector(
-                onTap: (){
-                  Application.router.navigateTo(context, '/doubanTopDetail?index=4&showFilter=false');
-                },
-                child: YearTopItem(_dataList.groups[1].selectedCollections[1]),
-              ),
-              GestureDetector(
-                onTap: (){
-                  Application.router.navigateTo(context, '/doubanTopDetail?index=5&showFilter=false');
-                },
-                child: YearTopItem(_dataList.groups[1].selectedCollections[2]),
+              Column(
+                children: _dataList.groups[1].selectedCollections.map((item){
+                  return GestureDetector(
+                    onTap: (){
+                      Application.router.navigateTo(context, '/doubanTopDetail?id=${item.id}&showFilter=false');
+                    },
+                    child: YearTopItem(item),
+                  );
+                }).toList(),
               ),
             ],
           ),
+          SizedBox(height: ScreenAdapter.height(20)),
           // 高分榜
           Container(
             alignment: Alignment.centerLeft,
             margin: EdgeInsets.only(bottom: ScreenAdapter.height(20)),
             child: Text('豆瓣高分榜',style: TextStyle(fontSize: 24,color: Colors.black))
           ),
-          CategoryTop20(_dataList.groups[2].selectedCollections[0]),
-          CategoryTop20(_dataList.groups[2].selectedCollections[1]),
-          CategoryTop20(_dataList.groups[2].selectedCollections[2]),
-          CategoryTop20(_dataList.groups[2].selectedCollections[3]),
-          CategoryTop20(_dataList.groups[2].selectedCollections[4]),
-          CategoryTop20(_dataList.groups[2].selectedCollections[5]),
-          CategoryTop20(_dataList.groups[2].selectedCollections[6]),
-          CategoryTop20(_dataList.groups[2].selectedCollections[7]),
-          CategoryTop20(_dataList.groups[2].selectedCollections[8]),
-          CategoryTop20(_dataList.groups[2].selectedCollections[9]),
+          Column(
+            children: _dataList.groups[2].selectedCollections.map((item){
+              return CategoryTop20(item);
+            }).toList(),
+          )
         ],
       )
     ):BaseLoading();

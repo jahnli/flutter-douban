@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_douban/model/doubanTop/movie.dart';
 import 'package:flutter_douban/netUtils/api.dart';
 import 'package:flutter_douban/netUtils/netUtils.dart';
+import 'package:flutter_douban/routes/application.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
 import 'package:flutter_douban/views/doubanTop/topItems/default_top_item.dart';
 import 'package:flutter_douban/weiget/base_loading.dart';
@@ -51,13 +52,18 @@ class _DoubanTopFictionState extends State<DoubanTopFiction> with AutomaticKeepA
       padding: EdgeInsets.fromLTRB(ScreenAdapter.width(30),0,ScreenAdapter.width(30),ScreenAdapter.width(30)),
       child: ListView(
         children: <Widget>[
+          SizedBox(height: ScreenAdapter.height(30)),
           // 榜单
           Column(
-            children: <Widget>[
-              SizedBox(height: ScreenAdapter.height(30)),
-              DefaultTopItem(_dataList.groups[0].selectedCollections[0],showTrend:false),
-              DefaultTopItem(_dataList.groups[0].selectedCollections[1]),
-            ],
+            children:_dataList.groups[0].selectedCollections.asMap().keys.map((index){
+              DoubanTopMovieModelGroupsSelectedCollections item = _dataList.groups[0].selectedCollections[index];
+              return GestureDetector(
+                child: DefaultTopItem(item,showTrend:!item.showHeaderMask),
+                onTap: (){
+                  Application.router.navigateTo(context, '/doubanTopDetail?id=${item.id}&showFilter=false');
+                },
+              );
+            }).toList(),
           ),
         ],
       )

@@ -29,7 +29,7 @@ class _FilmRowItemState extends State<FilmRowItem> {
 
   @override
   Widget build(BuildContext context) {
-    _data = widget.dataType == 1 ? _data = TheatricalFimeListModelSubjects.fromJson(widget.data) :MovieShowModelDataSubjectCollectionBoardsItems .fromJson(widget.data);
+    _data = widget.dataType == 1 ? _data = TheatricalFimeListModelSubjects.fromJson(widget.data) :MovieShowModelDataSubjectCollectionBoardsItems.fromJson(widget.data);
     return Container(
       margin: EdgeInsets.only(top:widget.index == 0 ? ScreenAdapter.height(40):ScreenAdapter.height(20)),
       padding: EdgeInsets.only(bottom: ScreenAdapter.height(20)),
@@ -53,9 +53,9 @@ class _FilmRowItemState extends State<FilmRowItem> {
             SizedBox(width: ScreenAdapter.width(30)),
             // 中间信息区域
             _info(),
-            SizedBox(width: ScreenAdapter.width(30)),
+             _data.type != 'ark_column' ? SizedBox(width: ScreenAdapter.width(30)):Container(),
             // 右侧操作区域
-            _actions()
+            _data.type != 'ark_column' ? _actions():Container()
           ],
         ),
       )
@@ -86,10 +86,46 @@ class _FilmRowItemState extends State<FilmRowItem> {
                 margin: EdgeInsets.only(bottom: ScreenAdapter.height(20)),
                 child: Text('${_data.title}',maxLines: 1,overflow: TextOverflow.ellipsis,style: TextStyle(fontSize: 20,fontWeight: FontWeight.w400,color:Colors.black)),
               ),
-              BaseGrade(nullRatingReason: _data.nullRatingReason,value: _data.rating.value),
-              Container(
-                margin: EdgeInsets.only(top: ScreenAdapter.height(20)),
-                child: Text('${_data.cardSubtitle}',maxLines: 2,overflow: TextOverflow.ellipsis)
+              // 如果不是小说类目
+              _data.type != 'ark_column' ? Column(
+                children: <Widget>[
+                  BaseGrade(nullRatingReason: _data.nullRatingReason ?? '',value: _data.rating.value),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    margin: EdgeInsets.only(top: ScreenAdapter.height(20)),
+                    child: Text('${_data.cardSubtitle }',maxLines: 2,overflow: TextOverflow.ellipsis)
+                  )
+                ],
+              ):Column(
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.only(bottom: ScreenAdapter.height(20)),
+                    alignment: Alignment.centerLeft,
+                    child: Text('作者：${_data.author.first}',style: TextStyle(fontSize: 18,color: Colors.black),maxLines: 2,overflow: TextOverflow.ellipsis)
+                  ),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    margin: EdgeInsets.only(bottom: ScreenAdapter.height(20)),
+                    child: Text('${_data.abstracts}',style: TextStyle(fontSize: 18),maxLines: 2,overflow: TextOverflow.ellipsis)
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text('${_data.readCount} 阅读'),
+                      Container(
+                        padding: EdgeInsets.fromLTRB(ScreenAdapter.width(8),ScreenAdapter.width(3),ScreenAdapter.width(8),ScreenAdapter.width(3)),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            width: 1,
+                            color: Colors.grey
+                          ),
+                          borderRadius: BorderRadius.circular(5)
+                        ),
+                        child: Text('${_data.tag.first}'),
+                      )
+                    ],
+                  )
+                ],
               )
             ],
           ),

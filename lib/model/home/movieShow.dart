@@ -117,6 +117,7 @@ class MovieShowModelDataSubjectCollectionBoardsItems {
 */
 
   String originalPrice;
+  String abstracts;
   MovieShowModelDataSubjectCollectionBoardsItemsRating rating;
   List actions;
   String year;
@@ -139,12 +140,17 @@ class MovieShowModelDataSubjectCollectionBoardsItems {
   String uri;
   String subtype;
   List<String> directors;
+  List<String> author;
+  List<String> tag;
   String reviewerName;
   String nullRatingReason;
   int wishCount;
+  int readCount;
 
   MovieShowModelDataSubjectCollectionBoardsItems({
     this.originalPrice,
+    this.abstracts,
+    this.readCount,
     this.rating,
     this.actions,
     this.year,
@@ -167,13 +173,17 @@ class MovieShowModelDataSubjectCollectionBoardsItems {
     this.uri,
     this.subtype,
     this.directors,
+    this.author,
     this.reviewerName,
     this.nullRatingReason,
-    this.wishCount
+    this.wishCount,
+    this.tag
   });
   MovieShowModelDataSubjectCollectionBoardsItems.fromJson(Map<String, dynamic> json) {
     originalPrice = json["original_price"]?.toString();
+    abstracts = json["abstract"]?.toString();
     wishCount = json["wish_count"];
+    readCount = json["read_count"];
     rating = json["rating"] != null ? MovieShowModelDataSubjectCollectionBoardsItemsRating.fromJson(json["rating"]) : null;
     year = json["year"]?.toString();
     cardSubtitle = json["card_subtitle"]?.toString();
@@ -209,12 +219,29 @@ class MovieShowModelDataSubjectCollectionBoardsItems {
   });
     directors = arr0;
     }
+  if (json["author"] != null) {
+  var v = json["author"];
+  var arr0 = List<String>();
+  v.forEach((v) {
+  arr0.add(v.toString());
+  });
+    author = arr0;
+    }
+  if (json["tag"] != null) {
+  var v = json["tag"];
+  var arr0 = List<String>();
+  v.forEach((v) {
+  arr0.add(v.toString());
+  });
+    tag = arr0;
+    }
     reviewerName = json["reviewer_name"]?.toString();
     nullRatingReason = json["null_rating_reason"]?.toString();
   }
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
     data["original_price"] = originalPrice;
+    data["abstract"] = abstracts;
     if (rating != null) {
       data["rating"] = rating.toJson();
     }
@@ -253,6 +280,22 @@ class MovieShowModelDataSubjectCollectionBoardsItems {
   arr0.add(v);
   });
       data["directors"] = arr0;
+    }
+    if (author != null) {
+      var v = author;
+      var arr0 = List();
+  v.forEach((v) {
+  arr0.add(v);
+  });
+      data["directors"] = arr0;
+    }
+    if (tag != null) {
+      var v = tag;
+      var arr0 = List();
+  v.forEach((v) {
+  arr0.add(v);
+  });
+      data["tag"] = arr0;
     }
     data["reviewer_name"] = reviewerName;
     data["null_rating_reason"] = nullRatingReason;

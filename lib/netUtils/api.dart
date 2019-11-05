@@ -1,31 +1,32 @@
 String baseUrl = 'https://frodo.douban.com/api/v2';
+String baseParams = 'udid=5440f7d1721c7ec5444c588d26ec3c6b26996bbd&rom=android&apikey=0dad551ec0f84ed02907ff5c42e8ec70&s=rexxar_new&channel=Douban&device_id=5440f7d1721c7ec5444c588d26ec3c6b26996bbd&os_rom=android&apple=05a7f1aebedb438a6c6488e5a77865e8&icecream=46ab93f9ce8d30cfbecf92fef4a67cfc&mooncake=85b03e07e49eec172718cf3eb73c6bfd&loc_id=108288&_sig=zIqZvzyl6vm5%2Bwptb%2FoyURILcR8%3D&_ts=1572492978';
 class ApiPath{
 
   static Map home  ={
     // 电影主页
-    'home': '$baseUrl/movie/modules?loc_id=108288&udid=b176e8889c7eb022716e7c4195eceada4be0be40&rom=android&apikey=0dad551ec0f84ed02907ff5c42e8ec70&s=rexxar_new&channel=Douban&device_id=b176e8889c7eb022716e7c4195eceada4be0be40&os_rom=android&apple=f177f7210511568811cc414dd5ed6f50&icecream=7a77f8513a214ec8aaabf90e4ca99089&mooncake=3117c7243ba057a6c140fe27cee889a8&sugar=46000&_sig=2dcg1ysS3J5b9xNZDVRFcsKJ8zI%3D&_ts=1571195046',
+    'home': '$baseUrl/movie/modules?loc_id=108288&$baseParams',
     // 今日播放
-    'todayPlay':'$baseUrl/skynet/playlist/recommend/event_videos?count=3&out_skynet=true&udid=b176e8889c7eb022716e7c4195eceada4be0be40&rom=android&apikey=0dad551ec0f84ed02907ff5c42e8ec70&s=rexxar_new&channel=Douban&device_id=b176e8889c7eb022716e7c4195eceada4be0be40&os_rom=android&apple=f177f7210511568811cc414dd5ed6f50&icecream=7a77f8513a214ec8aaabf90e4ca99089&mooncake=3117c7243ba057a6c140fe27cee889a8&sugar=46000&loc_id=108288&_sig=tgGcHejGvKS%2Fmx88IKR1e%2BC2Ft0%3D&_ts=1571195046',
+    'todayPlay':'$baseUrl/skynet/playlist/recommend/event_videos?count=3&out_skynet=true&$baseParams',
     // 院线电影 - 正在热映
-    'movieIsHot':'$baseUrl/subject_collection/movie_showing/subjects?count=10&loc_id=108288&os_rom=android&apikey=0dad551ec0f84ed02907ff5c42e8ec70&channel=Douban&udid=b176e8889c7eb022716e7c4195eceada4be0be40&_sig=1dd1SGnPNGeRHECPIA6FEviVmLY%3D&_ts=1571293796',
+    'movieIsHot':'$baseUrl/subject_collection/movie_showing/subjects?count=10&$baseParams',
     // 院线电影 - 即将上映
-    'movieSoon':'$baseUrl/subject_collection/movie_soon/subjects?count=10&loc_id=108288&os_rom=android&apikey=0dad551ec0f84ed02907ff5c42e8ec70&channel=Douban&udid=b176e8889c7eb022716e7c4195eceada4be0be40&_sig=CpRjJ8iYI833wFTfAm6fLQn%2FfXU%3D&_ts=1571298747',
+    'movieSoon':'$baseUrl/subject_collection/movie_soon/subjects?count=10&$baseParams',
     // 豆瓣热门
-    'doubanHot':'$baseUrl/subject_collection/movie_hot_gaia/items?count=10&udid=b176e8889c7eb022716e7c4195eceada4be0be40&rom=android&apikey=0dad551ec0f84ed02907ff5c42e8ec70&s=rexxar_new&channel=Douban&device_id=b176e8889c7eb022716e7c4195eceada4be0be40&os_rom=android&apple=f177f7210511568811cc414dd5ed6f50&icecream=7a77f8513a214ec8aaabf90e4ca99089&mooncake=3117c7243ba057a6c140fe27cee889a8&sugar=46000&loc_id=108296&_sig=mmvS%2BuorRsBuhz3s2ImVqqye4FI%3D&_ts=1571364017',
+    'doubanHot':'$baseUrl/subject_collection/movie_hot_gaia/items?count=10&$baseParams',
     // 影片详情
-    'filmDetail':'?os_rom=android&apikey=0dad551ec0f84ed02907ff5c42e8ec70&channel=baidu_applink&udid=9598a52e9e94ae464e8164e2db153c4bc83045b4&_sig=jDgWsMQ8MltCP4pLMZ2BHe7eJEc%3D&_ts=1571623254',
+    'filmDetail':'?$baseParams',
     // 豆瓣榜单 - 电影页
-    'doubantopMovie':'$baseUrl/movie/rank_list?udid=b176e8889c7eb022716e7c4195eceada4be0be40&rom=android&apikey=0dad551ec0f84ed02907ff5c42e8ec70&s=rexxar_new&channel=Douban&device_id=b176e8889c7eb022716e7c4195eceada4be0be40&os_rom=android&apple=f177f7210511568811cc414dd5ed6f50&icecream=7a77f8513a214ec8aaabf90e4ca99089&mooncake=3117c7243ba057a6c140fe27cee889a8&sugar=46000&loc_id=108288&_sig=%2BAzqysYQdV%2Fv7AhVvgGCYmjw4WU%3D&_ts=1571973252',
+    'doubantopMovie':'$baseUrl/movie/rank_list?$baseParams',
     // 书影音 - 推荐
     'movieRecommend':'$baseUrl/movie/recommend',
     // 豆瓣榜单 - 电视页
-    'doubanTopTv':'$baseUrl/tv/rank_list?udid=5440f7d1721c7ec5444c588d26ec3c6b26996bbd&rom=android&apikey=0dad551ec0f84ed02907ff5c42e8ec70&s=rexxar_new&channel=Douban&device_id=5440f7d1721c7ec5444c588d26ec3c6b26996bbd&os_rom=android&apple=05a7f1aebedb438a6c6488e5a77865e8&icecream=46ab93f9ce8d30cfbecf92fef4a67cfc&mooncake=85b03e07e49eec172718cf3eb73c6bfd&loc_id=108288&_sig=TbInuahuuz4xDtEakkEduy3Pgbc%3D&_ts=1572489740',
+    'doubanTopTv':'$baseUrl/tv/rank_list?$baseParams',
     // 豆瓣榜单 - 读书页
-    'doubanTopBook':'$baseUrl/book/rank_list?udid=5440f7d1721c7ec5444c588d26ec3c6b26996bbd&rom=android&apikey=0dad551ec0f84ed02907ff5c42e8ec70&s=rexxar_new&channel=Douban&device_id=5440f7d1721c7ec5444c588d26ec3c6b26996bbd&os_rom=android&apple=05a7f1aebedb438a6c6488e5a77865e8&icecream=46ab93f9ce8d30cfbecf92fef4a67cfc&mooncake=85b03e07e49eec172718cf3eb73c6bfd&loc_id=108288&_sig=6jbyaJ5Suwu3gn5jgnRTdV7DCQQ%3D&_ts=1572492702',
+    'doubanTopBook':'$baseUrl/book/rank_list?$baseParams',
     // 豆瓣榜单 - 小说原创页
-    'doubanTopFiction':'$baseUrl/ark/rank_list?udid=5440f7d1721c7ec5444c588d26ec3c6b26996bbd&rom=android&apikey=0dad551ec0f84ed02907ff5c42e8ec70&s=rexxar_new&channel=Douban&device_id=5440f7d1721c7ec5444c588d26ec3c6b26996bbd&os_rom=android&apple=05a7f1aebedb438a6c6488e5a77865e8&icecream=46ab93f9ce8d30cfbecf92fef4a67cfc&mooncake=85b03e07e49eec172718cf3eb73c6bfd&loc_id=108288&_sig=zIqZvzyl6vm5%2Bwptb%2FoyURILcR8%3D&_ts=1572492978',
-  
-  
+    'doubanTopFiction':'$baseUrl/ark/rank_list?$baseParams',
+    // 豆瓣榜单 - 年度榜单
+    'doubanYearTop':'$baseUrl/movie/year_ranks?$baseParams'
   };
 
 }
