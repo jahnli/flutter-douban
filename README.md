@@ -19,17 +19,12 @@
 ## 接口说明
 目前项目接口采用豆瓣真实App数据，均为测试学习使用，不得用于任何利益和商业活动。
 
-## 页面展示
-
-<img src='https://github.com/jahnli/readme/blob/master/flutter_douban/movie.gif' width='300px'></img>   <img src='https://github.com/jahnli/readme/blob/master/flutter_douban/movie_detail.gif' width='300px'></img>   <img src='https://github.com/jahnli/readme/blob/master/flutter_douban/movie_hot_detail.gif' width='300px'></img><img src='https://github.com/jahnli/readme/blob/master/flutter_douban/movie_show_detail.gif' width='300px'></img><img src='https://github.com/jahnli/readme/blob/master/flutter_douban/movie_top_week_praise.gif' width='300px'></img><img src='http://cdn.jahnli.cn/073010140590_01564023088602_0.png' width='300px'></img>
-
-
 ## 前端小弟的第一次，请给个Star吧 ❀  ❤
 
-##  已完成大部分功能待优化细节
-- [x] 书影音首页
-- [x] 电影详情页
-- [x] 影院热映详情页
-- [x] 豆瓣热门详情页
-- [x] 豆瓣榜单 - 一周口碑榜详情页
+## 页面展示
+<div>
+  <p>豆瓣书影音 - 电影 - 影院热映</p>
+  <img src='https://github.com/jahnli/readme/blob/master/flutter_douban/movie.gif' width='300px'></img>
+</div>
+ <img src='https://github.com/jahnli/readme/blob/master/flutter_douban/movie_detail.gif' width='300px'></img>   <img src='https://github.com/jahnli/readme/blob/master/flutter_douban/movie_hot_detail.gif' width='300px'></img><img src='https://github.com/jahnli/readme/blob/master/flutter_douban/movie_show_detail.gif' width='300px'></img><img src='https://github.com/jahnli/readme/blob/master/flutter_douban/movie_top_week_praise.gif' width='300px'></img>
 
