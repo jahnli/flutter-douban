@@ -26,5 +26,8 @@
   <p style='color:#6B93EF'>豆瓣书影音 - 电影 - 影院热映</p>
   <img src='https://github.com/jahnli/readme/blob/master/flutter_douban/movie.gif' width='300px'></img>
 </div>
+    <div style="width: 300px;display: inline-block;color: blue;">
+      ss
+    </div>
  <img src='https://github.com/jahnli/readme/blob/master/flutter_douban/movie_detail.gif' width='300px'></img>   <img src='https://github.com/jahnli/readme/blob/master/flutter_douban/movie_hot_detail.gif' width='300px'></img><img src='https://github.com/jahnli/readme/blob/master/flutter_douban/movie_show_detail.gif' width='300px'></img><img src='https://github.com/jahnli/readme/blob/master/flutter_douban/movie_top_week_praise.gif' width='300px'></img>
 
