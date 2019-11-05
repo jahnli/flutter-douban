@@ -18,13 +18,11 @@ class FilmDetailRelated extends StatefulWidget {
 
 class _FilmDetailRelatedState extends State<FilmDetailRelated> {
 
-  Color _baseTextColor;
   FilmDetailRelatedModel _data;
   @override
   void initState() { 
     super.initState();
     _getRelated();
-    _baseTextColor = widget.isDark == true ? Colors.white:Colors.black;
   }
 
   _getRelated()async{

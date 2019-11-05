@@ -7,7 +7,6 @@ import 'package:flutter_douban/routes/application.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
 import 'package:flutter_douban/views/doubanTop/topItems/year_top_item.dart';
 import 'package:flutter_douban/weiget/base_loading.dart';
-import 'package:flutter_douban/weiget/rowTitle.dart';
 
 class DoubanYearTop extends StatefulWidget {
   @override

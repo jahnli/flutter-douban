@@ -18,8 +18,6 @@ class _MovieGuideState extends State<MovieGuide> with AutomaticKeepAliveClientMi
 
   bool get wantKeepAlive => true;
 
-  String _requestStatus = '';
-
   // 观影指南列表
   List _guideList = [];
 
@@ -40,18 +38,13 @@ class _MovieGuideState extends State<MovieGuide> with AutomaticKeepAliveClientMi
       
       if(mounted){
         setState(() {
-          _requestStatus = '获取年度豆瓣榜单成功';
           _guideList = json.decode(res.data.substring(8,res.data.length - 2))['subject_collection_items'];
         });   
       }
     }
     catch(e){
       print(e);
-      if(mounted){
-        setState(() {
-          _requestStatus = '获取年度豆瓣榜单失败'; 
-        });
-      }
+
     }
   }
   @override
