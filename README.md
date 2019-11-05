@@ -23,7 +23,7 @@
 
 ## 页面展示
 <div style='width:300px;display:inline-block'>
-  <p style='color:#6B93EF'>豆瓣书影音 - 电影 - 影院热映</p>
+  <font color=#00ffff size=72>color=#00ffff</font>
   <img src='https://github.com/jahnli/readme/blob/master/flutter_douban/movie.gif' width='300px'></img>
 </div>
     <div style="width: 300px;display: inline-block;color: blue;">
