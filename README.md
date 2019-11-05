@@ -22,7 +22,7 @@
 ## 前端小弟的第一次，请给个Star吧 ❀  ❤
 
 ## 页面展示
-<div>
+<div style='width=300px'>
   <p>豆瓣书影音 - 电影 - 影院热映</p>
   <img src='https://github.com/jahnli/readme/blob/master/flutter_douban/movie.gif' width='300px'></img>
 </div>
