@@ -6,6 +6,7 @@ import 'package:flutter_douban/views/doubanTop/douban_year_top.dart';
 import 'package:flutter_douban/views/filmDetail/film_detail.dart';
 import 'package:flutter_douban/views/tabs/book_movie/movie/movieHotDetail/movie_hot_detail.dart';
 import 'package:flutter_douban/views/tabs/book_movie/movie/movieShow/theatricalFilm/theatrical_film.dart';
+import 'package:flutter_douban/views/tabs/book_movie/search/search.dart';
 import 'package:flutter_douban/views/tabs/tabs.dart';
 
 // 配置清单路由
@@ -57,4 +58,11 @@ Handler filmDetailHandler = Handler(
 Handler doubanYearTopHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
   return DoubanYearTop();
+});
+
+// 书影音 - 搜索页
+Handler bookMovieSearchHandler = Handler(
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+  String searchText = params['searchText']?.first;
+  return BookMovieSearch(searchText: searchText);
 });

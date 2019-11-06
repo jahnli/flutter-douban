@@ -12,6 +12,7 @@ class Routes {
   static String doubanTop = "/doubanTop";
   static String doubanYearTop = "/doubanYearTop";
   static String filmDetail = "/filmDetail";
+  static String bookMovieSearch = "/bookMovieSearch";
   
   // 路由配置
   static void configureRoutes(Router router) {
@@ -27,6 +28,7 @@ class Routes {
     router.define(doubanTop, handler:doubanTopHandler);
     router.define(filmDetail, handler:filmDetailHandler);
     router.define(doubanYearTop, handler:doubanYearTopHandler);
+    router.define(bookMovieSearch, handler:bookMovieSearchHandler);
 
   }
 }
