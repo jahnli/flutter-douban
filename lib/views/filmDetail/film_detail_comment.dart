@@ -17,8 +17,10 @@ class FilmDetailComment extends StatefulWidget {
   _FilmDetailCommentState createState() => _FilmDetailCommentState();
 }
 
-class _FilmDetailCommentState extends State<FilmDetailComment>{
-
+class _FilmDetailCommentState extends State<FilmDetailComment> with AutomaticKeepAliveClientMixin{
+  
+  @override
+  bool get wantKeepAlive => true;
   // 评论内容
   FilmDetailBottomCommentModel _data;
   // 影评分页

@@ -16,6 +16,7 @@ import 'package:flutter_douban/weiget/base_grade.dart';
 import 'package:flutter_douban/weiget/base_loading.dart';
 import 'package:flutter_douban/weiget/honor_infos.dart';
 import 'package:rubber/rubber.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 class FilmDetail extends StatefulWidget {
 
   final String movieId;
@@ -27,16 +28,16 @@ class FilmDetail extends StatefulWidget {
 
 class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
 
+
+
   // 影片数据
   FilmDetailModel _data;
-
   // 默认显示静态文字电影
   bool _showTitleGrade = false;
-
   // 滚动控制器
   ScrollController _scrollController = ScrollController();
   ScrollController _bottomSheetController = ScrollController();
-  RubberAnimationController _controller;
+  PanelController _panelContainer = new PanelController();
   TabController _tabController;
   //  文字颜色
   Color _baseTextColor;
@@ -141,22 +142,19 @@ class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
           ) : Text('电影') ,
           backgroundColor: Color(int.parse('0xff' +  _data.headerBgColor))
         ),
-        body: Container(
-          child: RubberBottomSheet(
-            scrollController: _bottomSheetController,
-            lowerLayer: _content(),
-            header: Container(
-              decoration: BoxDecoration(
-                color:Color.fromRGBO(246, 246, 246, 1),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
-                )
-              ),
-              child: Stack(
-                children: <Widget>[
-                  _striping(),
-                  TabBar(
+        body: SlidingUpPanel(
+          maxHeight: 600,
+          controller: _panelContainer,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(15),
+            topRight: Radius.circular(15),
+          ),
+          panel: Container(
+            child: Stack(
+              children: <Widget>[
+                _striping(),
+                Positioned(
+                  child:TabBar(
                     controller: _tabController,
                     indicatorColor: Colors.black,
                     labelColor: Colors.black,
@@ -166,15 +164,23 @@ class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
                       Tab(text: '影评 ${_data.reviewCount}'),
                       Tab(text: '讨论 $_forumTotal'),
                     ],
-                  )
-                ],
-              )
-            ),
-            upperLayer: _bottomSheet(),
-            animationController: _controller,
+                  ), 
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: ScreenAdapter.height(80)),
+                  child: _bottomSheet()
+                )
+              ],
+            )
+          ),
+          body:GestureDetector(
+            onTap: (){
+              _panelContainer.close();
+            },
+            child: _content(),
           )
         ),
-        ),
+      ),
     ):Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -289,7 +295,6 @@ class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
       ),
     );
   }
-
 
   // 预告片
   Widget _prevue(){

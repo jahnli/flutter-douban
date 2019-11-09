@@ -25,12 +25,13 @@ dependencies:
   cupertino_icons: ^0.1.2
   flutter_screenutil: ^0.6.0
   flutter_rating_bar: ^3.0.0
-  flutter_gifimage: ^1.0.0
+  flutter_gifimage: ^1.0.1
   pull_to_refresh: ^1.5.7
   flutter_swiper: ^1.1.6
   provider: ^3.1.0
   fluro: ^1.5.1
   rubber: ^0.4.0
+  sliding_up_panel: ^0.3.6
   dio: ^3.0.4
 
 dev_dependencies:

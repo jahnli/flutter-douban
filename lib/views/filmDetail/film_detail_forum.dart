@@ -19,8 +19,9 @@ class FilmDetailForum extends StatefulWidget {
   _FilmDetailForumState createState() => _FilmDetailForumState();
 }
 
-class _FilmDetailForumState extends State<FilmDetailForum>  {
-
+class _FilmDetailForumState extends State<FilmDetailForum>  with AutomaticKeepAliveClientMixin{
+  @override
+  bool get wantKeepAlive => true;
 
   // 评论内容
   FilmDetailForumModel _data;
