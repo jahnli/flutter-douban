@@ -107,7 +107,7 @@ class _BookMoviePageState extends State<BookMoviePage> with SingleTickerProvider
               Expanded(
                 child: GestureDetector(
                   onTap: (){
-                    Application.router.navigateTo(context,'/bookMovieSearch?searchText=${Uri.encodeComponent(_searchText)}');
+                    Application.router.navigateTo(context,'/bookMovieSearch?searchText=${Uri.encodeComponent(_searchText)}',replace: true);
                   },
                   child: Container(
                     margin: EdgeInsets.only(left: ScreenAdapter.width(10)),

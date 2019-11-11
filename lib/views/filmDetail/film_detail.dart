@@ -15,7 +15,6 @@ import 'package:flutter_douban/views/filmDetail/film_detail_short_comments.dart'
 import 'package:flutter_douban/weiget/base_grade.dart';
 import 'package:flutter_douban/weiget/base_loading.dart';
 import 'package:flutter_douban/weiget/honor_infos.dart';
-import 'package:rubber/rubber.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 class FilmDetail extends StatefulWidget {
 
@@ -37,7 +36,7 @@ class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
   // 滚动控制器
   ScrollController _scrollController = ScrollController();
   ScrollController _bottomSheetController = ScrollController();
-  PanelController _panelContainer = new PanelController();
+  PanelController _panelContainer =  PanelController();
   TabController _tabController;
   //  文字颜色
   Color _baseTextColor;
@@ -54,11 +53,6 @@ class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
   void initState() { 
     super.initState();
     if(mounted){
-      _controller = RubberAnimationController(
-        vsync: this,
-        halfBoundValue: AnimationControllerValue(percentage: 0.5),
-        duration: Duration(milliseconds: 200)
-      );
       // 监听滚动
       _scrollController.addListener((){
         if(_scrollController.offset > 40){

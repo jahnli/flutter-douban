@@ -30,7 +30,9 @@ class ApiPath{
     // 首页搜索文字
     'bookMovieSearchText':'https://frodo.douban.com/api/v2/search/hot_topic?apple=f177f7210511568811cc414dd5ed6f50&icecream=7a77f8513a214ec8aaabf90e4ca99089&mooncake=3117c7243ba057a6c140fe27cee889a8&webview_ua=Mozilla%2F5.0%20%28Linux%3B%20Android%205.1.1%3B%20mi-4c%20Build%2FLMY47I%3B%20wv%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Version%2F4.0%20Chrome%2F52.0.2743.100%20Mobile%20Safari%2F537.36&screen_width=540&screen_height=960&sugar=46000&source=subject&os_rom=android&apikey=0dad551ec0f84ed02907ff5c42e8ec70&channel=Douban&udid=b176e8889c7eb022716e7c4195eceada4be0be40&_sig=JRTGiYn0IzxVJyw7nvoH8m6nTyw%3D&_ts=1573001577',
     // 书影音搜索结果
-    'bookMovieSearchResult':'$baseUrl/search/suggestion?$baseParams'
+    'bookMovieSearchResult':'$baseUrl/search/suggestion?$baseParams',
+     // 书影音热门搜索推荐
+    'searchHot':'$baseUrl/search/hots?$baseParams',
   };
 
 }
