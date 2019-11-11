@@ -30,6 +30,8 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
   // 搜索热门
   SearchHotModel _seachHotResult;
 
+  TextEditingController _searchController = TextEditingController();
+
   @override
   void initState() { 
     super.initState();
@@ -48,8 +50,9 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
   }
   // 获取搜索结果
   _getSeachResult() async{
+    print(_searchController.text);
     try {
-      Response res = await NetUtils.ajax('get','${ApiPath.home['bookMovieSearchResult']}&q=$_currentSearchText');
+      Response res = await NetUtils.ajax('get','${ApiPath.home['bookMovieSearchResult']}&q=${_searchController.text}');
       setState(() {
         _searchResult = BookMovieSearchModel.fromJson(res.data); 
       });
@@ -67,7 +70,7 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
         brightness: Brightness.light,
         title: _appBar(),
       ),
-      body:_currentSearchText.isEmpty ? _seachHotResult != null ? Container(
+      body:_searchController.text.isEmpty ? _seachHotResult != null ? Container(
         padding: EdgeInsets.only(left: ScreenAdapter.width(30),right: ScreenAdapter.width(30)),
         child: ListView(
           children: <Widget>[
@@ -100,7 +103,9 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
         ),
       ):Center(
         child: BaseLoading(),
-      ):_seachResult()
+      ): _searchResult != null ? _seachResult():Center(
+        child: BaseLoading(),
+      )
     );
   }
 
@@ -435,7 +440,6 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
       ],
     );
   }
-
   // 标题栏
   Widget _appBar(){
     return Row(
@@ -447,15 +451,8 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
           height: ScreenAdapter.height(60),
           child:TextField(
             autofocus: true,
-            controller: TextEditingController(
-              text: _currentSearchText
-            ),
-            onChanged: (val){
-              setState(() {
-                _currentSearchText = val; 
-              });
-              _getSeachResult();
-            },
+            controller:_searchController,
+            onChanged:(val)=>_getSeachResult(),
             cursorColor: Color.fromRGBO(90, 187, 81, 1),
             decoration: InputDecoration(
               contentPadding:  EdgeInsets.symmetric(vertical: ScreenAdapter.height(12)),
@@ -465,10 +462,11 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
               ),
               suffixIcon: GestureDetector(
                 onTap: (){
-                  setState(() {
-                    _currentSearchText = ''; 
+                  // 保证在组件build的第一帧时才去触发取消清空内容
+                  WidgetsBinding.instance.addPostFrameCallback((s) {
+                    _searchController.clear();
+                    _getSeachResult();
                   });
-                  _getSeachResult();
                 },
                 child: Icon(Icons.cancel,color: Colors.black38),
               ),
