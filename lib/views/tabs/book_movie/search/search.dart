@@ -5,11 +5,12 @@ import 'package:flutter_douban/model/search_hot.dart';
 import 'package:flutter_douban/netUtils/api.dart';
 import 'package:flutter_douban/netUtils/netUtils.dart';
 import 'package:flutter_douban/routes/application.dart';
-import 'package:flutter_douban/utils/configs.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
+import 'package:flutter_douban/views/tabs/book_movie/search/searchResult.dart';
 import 'package:flutter_douban/weiget/base_grade.dart';
 import 'package:flutter_douban/weiget/base_loading.dart';
 import 'package:flutter_douban/weiget/rowTitle.dart';
+import 'package:flutter_douban/weiget/search/search_row.item.dart';
 
 class BookMovieSearch extends StatefulWidget {
   
@@ -23,14 +24,13 @@ class BookMovieSearch extends StatefulWidget {
 
 class _BookMovieSearchState extends State<BookMovieSearch> {
 
-  // 当前搜索文字
-  String _currentSearchText = '';
   // 搜索结果
-  BookMovieSearchModel _searchResult;
+  BookMovieSearchModel _searchSuggestionResult;
   // 搜索热门
   SearchHotModel _seachHotResult;
-
   TextEditingController _searchController = TextEditingController();
+  // 显示最终搜索结果
+  bool _showLastResult  = false;
 
   @override
   void initState() { 
@@ -57,18 +57,19 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
     catch (e) {
     }
   }
-  // 获取搜索结果
-  _getSeachResult() async{
+  // 获取搜索建议结果
+  _getSeachSuggestionResult() async{
     try {
       if(mounted){
         setState(() {
-            _searchResult = null;
+            _searchSuggestionResult = null;
         });
       }
+      print(_searchController.text);
       Response res = await NetUtils.ajax('get','${ApiPath.home['bookMovieSearchResult']}&q=${_searchController.text}');
       if(mounted){
         setState(() {
-          _searchResult = BookMovieSearchModel.fromJson(res.data); 
+          _searchSuggestionResult = BookMovieSearchModel.fromJson(res.data); 
         });
       }
     } 
@@ -118,98 +119,61 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
         ),
       ):Center(
         child: BaseLoading(),
-      ): _searchResult != null ? _seachResult():Center(
+        // 如果有数据，显示搜索推荐， 否则显示loading
+        // 如果点击列表项，显示最终搜索结果组件
+      ):_searchSuggestionResult != null ? _showLastResult == false ?  _seachSuggestionResultWidget():Container(
+        child: BookMovieSearchResult(
+          keyWords: _searchController.text,
+        )
+      ):Center(
         child: BaseLoading(),
       )
     );
   }
 
- // 搜索结果
-  Widget _seachResult(){
+ // 搜索建议结果
+  Widget _seachSuggestionResultWidget(){
     return Container(
       padding: EdgeInsets.all(ScreenAdapter.width(30)),
       child: ListView(
         children: <Widget>[
           // 卡片
-          _searchResult.cards.length > 0 ? Column(
-            children: _searchResult.cards.map((item){
-              String imgUrl;
-              String title;
-              String desc;
-              switch (item.layout) {
-                case 'subject':
-                  imgUrl = item.target.coverUrl;
-                  title = item.target.title;
-                  desc = item.target.cardSubtitle;
-                  break;
-                case 'group':
-                  imgUrl = item.target.avatar;
-                  title = item.target.name;
-                  desc = item.target.desc;
-                  break;  
-                default:
-              }
-      
-              return Container(
-                margin: EdgeInsets.only(bottom: ScreenAdapter.height(20)),
-                child: Row(
-                  children: <Widget>[
-                    ClipRRect(
-                      child: Image.network(imgUrl,height:ScreenAdapter.height(Configs.thumbHeight(size: 'smaller')),width: ScreenAdapter.width(170),fit: BoxFit.fill),
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    SizedBox(width: ScreenAdapter.width(20)),
-                    Expanded(
-                      child: Container(
-                        height:ScreenAdapter.height(Configs.thumbHeight(size: 'smaller')),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Container(
-                              alignment: Alignment.centerLeft,
-                              child: Text('${item.typeName}',style: TextStyle(color: Colors.grey)),
-                            ),
-                            Container(
-                              alignment: Alignment.centerLeft,
-                              child:Text('$title ${item.target.year != null ? '(${item.target.year})':''}',style: TextStyle(fontSize: 18)),
-                            ),
-                            Container(
-                              alignment: Alignment.centerLeft,
-                              child:Text('$desc',style: TextStyle(color: Colors.grey)),
-                            ),
-                          ],
-                        ),
-                      )
-                    )
-                  ],
-                ),
-              );
+          _searchSuggestionResult.cards.length > 0 ? Column(
+            children: _searchSuggestionResult.cards.map((item){
+              return SearchRowItem(data: item);
             }).toList(),
           ):Container(),
           // 关键词
           Column(
-            children: _searchResult.words.map((item){
-              return Container(
-                alignment: Alignment.centerLeft,
-                decoration: BoxDecoration(
-                  border: Border(
-                    top: BorderSide(
-                      width: 0.5,
-                      color: Colors.grey[500]
-                    )
-                  )
-                ),
-                height: ScreenAdapter.height(100),
-                child: RichText(
-                  text: TextSpan(
-                    style:item.substring(0,_searchController.text.length).toLowerCase() == _searchController.text ?  TextStyle(color: Color.fromRGBO(90, 187, 81,1), fontSize: 18.0):TextStyle(color: Colors.black, fontSize: 18.0),
-                    text: item.substring(0,_searchController.text.length) ,
-                    children: [
-                      TextSpan(
-                        style:TextStyle(color: Colors.black, fontSize: 18.0),
-                        text: item.substring(_searchController.text.length,item.length)
+            children: _searchSuggestionResult.words.map((item){
+              return GestureDetector(
+                onTap: (){
+                  setState(() {
+                     _showLastResult = true;
+                  });
+                },
+                child: Container(
+                  alignment: Alignment.centerLeft,
+                  decoration: BoxDecoration(
+                    border: Border(
+                      top: BorderSide(
+                        width: 0.5,
+                        color: Colors.grey[500]
                       )
-                    ]
+                    )
+                  ),
+                  height: ScreenAdapter.height(100),
+                  child: RichText(
+                    text: TextSpan(
+                      style:item.substring(0,_searchController.text.length).toLowerCase() == _searchController.text ?  TextStyle(color: Color.fromRGBO(90, 187, 81,1), fontSize: 18.0):TextStyle(color: Colors.black, fontSize: 18.0),
+                      text: item.substring(0,_searchController.text.length) ,
+                      children: [
+                        TextSpan(
+                          style:TextStyle(color: Colors.black, fontSize: 18.0),
+                          text: item.substring(_searchController.text.length,item.length)
+                        )
+                      ]
+                    ),
                   ),
                 ),
               );
@@ -495,7 +459,12 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
           child:TextField(
             autofocus: true,
             controller:_searchController,
-            onChanged:(val)=>_getSeachResult(),
+            onChanged:(val){
+              setState(() {
+                 _showLastResult = false;
+                 _getSeachSuggestionResult();
+              });
+            },
             cursorColor: Color.fromRGBO(90, 187, 81, 1),
             decoration: InputDecoration(
               contentPadding:  EdgeInsets.symmetric(vertical: ScreenAdapter.height(12)),
@@ -508,7 +477,7 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
                   // 保证在组件build的第一帧时才去触发取消清空内容
                   WidgetsBinding.instance.addPostFrameCallback((s) {
                     _searchController.clear();
-                    _getSeachResult();
+                    _getSeachSuggestionResult();
                   });
                 },
                 child: Icon(Icons.cancel,color: Colors.black38),
