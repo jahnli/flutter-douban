@@ -37,25 +37,40 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
     super.initState();
     _getSearchHot();
   }
+
+  @override
+  void dispose() {
+    _searchController.clear();
+    super.dispose();
+  }
+
   // 获取搜索热门
   _getSearchHot()async{
     try {
       Response res = await NetUtils.ajax('get',ApiPath.home['searchHot']);
-      setState(() {
-        _seachHotResult = SearchHotModel.fromJson(res.data); 
-      });
+      if(mounted){
+        setState(() {
+          _seachHotResult = SearchHotModel.fromJson(res.data); 
+        });
+      }
     } 
     catch (e) {
     }
   }
   // 获取搜索结果
   _getSeachResult() async{
-    print(_searchController.text);
     try {
+      if(mounted){
+        setState(() {
+            _searchResult = null;
+        });
+      }
       Response res = await NetUtils.ajax('get','${ApiPath.home['bookMovieSearchResult']}&q=${_searchController.text}');
-      setState(() {
-        _searchResult = BookMovieSearchModel.fromJson(res.data); 
-      });
+      if(mounted){
+        setState(() {
+          _searchResult = BookMovieSearchModel.fromJson(res.data); 
+        });
+      }
     } 
     catch (e) {
     }
@@ -116,14 +131,31 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
       child: ListView(
         children: <Widget>[
           // 卡片
-          Column(
+          _searchResult.cards.length > 0 ? Column(
             children: _searchResult.cards.map((item){
+              String imgUrl;
+              String title;
+              String desc;
+              switch (item.layout) {
+                case 'subject':
+                  imgUrl = item.target.coverUrl;
+                  title = item.target.title;
+                  desc = item.target.cardSubtitle;
+                  break;
+                case 'group':
+                  imgUrl = item.target.avatar;
+                  title = item.target.name;
+                  desc = item.target.desc;
+                  break;  
+                default:
+              }
+      
               return Container(
                 margin: EdgeInsets.only(bottom: ScreenAdapter.height(20)),
                 child: Row(
                   children: <Widget>[
                     ClipRRect(
-                      child: Image.network(item.target.coverUrl,height:ScreenAdapter.height(Configs.thumbHeight(size: 'smaller')),width: ScreenAdapter.width(170),fit: BoxFit.fill),
+                      child: Image.network(imgUrl,height:ScreenAdapter.height(Configs.thumbHeight(size: 'smaller')),width: ScreenAdapter.width(170),fit: BoxFit.fill),
                       borderRadius: BorderRadius.circular(5),
                     ),
                     SizedBox(width: ScreenAdapter.width(20)),
@@ -139,11 +171,11 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
                             ),
                             Container(
                               alignment: Alignment.centerLeft,
-                              child:Text('${item.target.title}(${item.target.year})',style: TextStyle(fontSize: 18)),
+                              child:Text('$title ${item.target.year != null ? '(${item.target.year})':''}',style: TextStyle(fontSize: 18)),
                             ),
                             Container(
                               alignment: Alignment.centerLeft,
-                              child:Text('${item.target.cardSubtitle}',style: TextStyle(color: Colors.grey)),
+                              child:Text('$desc',style: TextStyle(color: Colors.grey)),
                             ),
                           ],
                         ),
@@ -153,7 +185,7 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
                 ),
               );
             }).toList(),
-          ),
+          ):Container(),
           // 关键词
           Column(
             children: _searchResult.words.map((item){
@@ -168,7 +200,18 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
                   )
                 ),
                 height: ScreenAdapter.height(100),
-                child: Text('$item',style: TextStyle(fontSize: 18),),
+                child: RichText(
+                  text: TextSpan(
+                    style:item.substring(0,_searchController.text.length).toLowerCase() == _searchController.text ?  TextStyle(color: Color.fromRGBO(90, 187, 81,1), fontSize: 18.0):TextStyle(color: Colors.black, fontSize: 18.0),
+                    text: item.substring(0,_searchController.text.length) ,
+                    children: [
+                      TextSpan(
+                        style:TextStyle(color: Colors.black, fontSize: 18.0),
+                        text: item.substring(_searchController.text.length,item.length)
+                      )
+                    ]
+                  ),
+                ),
               );
             }).toList(),
           )

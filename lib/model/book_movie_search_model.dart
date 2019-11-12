@@ -20,6 +20,9 @@ class BookMovieSearchModelCardsTarget {
   String title;
   String uri;
   String coverUrl;
+  String avatar;
+  String name;
+  String desc;
   String year;
   String cardSubtitle;
   String id;
@@ -30,6 +33,9 @@ class BookMovieSearchModelCardsTarget {
     this.title,
     this.uri,
     this.coverUrl,
+    this.avatar,
+    this.desc,
+    this.name,
     this.year,
     this.cardSubtitle,
     this.id,
@@ -40,6 +46,9 @@ class BookMovieSearchModelCardsTarget {
     title = json["title"]?.toString();
     uri = json["uri"]?.toString();
     coverUrl = json["cover_url"]?.toString();
+    avatar = json["avatar"]?.toString();
+    desc = json["desc_abstract"]?.toString();
+    name = json["name"]?.toString();
     year = json["year"]?.toString();
     cardSubtitle = json["card_subtitle"]?.toString();
     id = json["id"]?.toString();
@@ -51,6 +60,9 @@ class BookMovieSearchModelCardsTarget {
     data["title"] = title;
     data["uri"] = uri;
     data["cover_url"] = coverUrl;
+    data["avatar"] = avatar;
+    data["desc_abstract"] = desc;
+    data["name"] = name;
     data["year"] = year;
     data["card_subtitle"] = cardSubtitle;
     data["id"] = id;
