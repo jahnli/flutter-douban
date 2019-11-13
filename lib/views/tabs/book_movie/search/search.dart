@@ -427,26 +427,25 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
           }).toList()         
         ),
         Container(
-          alignment: Alignment.center,
-          child: Container(
-            width: ScreenAdapter.width(300),
-            height: ScreenAdapter.height(60),
-            child: OutlineButton(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(25)
-              ),
-              onPressed: () {
-                Application.router.navigateTo(context, '/');
-              },
-              child: Row(
-                children: <Widget>[
-                  Text('更多书影音',style: TextStyle(fontSize: ScreenAdapter.fontSize(30))),
-                  SizedBox(width: ScreenAdapter.width(20)),
-                  Icon(Icons.keyboard_arrow_right)
-                ],
-              )
+          width: ScreenAdapter.width(270),
+          height: ScreenAdapter.height(60),
+          child: OutlineButton(
+            padding: EdgeInsets.all(0),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(25)
             ),
-          )
+            onPressed: () {
+              Application.router.navigateTo(context, '/');
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text('更多书影音',style: TextStyle(fontSize: ScreenAdapter.fontSize(30))),
+                SizedBox(width: ScreenAdapter.width(10)),
+                Icon(Icons.keyboard_arrow_right)
+              ],
+            )
+          ),
         ),
         SizedBox(height: ScreenAdapter.height(30))
       ],
@@ -511,7 +510,6 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
       ],
     );
   }
-
   // 标题
   Widget _titleWidget({@required String title}){
     return  Container(
