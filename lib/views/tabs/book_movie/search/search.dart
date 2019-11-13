@@ -459,8 +459,8 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
           child:TextField(
             autofocus: true,
             controller:_searchController,
-            onChanged:(val){
-              setState(() {
+            onSubmitted: (val){
+               setState(() {
                  _showLastResult = false;
                  _getSeachSuggestionResult();
               });
