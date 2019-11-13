@@ -213,13 +213,15 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
                   children: <Widget>[
                     Icon(Icons.forum,color: Color.fromRGBO(90, 187, 81, 1)),
                     SizedBox(width: ScreenAdapter.width(20)),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text('${_item.title}',style: TextStyle(fontSize: 20)),
-                        SizedBox(height: ScreenAdapter.height(10)),
-                        Text('${_item.cardSubtitle}',style: TextStyle(color: Colors.grey)),
-                      ],
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text('${_item.title}',style: TextStyle(fontSize: ScreenAdapter.fontSize(40))),
+                          SizedBox(height: ScreenAdapter.height(10)),
+                          Text('${_item.cardSubtitle}',style: TextStyle(color: Colors.grey)),
+                        ],
+                      ),
                     )
                   ],
                 ),
@@ -299,7 +301,7 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
   // 榜单
   Widget _hotTop(){
     return Container(
-      height: ScreenAdapter.height(220),
+      height: ScreenAdapter.height(240),
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemBuilder: (context,index){
@@ -310,7 +312,7 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
             },
             child: Container(
               padding: EdgeInsets.all(ScreenAdapter.width(20)),
-              width: ScreenAdapter.width(300),
+              width: ScreenAdapter.width(400),
               margin: EdgeInsets.only(right: ScreenAdapter.width(30)),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
@@ -323,8 +325,8 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
                 children: <Widget>[
                   Row(
                     children: <Widget>[
-                      Text('${_item.typeName}',style: TextStyle(fontSize: 20,color: Color(int.parse('0xff' + _item.target.label.bgColor)))),
-                      Text(' · ${_item.title}',style: TextStyle(fontSize: 20,color: Colors.grey)),
+                      Text('${_item.typeName}',style: TextStyle(fontSize: ScreenAdapter.fontSize(40),color: Color(int.parse('0xff' + _item.target.label.bgColor)))),
+                      Text(' · ${_item.title}',style: TextStyle(fontSize: ScreenAdapter.fontSize(40),color: Colors.grey)),
                     ],
                   ),
                   SizedBox(height: ScreenAdapter.height(20)),
@@ -407,7 +409,7 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
                       children: <Widget>[
                         Container(
                           width: ScreenAdapter.width(180) ,
-                          child: Text('${_item.title}',maxLines: 1,overflow: TextOverflow.ellipsis,style: TextStyle(fontSize: 20)),
+                          child: Text('${_item.title}',maxLines: 1,overflow: TextOverflow.ellipsis,style: TextStyle(fontSize: ScreenAdapter.fontSize(30))),
                         ),
                         BaseGrade(
                           value: _item.rating.value,
@@ -424,7 +426,7 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
         Container(
           alignment: Alignment.center,
           child: Container(
-            width: ScreenAdapter.width(250),
+            width: ScreenAdapter.width(300),
             height: ScreenAdapter.height(60),
             child: OutlineButton(
               shape: RoundedRectangleBorder(
@@ -435,7 +437,7 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
               },
               child: Row(
                 children: <Widget>[
-                  Text('更多书影音',style: TextStyle(fontSize: 20)),
+                  Text('更多书影音',style: TextStyle(fontSize: ScreenAdapter.fontSize(30))),
                   SizedBox(width: ScreenAdapter.width(20)),
                   Icon(Icons.keyboard_arrow_right)
                 ],
@@ -453,56 +455,55 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        Container(
-          width: ScreenAdapter.getScreenWidth() - ScreenAdapter.width(140),
-          height: ScreenAdapter.height(60),
-          child:TextField(
-            autofocus: true,
-            controller:_searchController,
-            onSubmitted: (val){
-               setState(() {
-                 _showLastResult = false;
-                 _getSeachSuggestionResult();
-              });
-            },
-            cursorColor: Color.fromRGBO(90, 187, 81, 1),
-            decoration: InputDecoration(
-              contentPadding:  EdgeInsets.symmetric(vertical: ScreenAdapter.height(12)),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30),
-                borderSide: BorderSide.none
+        Expanded(
+          child:Container(
+            height: ScreenAdapter.height(60),
+            child:TextField(
+              autofocus: true,
+              controller:_searchController,
+              onSubmitted: (val){
+                setState(() {
+                  _showLastResult = false;
+                  _getSeachSuggestionResult();
+                });
+              },
+              cursorColor: Color.fromRGBO(90, 187, 81, 1),
+              decoration: InputDecoration(
+                contentPadding:  EdgeInsets.symmetric(vertical: ScreenAdapter.height(12)),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30),
+                  borderSide: BorderSide.none
+                ),
+                suffixIcon: GestureDetector(
+                  onTap: (){
+                    // 保证在组件build的第一帧时才去触发取消清空内容
+                    WidgetsBinding.instance.addPostFrameCallback((s) {
+                      _searchController.clear();
+                      _getSeachSuggestionResult();
+                    });
+                  },
+                  child: Icon(Icons.cancel,color: Colors.black38),
+                ),
+                prefixIcon: Icon(Icons.search,color: Colors.black38),
+                fillColor: Colors.grey[100],
+                filled: true,
+                hintText: widget.searchText,
+                hintStyle: TextStyle(
+                  fontSize: ScreenAdapter.fontSize(30)
+                )
               ),
-              suffixIcon: GestureDetector(
-                onTap: (){
-                  // 保证在组件build的第一帧时才去触发取消清空内容
-                  WidgetsBinding.instance.addPostFrameCallback((s) {
-                    _searchController.clear();
-                    _getSeachSuggestionResult();
-                  });
-                },
-                child: Icon(Icons.cancel,color: Colors.black38),
-              ),
-              prefixIcon: Icon(Icons.search,color: Colors.black38),
-              fillColor: Colors.grey[100],
-              filled: true,
-              hintText: widget.searchText,
-              hintStyle: TextStyle(
-                fontSize: 20
-              )
             ),
           ),
         ),
-        Expanded(
-          flex:1,
-          child: Container(
-            alignment: Alignment.centerRight,
-            child: GestureDetector(
-              onTap: (){
-                Application.router.navigateTo(context,'/',replace: true);
-              },
-              child: Text('取消',style: TextStyle(fontSize: 20,color: Color.fromRGBO(90, 187, 81,1))),
-            ),
-          )
+        Container(
+          width: ScreenAdapter.width(120),
+          alignment: Alignment.center,
+          child: GestureDetector(
+            onTap: (){
+              Application.router.navigateTo(context,'/',replace: true);
+            },
+            child: Text('取消',style: TextStyle(fontSize: ScreenAdapter.fontSize(40),color: Color.fromRGBO(90, 187, 81,1))),
+          ),
         )
       ],
     );

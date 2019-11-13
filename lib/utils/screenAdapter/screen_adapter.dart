@@ -7,9 +7,12 @@ class ScreenAdapter {
   // 初始化
   static init (context){
     //假如设计稿是按iPhone6的尺寸设计的(iPhone6 750*1334)
-    ScreenUtil.instance = ScreenUtil(width: 750, height: 1334)..init(context);
+    ScreenUtil.instance = ScreenUtil(width: 750, height: 1334, allowFontScaling: true)..init(context);
   }
-
+  // 设置字体大小
+  static fontSize (double val){
+    return ScreenUtil.getInstance().setSp(val);
+  }
   // 设置宽度
   static width (double val){
     return ScreenUtil.getInstance().setWidth(val);
