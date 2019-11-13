@@ -225,7 +225,7 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text('${_item.title}',style: TextStyle(fontSize: ScreenAdapter.fontSize(30))),
+                          Text('${_item.title}',style: TextStyle(fontSize: ScreenAdapter.fontSize(35))),
                           SizedBox(height: ScreenAdapter.height(10)),
                           Text('${_item.cardSubtitle}',style: TextStyle(color: Colors.grey)),
                         ],
@@ -306,7 +306,7 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
   // 榜单
   Widget _hotTop(){
     return Container(
-      height: ScreenAdapter.height(210),
+      height: ScreenAdapter.height(190),
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemBuilder: (context,index){
@@ -316,17 +316,18 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
               Application.router.navigateTo(context, '/doubanTopDetail?id=${_item.source}');
             },
             child: Container(
-              padding: EdgeInsets.all(ScreenAdapter.width(20)),
               width: ScreenAdapter.width(330),
               margin: EdgeInsets.only(right: ScreenAdapter.width(30)),
+              padding: EdgeInsets.only(left: ScreenAdapter.width(30)),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
                   width: 0.5,
                   color: Colors.grey
-                )
+                ),
               ),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Row(
                     children: <Widget>[
