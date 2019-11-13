@@ -168,19 +168,19 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
                   decoration: BoxDecoration(
                     border: Border(
                       top: BorderSide(
-                        width: 0.5,
-                        color: Colors.grey[500]
+                        width: 0.3,
+                        color: Colors.grey[300]
                       )
                     )
                   ),
                   height: ScreenAdapter.height(100),
                   child: RichText(
                     text: TextSpan(
-                      style:item.substring(0,_searchController.text.length).toLowerCase() == _searchController.text ?  TextStyle(color: Color.fromRGBO(90, 187, 81,1), fontSize: 18.0):TextStyle(color: Colors.black, fontSize: 18.0),
+                      style:item.substring(0,_searchController.text.length).toLowerCase() == _searchController.text ?  TextStyle(color: Color.fromRGBO(90, 187, 81,1), fontSize: 18.0):TextStyle(color: Colors.black, fontSize:ScreenAdapter.fontSize(30)),
                       text: item.substring(0,_searchController.text.length) ,
                       children: [
                         TextSpan(
-                          style:TextStyle(color: Colors.black, fontSize: 18.0),
+                          style:TextStyle(color: Colors.black),
                           text: item.substring(_searchController.text.length,item.length)
                         )
                       ]
@@ -389,7 +389,7 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
                 decoration: BoxDecoration(
                   border:  Border(
                     bottom: BorderSide(
-                      width: 0.5,
+                      width: 0.3,
                       color: Colors.grey[300]
                     )
                   )

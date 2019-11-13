@@ -30,15 +30,15 @@ class SearchRowItem extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(bottom: ScreenAdapter.height(20)),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           ClipRRect(
-            child: Image.network(imgUrl,height:ScreenAdapter.height(Configs.thumbHeight(size: 'smaller')),width: ScreenAdapter.width(170),fit: BoxFit.fill),
             borderRadius: BorderRadius.circular(5),
+            child: Image.network(imgUrl,width: ScreenAdapter.width(Configs.thumbHeight(size: 'miniWidth')),height: ScreenAdapter.height(ScreenAdapter.height(Configs.thumbHeight(size:'smaller'))),fit: BoxFit.cover),
           ),
           SizedBox(width: ScreenAdapter.width(20)),
           Expanded(
             child: Container(
-              height:ScreenAdapter.height(Configs.thumbHeight(size: 'smaller')),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
@@ -48,11 +48,11 @@ class SearchRowItem extends StatelessWidget {
                   ),
                   Container(
                     alignment: Alignment.centerLeft,
-                    child:Text('$title ${data.target.year != null ? '(${data.target.year})':''}',style: TextStyle(fontSize: 18)),
+                    child:Text('$title ${data.target.year != null ? '(${data.target.year})':''}',style: TextStyle(fontSize: ScreenAdapter.fontSize(36))),
                   ),
                   Container(
                     alignment: Alignment.centerLeft,
-                    child:Text('$desc',style: TextStyle(color: Colors.grey)),
+                    child:Text('$desc',style: TextStyle(fontSize: ScreenAdapter.fontSize(26),color: Colors.grey)),
                   ),
                 ],
               ),

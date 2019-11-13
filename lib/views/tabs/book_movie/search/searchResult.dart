@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_douban/model/search_last_result_model.dart';
 import 'package:flutter_douban/netUtils/api.dart';
 import 'package:flutter_douban/netUtils/netUtils.dart';
+import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
 import 'package:flutter_douban/weiget/base_loading.dart';
 import 'package:flutter_douban/weiget/search/search_row.item.dart';
 
@@ -20,7 +21,6 @@ class BookMovieSearchResult extends StatefulWidget {
 class _BookMovieSearchResultState extends State<BookMovieSearchResult> with SingleTickerProviderStateMixin{
 
   TabController _tabController;
-
   BookMovieSearchLastResultModel _result;
 
   @override
@@ -34,7 +34,6 @@ class _BookMovieSearchResultState extends State<BookMovieSearchResult> with Sing
   }
   // 获取最终结果
   _getResult()async{
-    print(ApiPath.home['bookMovieSearchLastResult'] + '&q=${widget.keyWords}');
     try {
       Response res = await NetUtils.ajax('get',ApiPath.home['bookMovieSearchLastResult'] + '&q=${widget.keyWords}');
       if(mounted){
@@ -56,13 +55,11 @@ class _BookMovieSearchResultState extends State<BookMovieSearchResult> with Sing
           elevation: 0,
           pinned: true,
           title: TabBar(
+            isScrollable: true,
             controller: _tabController,
             labelColor:Colors.black,
             indicatorColor: Colors.black,
             indicatorSize: TabBarIndicatorSize.label,
-            labelStyle: TextStyle(
-              fontSize: 18
-            ),
             tabs: <Widget>[
               Tab(text: '综合'),
               Tab(text: '书影音'),
@@ -76,14 +73,7 @@ class _BookMovieSearchResultState extends State<BookMovieSearchResult> with Sing
       body:_result != null ? TabBarView(
         controller: _tabController,
         children: <Widget>[
-          ListView.builder(
-            itemBuilder: (context,index){
-              return SearchRowItem(
-                data:_result.subjects[index],
-              );
-            },
-            itemCount: 60,
-          ),
+          _synthesize(),
           Text('data'),
           Text('data'),
           Text('data'),
@@ -97,16 +87,23 @@ class _BookMovieSearchResultState extends State<BookMovieSearchResult> with Sing
 
   // 综合
   Widget _synthesize(){
-    return ListView(
-      children: <Widget>[
-        ListView.builder(
-          physics: NeverScrollableScrollPhysics(),
-          itemBuilder: (context,index){
-            return Text('data');
-          },
-          itemCount: _result.subjects.length,
-        )
-      ],
+    return Container(
+      padding:EdgeInsets.only(left: ScreenAdapter.width(30),right: ScreenAdapter.width(30)),
+      child: ListView(
+        children: <Widget>[
+          SizedBox(height: ScreenAdapter.height(30)),
+          ListView.builder(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemBuilder: (context,index){
+              return SearchRowItem(
+                data:_result.subjects[index],
+              );
+            },
+            itemCount: _result.subjects.length,
+          ),
+        ],
+      ),
     );
   }
 
