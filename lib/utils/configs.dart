@@ -1,3 +1,5 @@
+import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
+
 class Configs{
 
   // 缩略图高度
@@ -25,8 +27,18 @@ class Configs{
       case 'smaller':
         return 190.0;
         break;
+      // 迷你缩略图
+      case 'miniWidth':
+        return 90.0;
+        break;
+      case 'miniHeight':
+        return 160.0;
+        break;
       default:
     }
   }
+
+
+
 
 }

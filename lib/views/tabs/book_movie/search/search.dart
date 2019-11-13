@@ -5,11 +5,11 @@ import 'package:flutter_douban/model/search_hot.dart';
 import 'package:flutter_douban/netUtils/api.dart';
 import 'package:flutter_douban/netUtils/netUtils.dart';
 import 'package:flutter_douban/routes/application.dart';
+import 'package:flutter_douban/utils/configs.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
 import 'package:flutter_douban/views/tabs/book_movie/search/searchResult.dart';
 import 'package:flutter_douban/weiget/base_grade.dart';
 import 'package:flutter_douban/weiget/base_loading.dart';
-import 'package:flutter_douban/weiget/rowTitle.dart';
 import 'package:flutter_douban/weiget/search/search_row.item.dart';
 
 class BookMovieSearch extends StatefulWidget {
@@ -87,28 +87,39 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
         title: _appBar(),
       ),
       body:_searchController.text.isEmpty ? _seachHotResult != null ? Container(
-        padding: EdgeInsets.only(left: ScreenAdapter.width(30),right: ScreenAdapter.width(30)),
         child: ListView(
           children: <Widget>[
             SizedBox(height: ScreenAdapter.height(30)),
             // 热门书影音
-            _hotBookMovie(),
+            Container(
+              padding: EdgeInsets.only(left: ScreenAdapter.width(30),right: ScreenAdapter.width(30)),
+              child: _hotBookMovie(),
+            ),
             // 榜单
-            _hotTop(),
+            Container(
+              padding: EdgeInsets.only(left: ScreenAdapter.width(30),right: ScreenAdapter.width(30)),
+              child:_hotTop(),
+            ),
             Container(
               margin: EdgeInsets.only(top: ScreenAdapter.height(30)),
               height: ScreenAdapter.height(10),
               color: Colors.grey[200]
             ),
             // 热门小组
-            _hotGroup(),
+            Container(
+              padding: EdgeInsets.only(left: ScreenAdapter.width(30),right: ScreenAdapter.width(30)),
+              child:_hotGroup(),
+            ),
             Container(
               margin: EdgeInsets.only(top: ScreenAdapter.height(20)),
               height: ScreenAdapter.height(10),
               color: Colors.grey[200]
             ),
             // 热门话题
-            _hotTopic(),
+            Container(
+              padding: EdgeInsets.only(left: ScreenAdapter.width(30),right: ScreenAdapter.width(30)),
+              child:_hotTopic(),
+            ),
             // 描述
             Container(
               alignment: Alignment.center,
@@ -189,10 +200,7 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
       margin: EdgeInsets.only(top: ScreenAdapter.height(30)),
       child: Column(
         children: <Widget>[
-          RowTitle(
-            title: '热门话题',
-            showRightAction: false,
-          ),
+          _titleWidget(title: '热门话题'),
           ListView.builder(
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
@@ -217,7 +225,7 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text('${_item.title}',style: TextStyle(fontSize: ScreenAdapter.fontSize(40))),
+                          Text('${_item.title}',style: TextStyle(fontSize: ScreenAdapter.fontSize(30))),
                           SizedBox(height: ScreenAdapter.height(10)),
                           Text('${_item.cardSubtitle}',style: TextStyle(color: Colors.grey)),
                         ],
@@ -239,10 +247,7 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
       margin: EdgeInsets.only(top: ScreenAdapter.height(20)),
       child: Column(
         children: <Widget>[
-          RowTitle(
-            title: '热搜小组',
-            showRightAction: false,
-          ),
+          _titleWidget(title: '热搜小组'),
           GridView.count(
             physics: NeverScrollableScrollPhysics(),
             padding: EdgeInsets.all(0),
@@ -301,7 +306,7 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
   // 榜单
   Widget _hotTop(){
     return Container(
-      height: ScreenAdapter.height(240),
+      height: ScreenAdapter.height(210),
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemBuilder: (context,index){
@@ -312,7 +317,7 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
             },
             child: Container(
               padding: EdgeInsets.all(ScreenAdapter.width(20)),
-              width: ScreenAdapter.width(400),
+              width: ScreenAdapter.width(330),
               margin: EdgeInsets.only(right: ScreenAdapter.width(30)),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
@@ -325,18 +330,18 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
                 children: <Widget>[
                   Row(
                     children: <Widget>[
-                      Text('${_item.typeName}',style: TextStyle(fontSize: ScreenAdapter.fontSize(40),color: Color(int.parse('0xff' + _item.target.label.bgColor)))),
-                      Text(' · ${_item.title}',style: TextStyle(fontSize: ScreenAdapter.fontSize(40),color: Colors.grey)),
+                      Text('${_item.typeName}',style: TextStyle(fontSize: ScreenAdapter.fontSize(30),color: Color(int.parse('0xff' + _item.target.label.bgColor)))),
+                      Text(' · ${_item.title}',style: TextStyle(fontSize: ScreenAdapter.fontSize(30),color: Colors.grey)),
                     ],
                   ),
-                  SizedBox(height: ScreenAdapter.height(20)),
+                  SizedBox(height: ScreenAdapter.height(10)),
                   Row(
                     children: <Widget>[
                       ClipRRect(
                         borderRadius: BorderRadius.circular(5),
-                        child: Image.network('${_item.target.coverUrl}',width: ScreenAdapter.width(80),height: ScreenAdapter.height(110),fit: BoxFit.fill),
+                        child: Image.network('${_item.target.coverUrl}',width: ScreenAdapter.width(Configs.thumbHeight(size: 'miniWidth')),height: ScreenAdapter.height(ScreenAdapter.height(Configs.thumbHeight(size: 'miniHeight'))),fit: BoxFit.fill),
                       ),
-                      SizedBox(width: ScreenAdapter.width(20)),
+                      SizedBox(width: ScreenAdapter.height(10)),
                       Container(
                         height: ScreenAdapter.height(110),
                         width: ScreenAdapter.width(150),
@@ -365,15 +370,12 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
   Widget _hotBookMovie(){
     return Column(
       children: <Widget>[
-        RowTitle(
-          title: '热门书影音',
-          showRightAction: false,
-        ),
+        _titleWidget(title: '热门书影音'),
         GridView.count(
           physics: NeverScrollableScrollPhysics(),
           padding: EdgeInsets.all(0),
           //宽高比
-          childAspectRatio:ScreenAdapter.width(340) / ScreenAdapter.height(180),
+          childAspectRatio:ScreenAdapter.width(240) / ScreenAdapter.height(100),
           shrinkWrap: true,
           crossAxisCount: 2,
           children: _seachHotResult.subjects.asMap().keys.map((index){
@@ -398,7 +400,7 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
                   children: <Widget>[
                     ClipRRect(
                       borderRadius: BorderRadius.circular(5),
-                      child: Image.network('${_item.coverUrl}',width: ScreenAdapter.width(120),height: ScreenAdapter.height(180),fit: BoxFit.cover),
+                      child: Image.network('${_item.coverUrl}',width: ScreenAdapter.width(Configs.thumbHeight(size: 'miniWidth')),height: ScreenAdapter.height(ScreenAdapter.height(Configs.thumbHeight(size:'miniHeight'))),fit: BoxFit.cover),
                     ),
                     SizedBox(
                       width: ScreenAdapter.width(20),
@@ -489,7 +491,7 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
                 filled: true,
                 hintText: widget.searchText,
                 hintStyle: TextStyle(
-                  fontSize: ScreenAdapter.fontSize(30)
+                  fontSize: ScreenAdapter.fontSize(32)
                 )
               ),
             ),
@@ -502,10 +504,19 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
             onTap: (){
               Application.router.navigateTo(context,'/',replace: true);
             },
-            child: Text('取消',style: TextStyle(fontSize: ScreenAdapter.fontSize(40),color: Color.fromRGBO(90, 187, 81,1))),
+            child: Text('取消',style: TextStyle(fontSize: ScreenAdapter.fontSize(32),color: Color.fromRGBO(90, 187, 81,1))),
           ),
         )
       ],
+    );
+  }
+
+  // 标题
+  Widget _titleWidget({@required String title}){
+    return  Container(
+      alignment: Alignment.centerLeft,
+      margin: EdgeInsets.only(bottom: ScreenAdapter.height(20)),
+      child: Text('$title',style: TextStyle(fontSize: ScreenAdapter.fontSize(30))),
     );
   }
 

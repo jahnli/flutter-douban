@@ -111,7 +111,7 @@ class _BookMoviePageState extends State<BookMoviePage> with SingleTickerProvider
                   },
                   child: Container(
                     margin: EdgeInsets.only(left: ScreenAdapter.width(10)),
-                    child: Text(_searchText,style: TextStyle(color: Color.fromRGBO(210, 210, 210, 1))),
+                    child: Text(_searchText,style: TextStyle(fontSize: ScreenAdapter.fontSize(32),color: Color.fromRGBO(210, 210, 210, 1))),
                   )
                 )
               ),
