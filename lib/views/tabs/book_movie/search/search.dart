@@ -8,6 +8,7 @@ import 'package:flutter_douban/routes/application.dart';
 import 'package:flutter_douban/utils/configs.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
 import 'package:flutter_douban/views/tabs/book_movie/search/searchResult.dart';
+import 'package:flutter_douban/weiget/base_components.dart';
 import 'package:flutter_douban/weiget/base_grade.dart';
 import 'package:flutter_douban/weiget/base_loading.dart';
 import 'package:flutter_douban/weiget/search/search_row.item.dart';
@@ -97,24 +98,17 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
             ),
             // 榜单
             Container(
+              margin: EdgeInsets.only(bottom: ScreenAdapter.height(30)),
               padding: EdgeInsets.only(left: ScreenAdapter.width(30),right: ScreenAdapter.width(30)),
               child:_hotTop(),
             ),
-            Container(
-              margin: EdgeInsets.only(top: ScreenAdapter.height(30)),
-              height: ScreenAdapter.height(10),
-              color: Colors.grey[200]
-            ),
+            BaseComponent.septalLine(),
             // 热门小组
             Container(
               padding: EdgeInsets.only(left: ScreenAdapter.width(30),right: ScreenAdapter.width(30)),
               child:_hotGroup(),
             ),
-            Container(
-              margin: EdgeInsets.only(top: ScreenAdapter.height(20)),
-              height: ScreenAdapter.height(10),
-              color: Colors.grey[200]
-            ),
+            BaseComponent.septalLine(),
             // 热门话题
             Container(
               padding: EdgeInsets.only(left: ScreenAdapter.width(30),right: ScreenAdapter.width(30)),
@@ -159,6 +153,7 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
             children: _searchSuggestionResult.words.map((item){
               return GestureDetector(
                 onTap: (){
+                  _searchController.text = item;
                   setState(() {
                      _showLastResult = true;
                   });
@@ -385,18 +380,8 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
               onTap: (){
                 Application.router.navigateTo(context,'/filmDetail?id=${_item.id}');
               },
-              child: Container(
-                decoration: BoxDecoration(
-                  border:  Border(
-                    bottom: BorderSide(
-                      width: 0.3,
-                      color: Colors.grey[300]
-                    )
-                  )
-                ),
-                padding: EdgeInsets.only(bottom: ScreenAdapter.height(20)),
-                margin: EdgeInsets.only(bottom: ScreenAdapter.height(20)),
-                child:Row(
+              child: BaseComponent.bottomBorderContainer(
+                child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     ClipRRect(
@@ -422,7 +407,7 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
                     ),
                   ],
                 )
-              ),
+              )
             );
           }).toList()         
         ),
@@ -463,7 +448,7 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
             child:TextField(
               autofocus: true,
               controller:_searchController,
-              onSubmitted: (val){
+              onChanged:(val){
                 setState(() {
                   _showLastResult = false;
                   _getSeachSuggestionResult();
