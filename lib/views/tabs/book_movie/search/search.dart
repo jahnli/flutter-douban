@@ -66,7 +66,6 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
             _searchSuggestionResult = null;
         });
       }
-      print(_searchController.text);
       Response res = await NetUtils.ajax('get','${ApiPath.home['bookMovieSearchResult']}&q=${_searchController.text}');
       if(mounted){
         setState(() {

@@ -33,6 +33,8 @@ class ApiPath{
     'bookMovieSearchResult':'$baseUrl/search/suggestion?$baseParams',
     // 书影音搜索最终结果
     'bookMovieSearchLastResult':'$baseUrl/search?$baseParams',
+    // 书影音搜索最终结果 - 书影音
+    'bookMovieSearchTabResult':'$baseUrl/search/subject_tab?$baseParams',
      // 书影音热门搜索推荐
     'searchHot':'$baseUrl/search/hots?$baseParams',
   };
