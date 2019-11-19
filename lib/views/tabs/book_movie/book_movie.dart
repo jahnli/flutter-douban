@@ -7,6 +7,7 @@ import 'package:flutter_douban/netUtils/netUtils.dart';
 import 'package:flutter_douban/routes/application.dart';
 import 'package:flutter_douban/views/tabs/book_movie/movie/movie.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
+import 'package:flutter_douban/views/tabs/book_movie/tv/tv.dart';
 class BookMoviePage extends StatefulWidget {
   @override
   _BookMoviePageState createState() => _BookMoviePageState();
@@ -80,7 +81,8 @@ class _BookMoviePageState extends State<BookMoviePage> with SingleTickerProvider
         children: <Widget>[
           // 电影
           MoviePage(),
-          Text('data'),
+          // 电视
+          TvPage(),
           Text('data'),
           Text('data'),
           Text('data'),

@@ -86,20 +86,28 @@ class _MoviePageState extends State<MoviePage> with AutomaticKeepAliveClientMixi
 
   // 获取首页数据
   _getHomeData()async{
-    Response res = await NetUtils.ajax('get', ApiPath.home['home']);
-    if(mounted){
-      setState(() {
-        _homeData = res.data['modules'];
-      });
+    try {
+      Response res = await NetUtils.ajax('get', ApiPath.home['home']);
+      if(mounted){
+        setState(() {
+          _homeData = res.data['modules'];
+        });
+      }
+    } catch (e) {
+      print(e);
     }
   }
   // 获取今日播放
   _getTodayPlay()async{
-    Response res = await NetUtils.ajax('get', ApiPath.home['todayPlay']);
-    if(mounted){
-      setState(() {
-        _todayPlay = TodayPlayModel.fromJson(res.data);
-      });
+    try {
+      Response res = await NetUtils.ajax('get', ApiPath.home['todayPlay']);
+      if(mounted){
+        setState(() {
+          _todayPlay = TodayPlayModel.fromJson(res.data);
+        });
+      }
+    } catch (e) {
+      print(e);
     }
   }
 

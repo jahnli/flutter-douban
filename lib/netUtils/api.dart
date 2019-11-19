@@ -37,6 +37,8 @@ class ApiPath{
     'bookMovieSearchTabResult':'$baseUrl/search/subject_tab?$baseParams',
      // 书影音热门搜索推荐
     'searchHot':'$baseUrl/search/hots?$baseParams',
+     // 书影音 - 电视页
+    'tvHome':'$baseUrl/tv/modules?$baseParams',
   };
 
 }
