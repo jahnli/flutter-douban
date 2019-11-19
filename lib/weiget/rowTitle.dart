@@ -8,13 +8,14 @@ class RowTitle extends StatelessWidget {
   int count;
   String url;
   bool showRightAction;
+  double margin;
 
-  RowTitle({@required this.title,this.showRightAction = true,this.count = 0,this.url});
+  RowTitle({@required this.title,this.margin = 30,this.showRightAction = true,this.count = 0,this.url});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: ScreenAdapter.height(30)),
+      margin: EdgeInsets.only(bottom: ScreenAdapter.height(margin)),
       child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
