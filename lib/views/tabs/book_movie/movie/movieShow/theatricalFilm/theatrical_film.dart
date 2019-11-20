@@ -5,7 +5,7 @@ import 'package:flutter_douban/views/tabs/book_movie/movie/movieShow/theatricalF
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
 
 class TheatricalFilm extends StatefulWidget {
-  int index;
+  final int index;
   TheatricalFilm({this.index = 0});
   @override
   _TheatricalFilmState createState() => _TheatricalFilmState();

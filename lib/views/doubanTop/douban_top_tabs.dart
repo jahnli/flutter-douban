@@ -5,6 +5,8 @@ import 'package:flutter_douban/views/doubanTop/movie.dart';
 import 'package:flutter_douban/views/doubanTop/tv.dart';
 
 class DoubanTopTabs extends StatefulWidget {
+  final int index;
+  DoubanTopTabs({this.index});
   @override
   _DoubanTopTabsState createState() => _DoubanTopTabsState();
 }
@@ -21,7 +23,7 @@ class _DoubanTopTabsState extends State<DoubanTopTabs> with SingleTickerProvider
   @override
   void initState() { 
     super.initState();
-    _tabController = TabController(length: tabs.length,vsync: this);
+    _tabController = TabController(length: tabs.length,vsync: this,initialIndex: widget.index);
   }
 
   @override

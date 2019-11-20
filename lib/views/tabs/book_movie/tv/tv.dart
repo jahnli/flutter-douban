@@ -8,7 +8,6 @@ import 'package:flutter_douban/views/doubanTop/douban_top_list.dart';
 import 'package:flutter_douban/weiget/base_loading.dart';
 import 'package:flutter_douban/weiget/custom_scroll_footer.dart';
 import 'package:flutter_douban/weiget/custom_scroll_header.dart';
-import 'package:flutter_douban/weiget/film_item.dart';
 import 'package:flutter_douban/weiget/film_row_item.dart';
 import 'package:flutter_douban/weiget/grid_view.dart';
 import 'package:flutter_douban/weiget/rowTitle.dart';
@@ -100,7 +99,6 @@ class _TvPageState extends State<TvPage>  with AutomaticKeepAliveClientMixin{
           _homeSuggestionData.addAll(res.data['items']);
           _total = res.data['total'];
         });
-        print(_total);
       }
     } catch (e) {
       print(e);
@@ -313,7 +311,7 @@ class _TvPageState extends State<TvPage>  with AutomaticKeepAliveClientMixin{
       children:_homeData[0]['data']['subject_entraces'].map<Widget>((item){
         return GestureDetector(
           onTap: (){
-            Application.router.navigateTo(context, '/doubanTop');
+            Application.router.navigateTo(context, '/doubanTop?index=1');
           },
           child: Column(
             children: <Widget>[

@@ -43,7 +43,8 @@ Handler doubanTopDetailHandler = Handler(
 // 豆瓣榜单全部页
 Handler doubanTopHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-  return DoubanTopTabs();
+  int index = params['index'] != null ? int.parse(params['index']?.first) : 0;
+  return DoubanTopTabs(index:index);
 });
 
 
