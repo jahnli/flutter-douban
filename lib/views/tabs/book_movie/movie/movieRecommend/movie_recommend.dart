@@ -177,7 +177,6 @@ class _MovieRecommendState extends State<MovieRecommend> {
                       Icon(Icons.play_circle_filled,color: Colors.black,size: 28),
                       SizedBox(width: ScreenAdapter.width(10)),
                       Container(
-                        width: ScreenAdapter.getScreenWidth() - ScreenAdapter.width(170),
                         child: Text('${_item['title']}',style: TextStyle(fontSize: 22,color:Colors.black)),
                       )
                     ],

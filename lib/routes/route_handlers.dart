@@ -52,7 +52,8 @@ Handler doubanTopHandler = Handler(
 Handler filmDetailHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
   String movieId = params['id']?.first;
-  return FilmDetail(movieId: movieId);
+  String type = params['type'] != null ? params['type']?.first :'movie';
+  return FilmDetail(movieId: movieId,type: type,);
 });
 
 // 豆瓣榜单 - 年度榜单

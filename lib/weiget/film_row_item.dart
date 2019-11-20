@@ -8,10 +8,10 @@ import 'package:flutter_douban/weiget/base_grade.dart';
 
 class FilmRowItem extends StatefulWidget {
 
-  Map data;
-  int index;
-  int dataType;
-  String thumbHeight;
+  final Map data;
+  final int index;
+  final int dataType;
+  final String thumbHeight;
   FilmRowItem(this.data,{this.index = 0,this.dataType = 1,this.thumbHeight = 'default'});
 
   @override
@@ -43,7 +43,7 @@ class _FilmRowItemState extends State<FilmRowItem> {
       ),
       child: GestureDetector(
         onTap: (){
-          Application.router.navigateTo(context, '/filmDetail?id=${_data.id}');
+          Application.router.navigateTo(context, '/filmDetail?id=${_data.id}&type=${_data.type}');
         },
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,

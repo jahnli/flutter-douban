@@ -17,9 +17,9 @@ import 'package:flutter_douban/weiget/base_loading.dart';
 import 'package:flutter_douban/weiget/honor_infos.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 class FilmDetail extends StatefulWidget {
-
+  final String type;
   final String movieId;
-  FilmDetail({this.movieId});
+  FilmDetail({this.movieId,this.type});
 
   @override
   _FilmDetailState createState() => _FilmDetailState();
@@ -86,6 +86,7 @@ class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
         setState(() {
           _forumTotal = res.data['total']; 
         });
+        print(_forumTotal);
       }
     }
     catch(e){
@@ -94,7 +95,7 @@ class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
   }
   _getDetail()async{
     try{
-      Response res = await NetUtils.ajax('get', 'https://frodo.douban.com/api/v2/movie/${widget.movieId}'+ApiPath.home['filmDetail']);
+      Response res = await NetUtils.ajax('get', 'https://frodo.douban.com/api/v2/${widget.type}/${widget.movieId}'+ApiPath.home['filmDetail']);
       if(mounted){
         setState(() {
           _data = FilmDetailModel.fromJson(res.data); 
