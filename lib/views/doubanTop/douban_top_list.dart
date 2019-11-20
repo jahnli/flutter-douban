@@ -21,7 +21,7 @@ class DoubanTopList extends StatelessWidget {
               Application.router.navigateTo(context, '/doubanTopDetail?id=${dataList[index]['id']}&dataType=${index == 1 ? 2:1}');
             },
             child: Container(
-              margin: EdgeInsets.only(right: index == 2 ? 0: ScreenAdapter.width(30)),
+              margin: EdgeInsets.only(right: index == dataList.length - 1 ? 0: ScreenAdapter.width(30)),
               child:_item(dataList[index],index),
             ),
           );

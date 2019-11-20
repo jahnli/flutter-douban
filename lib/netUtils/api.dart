@@ -39,6 +39,10 @@ class ApiPath{
     'searchHot':'$baseUrl/search/hots?$baseParams',
      // 书影音 - 电视页
     'tvHome':'$baseUrl/tv/modules?$baseParams',
+     // 书影音 - 电视页 - 热门频道
+    'tvHomeChannels':'$baseUrl/tv/hot_channels?$baseParams',
+     // 书影音 - 电视页 - 为你推荐
+    'tvHomeSuggestion':'$baseUrl/tv/suggestion?count=10&$baseParams',
   };
 
 }
