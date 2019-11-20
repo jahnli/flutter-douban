@@ -66,7 +66,7 @@ class _DoubanTopDetailState extends State<DoubanTopDetail> {
   // 获取筛选日期
   _getFillterDate()async{
     try {
-      Response res = await Dio().get('https://m.douban.com/rexxar/api/v2/subject_collection/movie_hot_weekly/dates?for_mobile=1', options: Options(
+      Response res = await Dio().get('https://m.douban.com/rexxar/api/v2/subject_collection/${widget.id}/dates?for_mobile=1', options: Options(
       headers: {
           HttpHeaders.refererHeader: 'https://m.douban.com/movie/beta',
         },
