@@ -9,6 +9,7 @@ import 'package:flutter_douban/views/filmDetail/film_detail_actor.dart';
 import 'package:flutter_douban/views/filmDetail/film_detail_comment.dart';
 import 'package:flutter_douban/views/filmDetail/film_detail_forum.dart';
 import 'package:flutter_douban/views/filmDetail/film_detail_grade.dart';
+import 'package:flutter_douban/views/filmDetail/film_detail_group_forum.dart';
 import 'package:flutter_douban/views/filmDetail/film_detail_prevue.dart';
 import 'package:flutter_douban/views/filmDetail/film_detail_related.dart';
 import 'package:flutter_douban/views/filmDetail/film_detail_short_comments.dart';
@@ -65,9 +66,10 @@ class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
           });
         }
       });
+      _tabController = TabController(length: 2,vsync: this);
+      _getDetail();
     }
-    _tabController = TabController(length: 2,vsync: this);
-    _getDetail();
+
   }
 
   @override
@@ -78,7 +80,7 @@ class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
     _bottomSheetController.dispose();
     super.dispose();
   }
-  // 获取评论数量
+  // 获取讨论数量
   _getFilmForum()async{
     try{
       Response res = await NetUtils.ajax('get','https://frodo.douban.com/api/v2/subject/${_data.id}/forum_topic/topics?start=0&count=10&os_rom=android&apikey=0dad551ec0f84ed02907ff5c42e8ec70&channel=Douban&udid=5440f7d1721c7ec5444c588d26ec3c6b26996bbd&_sig=HApqGiSWyuoJD%2FmeeL2pAWOQerE%3D&_ts=1571799819');
@@ -86,7 +88,6 @@ class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
         setState(() {
           _forumTotal = res.data['total']; 
         });
-        print(_forumTotal);
       }
     }
     catch(e){
@@ -101,7 +102,13 @@ class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
           _data = FilmDetailModel.fromJson(res.data); 
           _baseTextColor = _data.colorScheme.isDark ? Colors.white:Colors.black;
         });
-        _getFilmForum();
+        if(_data.ugcTabs[1].title == '讨论'){
+          _getFilmForum();
+        }else{
+          setState(() {
+            _forumTotal = _data.ugcTabs[1].count; 
+          });
+        }
       }
     }
     catch(e){
@@ -150,6 +157,11 @@ class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
                 _striping(),
                 Positioned(
                   child:TabBar(
+                    onTap: (index){
+                      if(_panelContainer.isPanelClosed()){
+                        _panelContainer.open();
+                      }
+                    },
                     controller: _tabController,
                     indicatorColor: Colors.black,
                     labelColor: Colors.black,
@@ -157,7 +169,7 @@ class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
                     indicatorSize: TabBarIndicatorSize.label,
                     tabs: <Widget>[
                       Tab(text: '影评 ${_data.reviewCount}'),
-                      Tab(text: '讨论 $_forumTotal'),
+                      Tab(text: '${_data.ugcTabs[1].title} $_forumTotal'),
                     ],
                   ), 
                 ),
@@ -208,6 +220,7 @@ class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
           SliverToBoxAdapter(
             child: FilmDetailGrade(
               movieId:_data.id,
+              type:_data.type,
               nullRatingReason:_data.nullRatingReason,
               isDark:_data.colorScheme.isDark,
               rating:_data.rating.value.toInt(),
@@ -229,6 +242,7 @@ class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
           // 短评
           SliverToBoxAdapter(
             child:FilmDetailShortComments(
+              type:_data.type,
               movieId:_data.id,
               isDark:_data.colorScheme.isDark,
             ),
@@ -255,6 +269,7 @@ class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
           ),
           FilmDetailRelated(
             movieId: _data.id,
+            type:_data.type,
             isDark:_data.colorScheme.isDark,
           )
         ],
@@ -271,10 +286,11 @@ class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
           controller: _tabController,
           children: <Widget>[
             FilmDetailComment(
+              type:_data.type,
               movieId: _data.id,
               bottomSheetController: _bottomSheetController,
-            ),  
-            FilmDetailForum(
+            ), 
+            _data.ugcTabs[1].title == '讨论' ?  FilmDetailForum(
               movieId: _data.id,
               bottomSheetController: _bottomSheetController,
               setForumTotal:(total){
@@ -284,6 +300,9 @@ class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
                   });
                 }
               }
+            ):FilmDetailGroupForum(
+              movieId: _data.id,
+              bottomSheetController: _bottomSheetController,
             )
           ],
         ),
@@ -302,6 +321,7 @@ class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
           ),
           FilmDetailPrevue(
             movieId: _data.id,
+            type: _data.type,
             setPrevueTotal:(total){
               setState(() {
                _prevueTotal = total; 
@@ -323,6 +343,7 @@ class _FilmDetailState extends State<FilmDetail> with TickerProviderStateMixin{
           ),
           FilmDetailActor(
             movieId: _data.id,
+            type: _data.type,
             setActorTotal:(total){
               setState(() {
                _actorTotal = total; 

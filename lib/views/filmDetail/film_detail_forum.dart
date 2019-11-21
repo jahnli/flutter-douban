@@ -10,9 +10,9 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class FilmDetailForum extends StatefulWidget {
 
-  String movieId = '';
-  ScrollController bottomSheetController;
-  Function setForumTotal;
+  final String movieId;
+  final ScrollController bottomSheetController;
+  final Function setForumTotal;
   FilmDetailForum({this.movieId,this.bottomSheetController,this.setForumTotal});
 
   @override
@@ -38,6 +38,11 @@ class _FilmDetailForumState extends State<FilmDetailForum>  with AutomaticKeepAl
   }
 
 
+  @override
+  void dispose(){
+    _refreshController.dispose();
+    super.dispose();
+  }
 
   _getFilmForum()async{
     try{
@@ -127,7 +132,7 @@ class _FilmDetailForumState extends State<FilmDetailForum>  with AutomaticKeepAl
             decoration: BoxDecoration(
               border: Border(
                 bottom: BorderSide(
-                  width: 1,
+                  width: 0.5,
                   color: Colors.grey
                 )
               )
@@ -136,7 +141,7 @@ class _FilmDetailForumState extends State<FilmDetailForum>  with AutomaticKeepAl
               children: <Widget>[
                 Container(
                   alignment: Alignment.centerLeft,
-                  child: Text('${item.title}',style: TextStyle(fontSize: 22)),
+                  child: Text('${item.title}',style: TextStyle(fontSize: ScreenAdapter.fontSize(30))),
                 ),
                 Container(
                   alignment: Alignment.centerLeft,

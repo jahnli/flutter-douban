@@ -1,18 +1,20 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_douban/model/filmDetail/film_detail_grade_model.dart';
+import 'package:flutter_douban/netUtils/api.dart';
 import 'package:flutter_douban/netUtils/netUtils.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 class FilmDetailGrade extends StatefulWidget {
 
-  String movieId;
-  bool isDark;
-  String nullRatingReason;
-  int rating;
-  int rateCount;
+  final String movieId;
+  final String type;
+  final bool isDark;
+  final String nullRatingReason;
+  final int rating;
+  final int rateCount;
 
-  FilmDetailGrade({this.isDark,this.movieId,this.nullRatingReason,this.rating,this.rateCount});
+  FilmDetailGrade({this.type,this.isDark,this.movieId,this.nullRatingReason,this.rating,this.rateCount});
 
   @override
   _FilmDetailGradeState createState() => _FilmDetailGradeState();
@@ -31,12 +33,16 @@ class _FilmDetailGradeState extends State<FilmDetailGrade> {
   }
   // 获取评分
   _getGrade()async{
-    Response res = await NetUtils.ajax('get', 'https://frodo.douban.com/api/v2/movie/${widget.movieId}/rating?os_rom=android&apikey=0dad551ec0f84ed02907ff5c42e8ec70&channel=baidu_applink&udid=9598a52e9e94ae464e8164e2db153c4bc83045b4&_sig=4or07CQCsyShiIXJglxSiyVQuq0%3D&_ts=1571639358');
-    if(mounted){
-      setState(() {
-        _data = FilmDetailGradeModel.fromJson(res.data); 
-        _baseTextColor = widget.isDark ? Colors.white:Colors.black;
-      });
+    try {
+      Response res = await NetUtils.ajax('get', '${ApiPath.home['baseUrl']}/${widget.type}/${widget.movieId}/rating?${ApiPath.home['baseParams']}');
+      if(mounted){
+        setState(() {
+          _data = FilmDetailGradeModel.fromJson(res.data); 
+          _baseTextColor = widget.isDark ? Colors.white:Colors.black;
+        });
+      } 
+    } catch (e) {
+      print(e);
     }
   }
 

@@ -3,8 +3,8 @@ import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
 
 class HonorInfos extends StatelessWidget {
 
-  int rankText;
-  String title;
+  final int rankText;
+  final String title;
 
   HonorInfos({this.rankText,this.title});
 
@@ -16,7 +16,7 @@ class HonorInfos extends StatelessWidget {
       child:Row(
         children: <Widget>[
           Container(
-            height: ScreenAdapter.height(30),
+            height: ScreenAdapter.height(35),
             padding: EdgeInsets.only(left: ScreenAdapter.width(8),right: ScreenAdapter.width(8)),
             alignment: Alignment.center,
             decoration: BoxDecoration(
@@ -33,10 +33,10 @@ class HonorInfos extends StatelessWidget {
                 ]
               )
             ),
-            child:Text('No.$rankText',style: TextStyle(fontSize: 15,color: Color.fromRGBO(157, 95, 0, 1))),
+            child:Text('No.$rankText',style: TextStyle(fontSize: ScreenAdapter.fontSize(23),color: Color.fromRGBO(157, 95, 0, 1))),
           ),
           Container(
-            height: ScreenAdapter.height(30),
+            height: ScreenAdapter.height(35),
             padding: EdgeInsets.only(left: ScreenAdapter.width(8),right: ScreenAdapter.width(8)),
             alignment: Alignment.center,
             decoration: BoxDecoration(
@@ -53,7 +53,7 @@ class HonorInfos extends StatelessWidget {
                 ]
               )
             ),
-            child:Text('$title',style: TextStyle(fontSize: 13.8,color: Color.fromRGBO(157, 95, 0, 1))),
+            child:Text('$title',style: TextStyle(fontSize: ScreenAdapter.fontSize(23),color: Color.fromRGBO(157, 95, 0, 1))),
           )
         ],
       ),

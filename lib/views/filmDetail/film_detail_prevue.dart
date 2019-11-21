@@ -1,15 +1,17 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_douban/model/filmDetail/film_detail_prevue_model.dart';
+import 'package:flutter_douban/netUtils/api.dart';
 import 'package:flutter_douban/netUtils/netUtils.dart';
 import 'package:flutter_douban/utils/configs.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
 
 class FilmDetailPrevue extends StatefulWidget {
 
-  String movieId;
-  Function setPrevueTotal;
-  FilmDetailPrevue({this.movieId,this.setPrevueTotal});
+  final String movieId;
+  final String type;
+  final Function setPrevueTotal;
+  FilmDetailPrevue({this.type,this.movieId,this.setPrevueTotal});
 
   @override
   _FilmDetailPrevueState createState() => _FilmDetailPrevueState();
@@ -27,7 +29,7 @@ class _FilmDetailPrevueState extends State<FilmDetailPrevue> {
 
   _getPrevue()async{
     try{
-      Response res = await NetUtils.ajax('get', 'https://frodo.douban.com/api/v2/movie/${widget.movieId}/photos?count=8&os_rom=android&apikey=0dad551ec0f84ed02907ff5c42e8ec70&channel=Douban&udid=b176e8889c7eb022716e7c4195eceada4be0be40&_sig=p9UrcIiUECDH2yk6JkapJ6D%2FCPM%3D&_ts=1571728787');
+      Response res = await NetUtils.ajax('get', '${ApiPath.home['baseUrl']}/${widget.type}/${widget.movieId}/photos?count=8&${ApiPath.home['baseParams']}');
       if(mounted){
         setState(() {
           _data = FilmDetailPrevueModel.fromJson(res.data); 

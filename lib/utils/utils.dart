@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Utils {
   // 计算是否上映
@@ -16,6 +17,17 @@ class Utils {
     List<String> weekList = ['一','二','三','四','五','六','日'];
     return weekList[weekNum - 1];
   }
+
+  // toast
+  static baseToast(String msg){
+    Fluttertoast.showToast(
+      msg: msg,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.CENTER,
+      timeInSecForIos: 1,
+    );
+  }
+
   // 时间线格式化
   static timeLine(time){
     int _second = 1 * 1000;

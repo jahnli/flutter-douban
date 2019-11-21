@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_douban/model/filmDetail/film_detail_actor_model.dart';
+import 'package:flutter_douban/netUtils/api.dart';
 import 'package:flutter_douban/netUtils/netUtils.dart';
 import 'package:flutter_douban/utils/configs.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
@@ -8,9 +9,10 @@ import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
 
 class FilmDetailActor extends StatefulWidget {
 
-  String movieId;
-  Function setActorTotal;
-  FilmDetailActor({this.movieId,this.setActorTotal});
+  final String movieId;
+  final String type;
+  final Function setActorTotal;
+  FilmDetailActor({this.type,this.movieId,this.setActorTotal});
 
   @override
   _FilmDetailActorState createState() => _FilmDetailActorState();
@@ -30,7 +32,7 @@ class _FilmDetailActorState extends State<FilmDetailActor> {
 
   _getActor()async{
     try{
-      Response res = await NetUtils.ajax('get', 'https://frodo.douban.com/api/v2/movie/${widget.movieId}/celebrities?os_rom=android&apikey=0dad551ec0f84ed02907ff5c42e8ec70&channel=Douban&udid=5440f7d1721c7ec5444c588d26ec3c6b26996bbd&_sig=siDiVxUb%2B%2Bda0ZHtvOe2WIY91cg%3D&_ts=1571710231');
+      Response res = await NetUtils.ajax('get', '${ApiPath.home['baseUrl']}/${widget.type}/${widget.movieId}/celebrities?${ApiPath.home['baseParams']}');
       if(mounted){
         setState(() {
           _data = FilmDetailActorModel.fromJson(res.data); 

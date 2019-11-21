@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_douban/model/filmDetail/film_detail_short_comments_model.dart';
+import 'package:flutter_douban/netUtils/api.dart';
 import 'package:flutter_douban/netUtils/netUtils.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
 import 'package:flutter_douban/utils/utils.dart';
@@ -9,10 +10,11 @@ import 'package:flutter_douban/weiget/base_grade.dart';
 
 class FilmDetailShortComments extends StatefulWidget {
 
-  String movieId;
-  bool isDark;
+  final String movieId;
+  final String type;
+  final bool isDark;
 
-  FilmDetailShortComments({this.movieId,this.isDark});
+  FilmDetailShortComments({this.type,this.movieId,this.isDark});
 
   @override
   _FilmDetailShortCommentsState createState() => _FilmDetailShortCommentsState();
@@ -32,7 +34,7 @@ class _FilmDetailShortCommentsState extends State<FilmDetailShortComments> {
 
   _getShortComments()async{
     try{
-      Response res = await NetUtils.ajax('get', 'https://frodo.douban.com/api/v2/movie/${widget.movieId}/hot_interests?status=done&following=1&os_rom=android&apikey=0dad551ec0f84ed02907ff5c42e8ec70&channel=Douban&udid=b176e8889c7eb022716e7c4195eceada4be0be40&_sig=c%2FEvBHSgFyY0XTheYO5WzZGLBvE%3D&_ts=1571732277');
+      Response res = await NetUtils.ajax('get', '${ApiPath.home['baseUrl']}/${widget.type}/${widget.movieId}/hot_interests?${ApiPath.home['baseParams']}');
       if(mounted){
         setState(() {
           _data = FilmDetailShortCommentsModel.fromJson(res.data); 

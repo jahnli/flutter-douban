@@ -34,9 +34,9 @@ class GridViewItems extends StatelessWidget {
           crossAxisCount: crossAxisCount,
           //纵轴间距
           //横轴间距
-          crossAxisSpacing: crossAxisSpacing,
+          crossAxisSpacing: ScreenAdapter.width(crossAxisSpacing),
           //子组件宽高长度比例
-          childAspectRatio: (ScreenAdapter.getScreenWidth() / crossAxisCount ) /  ScreenAdapter.height(height)
+          childAspectRatio: (ScreenAdapter.getScreenWidth() / crossAxisCount - ScreenAdapter.width(crossAxisSpacing)) /  ScreenAdapter.height(height)
         ),
         itemBuilder: (context,index){
           return FilmItem(

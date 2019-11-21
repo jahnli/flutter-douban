@@ -3,6 +3,8 @@ String baseParams = 'udid=5440f7d1721c7ec5444c588d26ec3c6b26996bbd&rom=android&a
 class ApiPath{
 
   static Map home  ={
+    'baseUrl':baseUrl,
+    'baseParams':baseParams,
     // 电影主页
     'home': '$baseUrl/movie/modules?loc_id=108288&$baseParams',
     // 今日播放

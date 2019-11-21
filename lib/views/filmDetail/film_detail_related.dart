@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_douban/model/filmDetail/film_detail_related_model.dart';
+import 'package:flutter_douban/netUtils/api.dart';
 import 'package:flutter_douban/netUtils/netUtils.dart';
 import 'package:flutter_douban/routes/application.dart';
 import 'package:flutter_douban/utils/configs.dart';
@@ -8,9 +9,10 @@ import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
 import 'package:flutter_douban/weiget/base_grade.dart';
 class FilmDetailRelated extends StatefulWidget {
   
-  String movieId;
-  bool isDark;
-  FilmDetailRelated({this.movieId,this.isDark});
+  final String movieId;
+  final String type;
+  final bool isDark;
+  FilmDetailRelated({this.type,this.movieId,this.isDark});
 
   @override
   _FilmDetailRelatedState createState() => _FilmDetailRelatedState();
@@ -27,7 +29,7 @@ class _FilmDetailRelatedState extends State<FilmDetailRelated> {
 
   _getRelated()async{
     try{
-      Response res = await NetUtils.ajax('get', 'https://frodo.douban.com/api/v2/movie/${widget.movieId}/related_items?count=10&os_rom=android&apikey=0dad551ec0f84ed02907ff5c42e8ec70&channel=Douban&udid=b176e8889c7eb022716e7c4195eceada4be0be40&_sig=Kky3YAnQsoS7Ij9odRF%2Ftbotpe4%3D&_ts=1571732274');
+      Response res = await NetUtils.ajax('get', '${ApiPath.home['baseUrl']}/${widget.type}/${widget.movieId}/related_items?count=10&${ApiPath.home['baseParams']}');
       if(mounted){
         setState(() {
           _data = FilmDetailRelatedModel.fromJson(res.data); 
@@ -110,7 +112,7 @@ class _FilmDetailRelatedState extends State<FilmDetailRelated> {
   Widget _film(FilmDetailRelatedModelSubjects item){
     return  GestureDetector(
       onTap: (){
-        Application.router.navigateTo(context, '/filmDetail?id=${item.id}');
+        Application.router.navigateTo(context, '/filmDetail?id=${item.id}&type=${item.type}');
       },
       child: Container(
         width:ScreenAdapter.width(170),

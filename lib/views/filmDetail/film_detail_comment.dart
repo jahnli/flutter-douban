@@ -9,9 +9,10 @@ import 'package:flutter_douban/weiget/custom_scroll_footer.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 class FilmDetailComment extends StatefulWidget {
 
-  String movieId = '';
-  ScrollController bottomSheetController;
-  FilmDetailComment({this.movieId,this.bottomSheetController});
+  final String movieId ;
+  final ScrollController bottomSheetController;
+  final String type;
+  FilmDetailComment({this.type,this.movieId,this.bottomSheetController});
 
   @override
   _FilmDetailCommentState createState() => _FilmDetailCommentState();
@@ -38,7 +39,7 @@ class _FilmDetailCommentState extends State<FilmDetailComment> with AutomaticKee
 
   _getFilmComment()async{
     try{
-      Response res = await NetUtils.ajax('get','https://frodo.douban.com/api/v2/movie/${widget.movieId}/reviews?rtype=review&count=10&version=0&start=$_filmCommentStart&order_by=$_sort&os_rom=android&apikey=0dad551ec0f84ed02907ff5c42e8ec70&channel=Douban&udid=5440f7d1721c7ec5444c588d26ec3c6b26996bbd&_sig=dBXQ2ywjcuzRQ7p1xbBVzpeahNk%3D&_ts=1571750670');
+      Response res = await NetUtils.ajax('get','https://frodo.douban.com/api/v2/${widget.type}/${widget.movieId}/reviews?rtype=review&count=10&version=0&start=$_filmCommentStart&order_by=$_sort&os_rom=android&apikey=0dad551ec0f84ed02907ff5c42e8ec70&channel=Douban&udid=5440f7d1721c7ec5444c588d26ec3c6b26996bbd&_sig=dBXQ2ywjcuzRQ7p1xbBVzpeahNk%3D&_ts=1571750670');
 
       if(mounted){
         if(_filmCommentStart > 0){
@@ -131,7 +132,7 @@ class _FilmDetailCommentState extends State<FilmDetailComment> with AutomaticKee
               Container(
                 margin: EdgeInsets.fromLTRB(0, ScreenAdapter.height(20), 0, ScreenAdapter.height(20)),
                 alignment: Alignment.centerLeft,
-                child: Text('${item.title}',style: TextStyle(fontSize: 22)),
+                child: Text('${item.title}',style: TextStyle(fontSize: ScreenAdapter.fontSize(35))),
               ),
               Container(
                 alignment: Alignment.centerLeft,
