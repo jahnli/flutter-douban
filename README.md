@@ -22,12 +22,5 @@
 ## 前端小弟的第一次，请给个Star吧 ❀  ❤
 
 ## 页面展示
-<div style='width:300px;display:inline-block'>
-  <font color=red size=72>color=#00ffff</font>
-  <img src='https://github.com/jahnli/readme/blob/master/flutter_douban/movie.gif' width='300px'></img>
-</div>
-    <div style="width: 300px;display: inline-block;color: blue;">
-      ss
-    </div>
- <img src='https://github.com/jahnli/readme/blob/master/flutter_douban/movie_detail.gif' width='300px'></img>   <img src='https://github.com/jahnli/readme/blob/master/flutter_douban/movie_hot_detail.gif' width='300px'></img><img src='https://github.com/jahnli/readme/blob/master/flutter_douban/movie_show_detail.gif' width='300px'></img><img src='https://github.com/jahnli/readme/blob/master/flutter_douban/movie_top_week_praise.gif' width='300px'></img>
+<img src='http://cdn.jahnli.cn/FlutterDouBan/movie_show.gif' width='300px'></img> <img src='https://github.com/jahnli/readme/blob/master/flutter_douban/movie_detail.gif' width='300px'></img>   <img src='https://github.com/jahnli/readme/blob/master/flutter_douban/movie_hot_detail.gif' width='300px'></img><img src='https://github.com/jahnli/readme/blob/master/flutter_douban/movie_show_detail.gif' width='300px'></img><img src='https://github.com/jahnli/readme/blob/master/flutter_douban/movie_top_week_praise.gif' width='300px'></img>
 
