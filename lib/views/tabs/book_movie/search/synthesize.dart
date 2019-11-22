@@ -4,6 +4,7 @@ import 'package:flutter_douban/model/search_last_result_model.dart';
 import 'package:flutter_douban/netUtils/api.dart';
 import 'package:flutter_douban/netUtils/netUtils.dart';
 import 'package:flutter_douban/utils/screenAdapter/screen_adapter.dart';
+import 'package:flutter_douban/utils/utils.dart';
 import 'package:flutter_douban/weiget/base_components.dart';
 import 'package:flutter_douban/weiget/base_loading.dart';
 import 'package:flutter_douban/weiget/search/search_row.item.dart';
@@ -50,6 +51,56 @@ class _SynthesizeState extends State<Synthesize> {
       child: ListView(
         children: <Widget>[
           SizedBox(height: ScreenAdapter.height(30)),
+          // 分类
+          _usersData.length > 0 ? ListView.builder(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemBuilder: (context,index){
+              return Container(
+                color: Colors.white,
+                padding: EdgeInsets.all(ScreenAdapter.width(20)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        ClipOval(
+                          child: Image.network('${_usersData[index]['target']['avatar'] ?? _usersData[index]['target']['cover']['normal']['url']}',width: ScreenAdapter.width(100),),
+                        ),
+                        SizedBox(width: ScreenAdapter.width(20)),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text('${_usersData[index]['type_name']}'),
+                            SizedBox(height: ScreenAdapter.height(10)),
+                            Text('${_usersData[index]['target']['name'] ?? _usersData[index]['target']['title']}'),
+                            SizedBox(height: ScreenAdapter.height(10)),
+                            _usersData[index]['target']['member_count'] != null  ? Text('${_usersData[index]['target']['member_count']}个成员'):Text('${_usersData[index]['target']['card_subtitle']}')
+                          ],
+                        ),
+                      ],
+                    ),
+                    OutlineButton(
+                      onPressed: (){
+                        Utils.baseToast('接口受限，暂无开发计划。');
+                      },
+                      borderSide:BorderSide(
+                        width: 1,
+                        color: Color.fromRGBO(90, 187, 81,1)
+                      ),
+                      child: Row(
+                        children: <Widget>[
+                          Icon(Icons.add,color: Color.fromRGBO(90, 187, 81,1),size: 18,),
+                          Text('加入',style: TextStyle(color: Color.fromRGBO(90, 187, 81,1)))
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              );
+            },
+            itemCount: _usersData.length,
+          ):Container(),
           // 书影音
           _result.subjects.length > 0 ? Container(
             color: Colors.white,
@@ -93,7 +144,7 @@ class _SynthesizeState extends State<Synthesize> {
                         ),
                       ),
                       SizedBox(width: ScreenAdapter.width(20)),
-                      _item.target.coverUrl.isNotEmpty ? Container(
+                      _item.target.coverUrl != null  ? Container(
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8),
                           child: Image.network('${_item.target.coverUrl}',width: ScreenAdapter.width(180),height: ScreenAdapter.height(120),fit: BoxFit.cover,),
@@ -136,7 +187,7 @@ class _SynthesizeState extends State<Synthesize> {
                               ],
                             ),
                             SizedBox(height: ScreenAdapter.height(10)),
-                            Text('${_item.target.theAbstract}',maxLines: 2,overflow: TextOverflow.ellipsis,style: TextStyle(color: Colors.grey,fontSize: ScreenAdapter.fontSize(28))),
+                            Text('${_item.target.theAbstract ?? '暂无摘要'}',maxLines: 2,overflow: TextOverflow.ellipsis,style: TextStyle(color: Colors.grey,fontSize: ScreenAdapter.fontSize(28))),
                             SizedBox(height: ScreenAdapter.height(10)),
                             Text('${_item.target.cardSubtitle}',style: TextStyle(color: Colors.grey,fontSize: ScreenAdapter.fontSize(26))),
                           ],
@@ -149,55 +200,6 @@ class _SynthesizeState extends State<Synthesize> {
               itemCount: _result.contents.length,
             ),
           ):Container(),
-          _usersData.length > 0 ? ListView.builder(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemBuilder: (context,index){
-              return Container(
-                color: Colors.white,
-                padding: EdgeInsets.all(ScreenAdapter.width(20)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        ClipOval(
-                          child: Image.network('${_usersData[index]['target']['avatar']}',width: ScreenAdapter.width(100),),
-                        ),
-                        SizedBox(width: ScreenAdapter.width(20)),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text('${_usersData[index]['type_name']}'),
-                            SizedBox(height: ScreenAdapter.height(10)),
-                            Text('${_usersData[index]['target']['name']}'),
-                            SizedBox(height: ScreenAdapter.height(10)),
-                            Text('${_usersData[index]['target']['display_followers_count']}人关注'),
-                          ],
-                        ),
-                      ],
-                    ),
-                    OutlineButton(
-                      onPressed: (){
-
-                      },
-                      borderSide:BorderSide(
-                        width: 1,
-                        color: Color.fromRGBO(90, 187, 81,1)
-                      ),
-                      child: Row(
-                        children: <Widget>[
-                          Icon(Icons.add,color: Color.fromRGBO(90, 187, 81,1),size: 18,),
-                          Text('关注',style: TextStyle(color: Color.fromRGBO(90, 187, 81,1)))
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              );
-            },
-            itemCount: _usersData.length,
-          ):Container()
         ],
       ),
     ):Center(

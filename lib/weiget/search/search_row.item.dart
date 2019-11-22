@@ -30,7 +30,7 @@ class SearchRowItem extends StatelessWidget {
     }
     return GestureDetector(
       onTap: (){
-        Application.router.navigateTo(context, '/filmDetail?id=${data.target.id}&type=${data.target.type}');
+        Application.router.navigateTo(context, '/filmDetail?id=${data.target.id}&type=${data.targetType}');
       },
       child: Container(
         margin: EdgeInsets.only(bottom: ScreenAdapter.height(20)),
