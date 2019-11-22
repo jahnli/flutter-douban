@@ -75,7 +75,7 @@ class _SynthesizeState extends State<Synthesize> {
                             SizedBox(height: ScreenAdapter.height(10)),
                             Text('${_usersData[index]['target']['name'] ?? _usersData[index]['target']['title']}'),
                             SizedBox(height: ScreenAdapter.height(10)),
-                            _usersData[index]['target']['member_count'] != null  ? Text('${_usersData[index]['target']['member_count']}个成员'):Text('${_usersData[index]['target']['card_subtitle']}')
+                            _filterDesc(_usersData[index]),
                           ],
                         ),
                       ],
@@ -206,8 +206,20 @@ class _SynthesizeState extends State<Synthesize> {
       child: BaseLoading(),
     );
   }
-
-    // 结尾描述
+  // 描述过滤
+  _filterDesc(item){
+    switch (item['type_name']) {
+      case '小组':
+        return Text('${item['target']['member_count']}个成员');
+        break;
+      case '频道':
+        return Text('${item['target']['card_subtitle']}');
+      case '用户':
+        return Text('${item['target']['followers_count']}人关注/${item['target']['loc']['name']}');
+      default:
+    }
+  }
+  // 结尾描述
   Widget _endDesc(String title){
     return Container(
       color: Colors.white,

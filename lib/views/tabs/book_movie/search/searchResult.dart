@@ -57,10 +57,10 @@ class _BookMovieSearchResultState extends State<BookMovieSearchResult> with Sing
           // 综合
           Synthesize(keyWords: widget.keyWords),
           // 书影音
-          SearchBookMovie(),
-          Text('data'),
-          Text('data'),
-          Text('data'),
+          Text('开发中'),
+          Text('开发中'),
+          Text('开发中'),
+          Text('开发中'),
         ],
       )
     );
