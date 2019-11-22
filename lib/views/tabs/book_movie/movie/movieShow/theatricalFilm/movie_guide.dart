@@ -67,7 +67,7 @@ class _MovieGuideState extends State<MovieGuide> with AutomaticKeepAliveClientMi
                 padding: EdgeInsets.only(bottom: ScreenAdapter.height(20)),
                 child:GestureDetector(
                   onTap: (){
-                    Application.router.navigateTo(context, '/filmDetail?id=${_guideList[index]['id']}');
+                    Application.router.navigateTo(context, '/filmDetail?id=${_guideList[index]['id']}&type=${_guideList[index]['type']}');
                   },
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,

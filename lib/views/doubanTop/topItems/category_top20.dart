@@ -47,7 +47,7 @@ class CategoryTop20 extends StatelessWidget {
             DoubanTopMovieModelGroupsSelectedCollectionsItems item = data.items[index];
             return GestureDetector(
               onTap: (){
-                Application.router.navigateTo(context, '/filmDetail?id=${item.id}');
+                Application.router.navigateTo(context, '/filmDetail?id=${item.id}&type=${item.type}');
               },
               child: Container(
                 child: Column(

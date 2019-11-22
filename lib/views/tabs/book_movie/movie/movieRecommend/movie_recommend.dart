@@ -62,7 +62,7 @@ class _MovieRecommendState extends State<MovieRecommend> {
   Widget _film(item){
     return GestureDetector(
       onTap: (){
-        Application.router.navigateTo(context, '/filmDetail?id=${item['id']}');
+        Application.router.navigateTo(context, '/filmDetail?id=${item['id']}&type=${item['type']}');
       },
       child: Container(
         margin: EdgeInsets.only(top: ScreenAdapter.height(20),bottom: ScreenAdapter.height(40)),

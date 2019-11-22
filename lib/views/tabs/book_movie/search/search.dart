@@ -377,7 +377,7 @@ class _BookMovieSearchState extends State<BookMovieSearch> {
             final _item = _seachHotResult.subjects[index];
             return GestureDetector(
               onTap: (){
-                Application.router.navigateTo(context,'/filmDetail?id=${_item.id}');
+                Application.router.navigateTo(context,'/filmDetail?id=${_item.id}&type=${_item.type}');
               },
               child: BaseComponent.bottomBorderContainer(
                 child: Row(
