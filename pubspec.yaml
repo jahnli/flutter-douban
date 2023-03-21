@@ -32,7 +32,7 @@ dependencies:
   provider: ^3.1.0
   fluro: ^1.5.1
   sliding_up_panel: ^0.3.6
-  dio: ^3.0.4
+  dio: ">=3.0.4 <6.0.0"
 
 dev_dependencies:
   flutter_test:
